@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Hyrox — Backup &amp; Restore</title>
+<link rel="icon" href="./icons/icon-192.png" sizes="192x192" type="image/png">
+<style>
+:root{--bg:#F2F4F7;--surface:#FFF;--ink:#10141B;--ink-2:#4B5563;--ink-3:#78838F;
+  --line:#DBE0E7;--line-2:#C0C8D2;--accent:#1B4FD8;--accent-ink:#143FAF;--accent-soft:#E6EDFC;
+  --key:#AF2D1C;--ok:#2A7A5F}
+@media (prefers-color-scheme:dark){:root{--bg:#0B0E13;--surface:#14181F;--ink:#E8ECF2;
+  --ink-2:#9AA4B2;--ink-3:#6D788A;--line:#242A34;--line-2:#333B47;--accent:#7099FF;
+  --accent-ink:#A9C1FF;--accent-soft:#16203A;--key:#E8705A;--ok:#4EB08D}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;padding:0 14px 60px}
+.shell{max-width:640px;margin:0 auto}
+h1{font-size:1.35rem;letter-spacing:.02em;text-transform:uppercase;margin:22px 0 4px}
+.sub{color:var(--ink-3);font-size:.9rem;margin:0 0 22px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:16px;margin-bottom:14px}
+h2{font-size:1rem;text-transform:uppercase;letter-spacing:.06em;margin:0 0 6px}
+p{margin:0 0 12px;font-size:.92rem;color:var(--ink-2)}
+button{font:inherit;cursor:pointer;min-height:46px;padding:10px 18px;border-radius:3px;
+  border:1px solid var(--line-2);background:var(--surface);color:var(--ink-2);
+  text-transform:uppercase;font-size:.78rem;letter-spacing:.09em;font-weight:600}
+button.pri{background:var(--accent);border-color:var(--accent);color:#fff}
+.row{display:flex;gap:9px;flex-wrap:wrap}
+textarea{width:100%;min-height:130px;padding:11px;border:1px solid var(--line);border-radius:3px;
+  background:var(--bg);color:var(--ink);font:12px/1.45 'IBM Plex Mono',ui-monospace,Consolas,monospace;resize:vertical}
+.stat{font:13px 'IBM Plex Mono',ui-monospace,Consolas,monospace;color:var(--ink-3);margin-bottom:12px}
+.stat b{color:var(--ink)}
+.msg{padding:11px 13px;border-radius:3px;font-size:.9rem;margin-bottom:12px;display:none}
+.msg.ok{display:block;background:var(--accent-soft);color:var(--accent-ink)}
+.msg.err{display:block;background:var(--key);color:#fff}
+a.back{display:inline-block;margin-top:8px;color:var(--accent-ink);font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="shell">
+<h1>Backup &amp; restore</h1>
+<p class="sub">Your ticks, notes, tests and weights are stored in <em>this browser only</em>.
+Use this page to move them between your phone and your computer.</p>
+
+<div id="msg" class="msg"></div>
+
+<div class="card">
+  <h2>This device</h2>
+  <div class="stat" id="stat">Reading&hellip;</div>
+  <div class="row">
+    <button class="pri" id="dl">Download backup</button>
+    <button id="copy">Copy to clipboard</button>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Restore</h2>
+  <p>Paste a backup below, or pick a downloaded file. This <strong>replaces</strong>
+     the progress currently stored in this browser.</p>
+  <textarea id="ta" placeholder="Paste backup JSON here&hellip;" spellcheck="false"></textarea>
+  <div class="row" style="margin-top:11px">
+    <button class="pri" id="restore">Restore from box</button>
+    <button id="pick">Choose file&hellip;</button>
+    <input type="file" id="file" accept="application/json,.json" hidden>
+  </div>
+</div>
+
+<a class="back" href="./">&larr; Back to the plan</a>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var LS='hyroxLondonV1';
+  var $=function(id){return document.getElementById(id)};
+
+  function say(t,bad){var m=$('msg');m.textContent=t;m.className='msg '+(bad?'err':'ok')}
+
+  function read(){
+    var raw=null;
+    try{raw=localStorage.getItem(LS)}catch(e){return null}
+    if(!raw) return null;
+    try{var o=JSON.parse(raw);return (o&&typeof o==='object'&&o.v)?o:null}catch(e){return null}
+  }
+
+  function describe(o){
+    if(!o){$('stat').innerHTML='No saved progress found in this browser.';return}
+    var ticks=0,k;
+    for(k in (o.done||{})) if(o.done[k]) ticks++;
+    var notes=0; for(k in (o.notes||{})) if(o.notes[k]) notes++;
+    var tests=0; for(k in (o.tests||{})) if(o.tests[k]) tests++;
+    var when=o.savedAt?new Date(o.savedAt).toLocaleString('en-GB'):'unknown';
+    $('stat').innerHTML='<b>'+ticks+'</b> items ticked &middot; <b>'+notes+'</b> notes &middot; '+
+      '<b>'+tests+'</b> test results &middot; <b>'+(o.weights||[]).length+'</b> weigh-ins'+
+      '<br>last change: <b>'+when+'</b>';
+  }
+
+  var current=read();
+  describe(current);
+
+  function payload(){
+    if(!current) {say('Nothing to back up on this device yet.',1);return null}
+    return JSON.stringify(current,null,2);
+  }
+
+  $('dl').onclick=function(){
+    var t=payload(); if(!t) return;
+    var d=new Date(), pad=function(n){return (n<10?'0':'')+n};
+    var name='hyrox-progress-'+d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+'.json';
+    var url=URL.createObjectURL(new Blob([t],{type:'application/json'}));
+    var a=document.createElement('a');
+    a.href=url; a.download=name; document.body.appendChild(a); a.click();
+    a.remove(); setTimeout(function(){URL.revokeObjectURL(url)},1000);
+    say('Saved as '+name+'.');
+  };
+
+  $('copy').onclick=function(){
+    var t=payload(); if(!t) return;
+    $('ta').value=t;
+    var done=function(){say('Backup copied to the clipboard.')};
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(done,function(){
+        $('ta').select();say('Could not reach the clipboard — it is in the box below, copy it manually.',1);
+      });
+    } else {
+      $('ta').select(); say('It is in the box below — copy it manually.');
+    }
+  };
+
+  $('pick').onclick=function(){$('file').click()};
+  $('file').onchange=function(){
+    var f=this.files&&this.files[0]; if(!f) return;
+    var r=new FileReader();
+    r.onload=function(){$('ta').value=String(r.result);say('File loaded — press Restore to apply it.')};
+    r.onerror=function(){say('Could not read that file.',1)};
+    r.readAsText(f);
+  };
+
+  $('restore').onclick=function(){
+    var txt=$('ta').value.trim();
+    if(!txt){say('Paste a backup into the box first.',1);return}
+    var o;
+    try{o=JSON.parse(txt)}catch(e){say('That is not valid backup data — it could not be read as JSON.',1);return}
+    if(!o||typeof o!=='object'||!o.v){say('That JSON is not a Hyrox backup (no version field).',1);return}
+    if(current&&!confirm('Replace the progress stored in this browser with the pasted backup? This cannot be undone.')) return;
+    try{localStorage.setItem(LS,JSON.stringify(o))}catch(e){say('This browser refused to save — storage may be full or blocked.',1);return}
+    try{sessionStorage.removeItem(LS+'-pending')}catch(e){}
+    current=read(); describe(current);
+    say('Restored. Open the plan to see it.');
+  };
+})();
+</script>
+</body>
+</html>
