@@ -7,6 +7,26 @@ Four tabs: **Today** (tickable session with technique detail), **Plan** (all 15 
 editable), **Reference** (target splits, rules, fuelling, race-day execution) and
 **Log** (test results, bodyweight, pace calculator).
 
+## Where each session happens
+
+Every non-rest session carries a location badge, and the exercises in it only use
+kit that exists at that location.
+
+| Day | Where | What |
+|---|---|---|
+| Mon | — | Rest |
+| Tue | Home / outdoors | Threshold or easy run, kettlebell and core finisher |
+| Wed | Hyrox gym (midday, quiet) | Sled + station work |
+| Thu | — | Rest |
+| Fri | Hyrox gym (midday, quiet) | Key compromised session; every race simulation |
+| Sat | Home / outdoors | Long run |
+| Sun | David Lloyd | Easy run + barbell strength (rack) + erg |
+
+The Hyrox gym is the only place with a sled, sandbag, farmers handles and burpee
+space, so all sled work and all race simulations live on Wednesday and Friday.
+David Lloyd is the only place with a rack, so barbell squats and heavy hinging
+live on Sunday. The barbell at home is for deadlifts and shoulders only.
+
 This is a single self-contained page. No accounts, no server, no build step —
 open it and it works, including on a plane or in a venue with no signal.
 

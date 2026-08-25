@@ -86,15 +86,20 @@ input,textarea{font:inherit;color:inherit}
   color:var(--thr);border:1px solid var(--thr);border-radius:2px;padding:1px 5px}
 
 .card{background:var(--surface);border:1px solid var(--line);border-radius:4px;margin-bottom:14px;overflow:hidden}
-.card.gym{border-left:3px solid var(--accent)}
+.card.loc-hx{border-left:3px solid var(--accent)}
+.card.loc-dl{border-left:3px solid var(--easy)}
+.card.loc-home{border-left:3px solid var(--ink-3)}
 .ch{padding:14px 16px;background:var(--surface-2);border-bottom:1px solid var(--line)}
 .ch-r1{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
 .ch-d{font-family:var(--fd);font-weight:700;font-size:1.1rem;text-transform:uppercase;letter-spacing:.04em}
 .ch-w{font-family:var(--fm);font-size:.74rem;color:var(--ink-3);margin-left:auto}
 .ch-t{font-family:var(--fd);font-weight:600;font-size:1.15rem;text-transform:uppercase;
   letter-spacing:.02em;margin-top:7px;color:var(--ink)}
-.gymtag{font-family:var(--fd);font-weight:600;font-size:.68rem;text-transform:uppercase;
-  letter-spacing:.11em;color:var(--accent-ink)}
+.loctag{font-family:var(--fd);font-weight:600;font-size:.68rem;text-transform:uppercase;
+  letter-spacing:.11em;padding:2px 7px 1px;border-radius:2px}
+.loctag.hx{color:var(--accent-ink);background:var(--accent-soft)}
+.loctag.dl{color:var(--easy);background:var(--easy-soft)}
+.loctag.home{color:var(--ink-3);background:var(--sunk)}
 .sesd{margin-top:10px}
 .sesd button{display:flex;align-items:center;gap:7px;font-family:var(--fd);font-weight:600;font-size:.72rem;
   text-transform:uppercase;letter-spacing:.11em;color:var(--accent-ink);min-height:34px}
@@ -179,7 +184,9 @@ input,textarea{font:inherit;color:inherit}
 .dr{display:flex;align-items:center;gap:10px;width:100%;padding:12px 15px;text-align:left;
   border-bottom:1px solid var(--line);min-height:52px}
 .dr:last-child{border-bottom:none}
-.dr.gym{box-shadow:inset 3px 0 0 var(--accent)}
+.dr.loc-hx{box-shadow:inset 3px 0 0 var(--accent)}
+.dr.loc-dl{box-shadow:inset 3px 0 0 var(--easy)}
+.dr.loc-home{box-shadow:inset 3px 0 0 var(--ink-3)}
 .drd{font-family:var(--fd);font-weight:600;font-size:.82rem;text-transform:uppercase;
   letter-spacing:.08em;color:var(--ink-3);width:34px;flex:none}
 .drt{font-size:.9rem;color:var(--ink);flex:1;min-width:0}
@@ -311,7 +318,7 @@ cd:{n:'Cool-down — 8 minutes',b:[
 
 easy:{n:'How to run the easy and long runs',b:[
 'Conversational the whole way. You should be able to speak a full sentence without gasping — roughly 6:00–6:45/km early in the plan.',
-'If in doubt, slower. These runs build the base that lets Tuesday and Saturday land; running them at "medium" ruins both ends.',
+'If in doubt, slower. These runs build the base that lets Tuesday and Friday land; running them at "medium" ruins both ends.',
 'Nasal breathing is a decent gauge — if you have to open your mouth to keep up, you are going too fast.',
 'Where a session says "last X km at pace", every kilometre before it is still genuinely easy.',
 'Walk breaks in Block 1 are fine and not a failure.']},
@@ -406,145 +413,147 @@ core:{n:'Core circuit — 3 rounds',b:[
 
 fuel:{n:'Session fuelling',b:[
 'Eat 90 minutes before any key session: something you have eaten before, carb-led, low fibre.',
-'Never run threshold or Saturday sessions fasted, even in the deficit weeks.',
+'Never run threshold or Friday key sessions fasted, even in the deficit weeks.',
 'From week 8, use the exact breakfast and gels you intend to use on race day. Race day gets no new foods.',
 'Water with electrolyte for anything over an hour.']}
 };
 
 /* ================= default plan ================= */
+var LOC={hx:'Hyrox gym',dl:'David Lloyd',home:'Home / outdoors'};
+
 var PLAN=[
 {n:1,dates:'24–30 Aug',km:'15 km',z4:'0 min Z4',days:[
  {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility if you want it — ankles, calves, hips']},
- {d:'Tue',t:'easy',ti:'Easy run',x:['Run 4 km conversational, ~6:15–6:45/km','Walk breaks are fine and not a failure']},
- {d:'Wed',t:'sled',g:1,ti:'Rebuild + sled technique',x:['Sled push 4×12.5 m @ 60 kg — positions only, RPE 5','Sled pull 4×12.5 m @ 50 kg','Goblet squat 3×10','Trap-bar deadlift 3×8 light','DB split squat 3×8 / leg','DB row 3×10','Push-up 3×10','Plank 3×45 s']},
- {d:'Thu',t:'easy',ti:'Easy run',x:['Run 4 km easy','Skip it if your calves are shouting — this week they probably will']},
- {d:'Fri',t:'rest',ti:'Rest',x:['Complete rest']},
- {d:'Sat',t:'stations',g:1,ti:'Machines + skills, no sled',x:['Row 2×1000 m Z2 @ 2:15–2:20/500, rest 2 min','SkiErg 8 min Z2','Wall balls 4×15 (6 kg)','Burpee broad jump 4×10 m — slow, mechanics only']},
- {d:'Sun',t:'long',ti:'Long run',x:['Run 7 km flat, conversational throughout','Dull ache proceeds, sharp pain stops']}]},
+ {d:'Tue',t:'easy',loc:'home',ti:'Easy run + kettlebell',x:['Run 4 km conversational, ~6:15–6:45/km','Walk breaks are fine and not a failure','3 rounds: 10 goblet squat @ 20 kg · 8 KB press each arm · 30 s plank']},
+ {d:'Wed',t:'sled',loc:'hx',ti:'Sled technique — first Hyrox session',x:['Sled push 4×12.5 m @ 60 kg — positions only, RPE 5','Sled pull 4×12.5 m @ 50 kg','Wall balls 4×15 (6 kg)','Burpee broad jump 4×10 m — slow, mechanics only','SkiErg 8 min Z2','Go at a quiet hour and take your time on the sled setup']},
+ {d:'Thu',t:'rest',ti:'Rest',x:['Complete rest','Optional: 3 km very easy if the calves are quiet']},
+ {d:'Fri',t:'stations',loc:'hx',ti:'Machines + skills, no sled',x:['Row 2×1000 m Z2 @ 2:15–2:20/500, rest 2 min','SkiErg 8 min Z2','Sandbag lunge 4×20 m @ 10 kg','Wall balls 4×15','Farmers carry 2×100 m @ 2×20 kg']},
+ {d:'Sat',t:'long',loc:'home',ti:'Long run',x:['Run 7 km flat, conversational throughout','Dull ache proceeds, sharp pain stops']},
+ {d:'Sun',t:'stations',loc:'dl',ti:'Rebuild strength',x:['Run 4 km easy — treadmill is fine for this one','Goblet squat 3×10','Trap-bar deadlift 3×8 light','DB split squat 3×8 per leg','DB row 3×10','Push-up 3×10','DB shoulder press 3×10','Plank 3×45 s']}]},
 
 {n:2,dates:'31 Aug – 6 Sep',km:'20 km',z4:'0 min Z4',days:[
  {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
- {d:'Tue',t:'easy',ti:'Easy run',x:['Run 6 km easy','6×20 s relaxed strides to finish']},
- {d:'Wed',t:'sled',g:1,ti:'Sled + strength',x:['Sled push 5×12.5 m @ 80 kg, rest 90 s','Sled pull 5×12.5 m @ 60 kg','Back squat 3×8 RPE 6','Trap-bar deadlift 3×6','Walking lunge 3×20 m bodyweight','Pull-up or assisted 3×6','DB press 3×10']},
- {d:'Thu',t:'easy',ti:'Easy run',x:['Run 5 km easy']},
- {d:'Fri',t:'rest',ti:'Recovery',x:['30–40 min brisk walk or easy bike','15 min mobility']},
- {d:'Sat',t:'stations',g:1,ti:'Aerobic mixed — 3 rounds',x:['Round 1: row 500 m @ 2:10 · 20 wall balls · 20 m burpee broad jump · 400 m run','Round 2 (rest 2 min between rounds)','Round 3','SkiErg 3×800 m Z2','Core circuit ×3']},
- {d:'Sun',t:'long',ti:'Long run',x:['Run 8 km easy']}]},
+ {d:'Tue',t:'easy',loc:'home',ti:'Easy run + kettlebell',x:['Run 6 km easy','6×20 s relaxed strides to finish','3 rounds: 12 KB swing @ 24 kg · 8 goblet squat @ 20 kg · 30 s side plank each side']},
+ {d:'Wed',t:'sled',loc:'hx',ti:'Sled + stations',x:['Sled push 5×12.5 m @ 80 kg, rest 90 s','Sled pull 5×12.5 m @ 60 kg','Sandbag lunge 3×20 m @ 10 kg','Wall balls 4×20','SkiErg 3×800 m Z2']},
+ {d:'Thu',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
+ {d:'Fri',t:'stations',loc:'hx',ti:'Aerobic mixed — 3 rounds',x:['Round 1: row 500 m @ 2:10 · 20 wall balls · 20 m burpee broad jump · 400 m run','Round 2 (rest 2 min between rounds)','Round 3','Farmers carry 3×100 m @ 2×24 kg','Core circuit ×3']},
+ {d:'Sat',t:'long',loc:'home',ti:'Long run',x:['Run 8 km easy']},
+ {d:'Sun',t:'stations',loc:'dl',ti:'Barbell day',x:['Run 5 km easy','Back squat 3×8 RPE 6','Trap-bar deadlift 3×6','Walking lunge 3×20 m bodyweight','Pull-up or assisted 3×6','DB press 3×10','Row 10 min Z2']}]},
 
 {n:3,dates:'7–13 Sep',km:'22 km',z4:'16 min Z4',tag:'test week',days:[
  {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
- {d:'Tue',t:'thr',ti:'First tempo — 16 min in the zone',x:['4×4 min @ RPE 7 (comfortably hard, ~5:10–5:20/km) with 2 min jog','1.5 km easy to finish']},
- {d:'Wed',t:'sled',g:1,ti:'Sled + strength',x:['Sled push 6×12.5 m @ 100 kg','Sled pull 6×12.5 m @ 70 kg','Squat 4×6 RPE 7','RDL 3×8','Sandbag lunge 3×25 m @ 10–15 kg','Pull-up 3×6','DB shoulder press 3×8','Row 4×750 m Z2']},
- {d:'Thu',t:'easy',ti:'Easy run',x:['Run 7 km easy']},
- {d:'Fri',t:'rest',ti:'Rest',x:['Complete rest','Sleep, eat, hydrate — tomorrow is a measurement']},
- {d:'Sat',t:'test',ti:'5 km time trial — road, no gym',x:['5 km time trial — flat, all out, no pacing games','Record time, average HR and max HR in the Log tab','Every pace in the rest of the plan comes from this number']},
+ {d:'Tue',t:'thr',loc:'home',ti:'First tempo — 16 min in the zone',x:['4×4 min @ RPE 7 (comfortably hard, ~5:10–5:20/km) with 2 min jog','1.5 km easy to finish']},
+ {d:'Wed',t:'sled',loc:'hx',ti:'Sled + stations',x:['Sled push 6×12.5 m @ 100 kg','Sled pull 6×12.5 m @ 70 kg','Sandbag lunge 3×25 m @ 10–15 kg','Wall balls 5×20','Row 4×750 m Z2']},
+ {d:'Thu',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
+ {d:'Fri',t:'stations',loc:'hx',ti:'Technical and light',x:['SkiErg 4×500 m Z2, rest 90 s','Wall balls 3×15','Burpee broad jump 3×10 m','Sandbag lunge 2×20 m @ 10 kg','Nothing that leaves a mark — tomorrow is a measurement']},
+ {d:'Sat',t:'test',loc:'home',ti:'5 km time trial — road, no gym',x:['5 km time trial — flat, all out, no pacing games','Record time, average HR and max HR in the Log tab','Every pace in the rest of the plan comes from this number']},
+ {d:'Sun',t:'stations',loc:'dl',ti:'Barbell day — no running',x:['Squat 4×6 RPE 7','RDL 3×8','Pull-up 3×6','DB shoulder press 3×8','Row 10 min Z2','No run today — yesterday was the effort']}]},
+
+{n:4,dates:'14–20 Sep',km:'28 km',z4:'25 min Z4',days:[
+ {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
+ {d:'Tue',t:'thr',loc:'home',ti:'Threshold — 25 min in the zone',x:['5×5 min @ threshold with 90 s jog']},
+ {d:'Wed',t:'sled',loc:'hx',ti:'Sled: strength bucket',x:['Sled push 8×12.5 m @ 140 kg, rest 90 s','Sled pull 6×12.5 m @ 90 kg','Sandbag lunge 3×25 m @ 20 kg','Wall balls 5×20','SkiErg 10 min Z2']},
+ {d:'Thu',t:'rest',ti:'Recovery',x:['20 min walk or bike Z1','15 min mobility']},
+ {d:'Fri',t:'key',loc:'hx',ti:'Race weight, first time',x:['Sled push 4×12.5 m @ 152 kg','Sled pull 4×12.5 m @ 103 kg','Round 1: 1 km @ 5:20 + 25 wall balls','Round 2 (rest 90 s between rounds)','Round 3','Round 4','Burpee broad jump 4×20 m','Expect the sled to feel immovable. It gets better.']},
+ {d:'Sat',t:'long',loc:'home',ti:'Long run',x:['Run 10 km easy','On legs from yesterday — that is the point, keep it genuinely easy']},
+ {d:'Sun',t:'stations',loc:'dl',ti:'Barbell day',x:['Run 5 km easy','Squat 4×5 RPE 7.5','RDL 3×6','Split squat 3×8 per leg','Pull-up 3×8','DB press 3×8','Row 10 min Z2']}]},
+
+{n:5,dates:'21–27 Sep',km:'32 km',z4:'32 min Z4',days:[
+ {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
+ {d:'Tue',t:'thr',loc:'home',ti:'Threshold — 32 min in the zone',x:['4×8 min @ threshold with 2 min jog']},
+ {d:'Wed',t:'sled',loc:'hx',ti:'Sled: strength bucket',x:['Sled push 8×12.5 m @ 150 kg','Sled pull 8×12.5 m @ 95 kg','Sandbag lunge 4×25 m @ 20 kg','SkiErg 12 min Z2','Wall balls 5×20']},
+ {d:'Thu',t:'rest',ti:'Recovery',x:['25 min walk or bike Z1','15 min mobility']},
+ {d:'Fri',t:'key',loc:'hx',ti:'Compromised + farmers',x:['Sled push 4×12.5 m @ 152 kg','Sled pull 4×12.5 m @ 103 kg','Round 1: 1 km @ 5:15 + 20 m burpee broad jump + 200 m farmers @ 2×24 kg','Round 2','Round 3','Measure your broad jump — push it toward 1.3 m']},
+ {d:'Sat',t:'long',loc:'home',ti:'Long run',x:['Run 13 km easy']},
+ {d:'Sun',t:'stations',loc:'dl',ti:'Barbell day',x:['Run 5 km easy','Squat 4×5 RPE 8','Trap-bar deadlift 4×5','Pull-up 4×6','DB press 3×8','Row 12 min Z2']}]},
+
+{n:6,dates:'28 Sep – 4 Oct',km:'36 km',z4:'36 min Z4',days:[
+ {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
+ {d:'Tue',t:'thr',loc:'home',ti:'Threshold — 36 min in the zone',x:['3×12 min @ threshold with 2 min jog']},
+ {d:'Wed',t:'sled',loc:'hx',ti:'Distance doubles',x:['Sled push 6×25 m @ 152 kg, rest 2 min','Sled pull 6×25 m @ 103 kg','Sandbag lunge 4×25 m @ 20 kg','100 wall balls for time','Row 10 min Z2']},
+ {d:'Thu',t:'rest',ti:'Recovery',x:['25 min Z1','15 min mobility']},
+ {d:'Fri',t:'key',loc:'hx',ti:'First unbroken 50 m',x:['Sled push 50 m @ 152 kg — UNBROKEN','Sled pull 50 m @ 103 kg','Round 1: 1 km @ 5:10 + 1000 m ski at race effort','Round 2 (rest 2 min)','Round 3','Burpee broad jump 3×25 m']},
+ {d:'Sat',t:'long',loc:'home',ti:'Long run',x:['Run 15 km, last 3 km @ 5:30/km']},
+ {d:'Sun',t:'stations',loc:'dl',ti:'Barbell day',x:['Run 5 km easy','Squat 3×5 RPE 8','RDL 3×6','Pull-up 3×8','DB press 3×8','Core circuit ×3']}]},
+
+{n:7,dates:'5–11 Oct',km:'34 km',z4:'40 min Z4',tag:'test week',days:[
+ {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
+ {d:'Tue',t:'thr',loc:'home',ti:'Hardest running session so far',x:['2×20 min @ threshold with 3 min jog']},
+ {d:'Wed',t:'test',loc:'hx',ti:'Overload + lunge benchmark',x:['Sled push 5×25 m @ 160 kg — over race weight','Sled pull 5×25 m @ 110 kg','TEST: 100 m sandbag lunge @ 20 kg for time — log it','Wall balls 3×20 easy']},
+ {d:'Thu',t:'rest',ti:'Rest',x:['Complete rest — tomorrow is a measurement','Sleep, eat, hydrate']},
+ {d:'Fri',t:'test',loc:'hx',ti:'Half race simulation',x:['1 km run + SkiErg 1000 m','1 km run + sled push 50 m @ 152 kg','1 km run + sled pull 50 m @ 103 kg','1 km run + burpee broad jump 80 m','Record all eight splits and your roxzone']},
+ {d:'Sat',t:'long',loc:'home',ti:'Long run',x:['Run 10 km easy','Compare yesterday against the target splits — that gap sets the next block']},
+ {d:'Sun',t:'stations',loc:'dl',ti:'Light strength',x:['Run 5 km easy','Split squat 3×8 per leg','DB row 3×10','DB press 3×10','Core circuit ×3','Nothing heavy — you tested twice this week']}]},
+
+{n:8,dates:'12–18 Oct',km:'36 km',z4:'70 min Z4',days:[
+ {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
+ {d:'Tue',t:'thr',loc:'home',ti:'Threshold — 30 min, tighter rest',x:['5×6 min @ threshold with 75 s jog','Shorter rest and slightly faster than last block']},
+ {d:'Wed',t:'test',loc:'hx',ti:'Lactate tolerance + benchmarks',x:['Sled push 4×50 m @ 152 kg unbroken, rest 2:30','Sled pull 4×50 m @ 103 kg, rest 2:30','TEST: 80 m burpee broad jump for time — count your reps','TEST: 100 wall balls for time']},
+ {d:'Thu',t:'rest',ti:'Recovery',x:['25 min Z1','15 min mobility']},
+ {d:'Fri',t:'key',loc:'hx',ti:'Compromised — 4 rounds',x:['Sled push 50 m @ 152 kg','Sled pull 50 m @ 103 kg','Round 1: 1 km @ 5:05 + 25 wall balls + 25 m sandbag lunge','Round 2 (rest 90 s)','Round 3','Round 4']},
+ {d:'Sat',t:'long',loc:'home',ti:'Long run',x:['Run 15 km, last 4 km @ 5:20/km']},
+ {d:'Sun',t:'stations',loc:'dl',ti:'Last of the heavy barbell',x:['Run 5 km easy','Split squat 3×8 per leg','RDL 3×8','Calf raise 3×15','Pull-up 3×8','DB press 3×10','No heavy barbell squatting from here on — the sled is the leg work now']}]},
+
+{n:9,dates:'19–25 Oct',km:'37 km',z4:'85 min Z4',days:[
+ {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
+ {d:'Tue',t:'thr',loc:'home',ti:'Threshold — 45 min in the zone',x:['3×15 min @ threshold with 2 min jog']},
+ {d:'Wed',t:'sled',loc:'hx',ti:'Lactate tolerance, compressed',x:['Sled push 3×50 m @ 152 kg — only 90 s rest','Sled pull 3×50 m @ 103 kg','Farmers carry 3×200 m @ 2×24 kg','Sandbag lunge 3×50 m @ 20 kg','Core circuit ×3']},
+ {d:'Thu',t:'rest',ti:'Recovery',x:['25 min Z1','15 min mobility']},
+ {d:'Fri',t:'key',loc:'hx',ti:'Compromised — 5 rounds',x:['Sled push 50 m @ 152 kg','Sled pull 50 m @ 103 kg','Round 1: 1 km @ 5:05 + 20 m burpee broad jump + 15 cal ski','Round 2','Round 3','Round 4','Round 5']},
+ {d:'Sat',t:'long',loc:'home',ti:'Long run',x:['Run 16 km easy']},
+ {d:'Sun',t:'stations',loc:'dl',ti:'Light strength + erg',x:['Run 5 km easy','Step-up 3×10 per leg','RDL 3×8','Pull-up 3×8','DB press 3×10','Row 12 min Z2']}]},
+
+{n:10,dates:'26 Oct – 1 Nov',km:'36 km',z4:'95 min Z4',tag:'peak',days:[
+ {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
+ {d:'Tue',t:'thr',loc:'home',ti:'Peak running session of the plan',x:['2×22 min @ threshold with 3 min jog']},
+ {d:'Wed',t:'sled',loc:'hx',ti:'Sled: speed bucket',x:['Sled push 6×25 m @ 152 kg, 60 s rest — fast and crisp','Sled pull 6×25 m @ 103 kg, 60 s rest','Stop the set if turnover dies','100 wall balls for time']},
+ {d:'Thu',t:'rest',ti:'Recovery',x:['25 min Z1','15 min mobility']},
+ {d:'Fri',t:'key',loc:'hx',ti:'Second-half simulation',x:['1 km @ 5:10 + row 1000 m','1 km @ 5:10 + farmers carry 200 m','1 km @ 5:10 + sandbag lunge 100 m','1 km @ 5:10 + 100 wall balls']},
+ {d:'Sat',t:'long',loc:'home',ti:'Long run',x:['Run 16 km, last 5 km @ 5:15/km']},
+ {d:'Sun',t:'stations',loc:'dl',ti:'Light lower, full upper',x:['Run 5 km easy','Split squat 3×8 per leg','Pull-up 3×8','DB press 3×10','Core circuit ×3']}]},
+
+{n:11,dates:'2–8 Nov',km:'20 km',z4:'race sim week',days:[
+ {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
+ {d:'Tue',t:'thr',loc:'home',ti:'Short and sharp — sharpening, not building',x:['4×6 min @ threshold with 90 s jog']},
+ {d:'Wed',t:'sled',loc:'hx',ti:'Technical and light',x:['Sled push 4×12.5 m @ 152 kg','Sled pull 4×12.5 m @ 103 kg','20 wall balls','Nothing that leaves a mark']},
+ {d:'Thu',t:'rest',ti:'Rest + kit prep',x:['Complete rest','Lay out the exact kit, shoes and fuel you intend to race in']},
+ {d:'Fri',t:'test',loc:'hx',ti:'FULL RACE SIMULATION',x:['Race-day breakfast 90 min before','Run 1 + SkiErg 1000 m','Run 2 + sled push 50 m','Run 3 + sled pull 50 m','Run 4 + burpee broad jump 80 m','Run 5 + row 1000 m','Run 6 + farmers carry 200 m','Run 7 + sandbag lunge 100 m','Run 8 + 100 wall balls','Log the total and your roxzone']},
+ {d:'Sat',t:'rest',ti:'Rest',x:['Complete rest — you will be sore for three days, that is expected']},
  {d:'Sun',t:'rest',ti:'Rest',x:['Complete rest, or a 30 min walk','15 min mobility']}]},
 
-{n:4,dates:'14–20 Sep',km:'32 km',z4:'25 min Z4',days:[
- {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
- {d:'Tue',t:'thr',ti:'Threshold — 25 min in the zone',x:['5×5 min @ threshold with 90 s jog']},
- {d:'Wed',t:'sled',g:1,ti:'Sled: strength bucket',x:['Sled push 8×12.5 m @ 140 kg, rest 90 s','Sled pull 6×12.5 m @ 90 kg','Squat 4×5 RPE 7.5','RDL 3×6','Split squat 3×8 / leg','Pull-up 3×8','Sandbag lunge 3×25 m @ 20 kg']},
- {d:'Thu',t:'easy',ti:'Easy run',x:['Run 8 km easy']},
- {d:'Fri',t:'rest',ti:'Recovery',x:['20 min bike or walk Z1','15 min mobility']},
- {d:'Sat',t:'key',g:1,ti:'Race weight, first time',x:['Sled push 4×12.5 m @ 152 kg','Sled pull 4×12.5 m @ 103 kg','Round 1: 1 km @ 5:20 + 25 wall balls','Round 2 (rest 90 s between rounds)','Round 3','Round 4','Burpee broad jump 4×20 m','Expect the sled to feel immovable. It gets better.']},
- {d:'Sun',t:'long',ti:'Long run',x:['Run 10 km easy']}]},
-
-{n:5,dates:'21–27 Sep',km:'36 km',z4:'32 min Z4',days:[
- {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
- {d:'Tue',t:'thr',ti:'Threshold — 32 min in the zone',x:['4×8 min @ threshold with 2 min jog']},
- {d:'Wed',t:'sled',g:1,ti:'Sled: strength bucket',x:['Sled push 8×12.5 m @ 150 kg','Sled pull 8×12.5 m @ 95 kg','Squat 4×5 RPE 8','Trap-bar deadlift 4×5','Sandbag lunge 4×25 m @ 20 kg','Pull-up 4×6','SkiErg 12 min Z2']},
- {d:'Thu',t:'easy',ti:'Easy run',x:['Run 8 km easy']},
- {d:'Fri',t:'rest',ti:'Recovery',x:['25 min bike or walk Z1','15 min mobility']},
- {d:'Sat',t:'key',g:1,ti:'Compromised + farmers',x:['Sled push 4×12.5 m @ 152 kg','Sled pull 4×12.5 m @ 103 kg','Round 1: 1 km @ 5:15 + 20 m burpee broad jump + 200 m farmers @ 2×24 kg','Round 2','Round 3','Wall ball 5×20','Measure your broad jump — push it toward 1.3 m']},
- {d:'Sun',t:'long',ti:'Long run',x:['Run 13 km easy']}]},
-
-{n:6,dates:'28 Sep – 4 Oct',km:'40 km',z4:'36 min Z4',days:[
- {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
- {d:'Tue',t:'thr',ti:'Threshold — 36 min in the zone',x:['3×12 min @ threshold with 2 min jog']},
- {d:'Wed',t:'sled',g:1,ti:'Distance doubles',x:['Sled push 6×25 m @ 152 kg, rest 2 min','Sled pull 6×25 m @ 103 kg','Squat 3×5 RPE 8','RDL 3×6','Sandbag lunge 4×25 m @ 20 kg']},
- {d:'Thu',t:'easy',ti:'Easy run',x:['Run 9 km easy']},
- {d:'Fri',t:'rest',ti:'Recovery',x:['25 min Z1','15 min mobility']},
- {d:'Sat',t:'key',g:1,ti:'First unbroken 50 m',x:['Sled push 50 m @ 152 kg — UNBROKEN','Sled pull 50 m @ 103 kg','Round 1: 1 km @ 5:10 + 1000 m ski at race effort','Round 2 (rest 2 min)','Round 3','Burpee broad jump 3×25 m']},
- {d:'Sun',t:'long',ti:'Long run',x:['Run 15 km, last 3 km @ 5:30/km']}]},
-
-{n:7,dates:'5–11 Oct',km:'42 km',z4:'40 min Z4',tag:'test week',days:[
- {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
- {d:'Tue',t:'thr',ti:'Hardest running session so far',x:['2×20 min @ threshold with 3 min jog']},
- {d:'Wed',t:'test',g:1,ti:'Overload + lunge benchmark',x:['Sled push 5×25 m @ 160 kg — over race weight','Sled pull 5×25 m @ 110 kg','Squat 3×5','TEST: 100 m sandbag lunge @ 20 kg for time — log it']},
- {d:'Thu',t:'easy',ti:'Easy run',x:['Run 9 km easy']},
- {d:'Fri',t:'rest',ti:'Rest',x:['Complete rest — tomorrow is a measurement']},
- {d:'Sat',t:'test',g:1,ti:'Half race simulation',x:['1 km run + SkiErg 1000 m','1 km run + sled push 50 m @ 152 kg','1 km run + sled pull 50 m @ 103 kg','1 km run + burpee broad jump 80 m','Record all eight splits and your roxzone']},
- {d:'Sun',t:'long',ti:'Long run',x:['Run 15 km easy','Compare yesterday against the target splits — that gap sets the next block']}]},
-
-{n:8,dates:'12–18 Oct',km:'41 km',z4:'70 min Z4',days:[
- {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
- {d:'Tue',t:'thr',ti:'Threshold — 30 min, tighter rest',x:['5×6 min @ threshold with 75 s jog','Shorter rest and slightly faster than last block']},
- {d:'Wed',t:'test',g:1,ti:'Lactate tolerance + benchmarks',x:['Sled push 4×50 m @ 152 kg unbroken, rest 2:30','Sled pull 4×50 m @ 103 kg, rest 2:30','TEST: 80 m burpee broad jump for time — count your reps','TEST: 100 wall balls for time','Split squat 3×8','Calf raise 3×15','No barbell work from here on']},
- {d:'Thu',t:'easy',ti:'Easy run',x:['Run 10 km easy','Core circuit ×3']},
- {d:'Fri',t:'rest',ti:'Recovery',x:['25 min Z1','15 min mobility']},
- {d:'Sat',t:'key',g:1,ti:'Compromised — 4 rounds',x:['Sled push 50 m @ 152 kg','Sled pull 50 m @ 103 kg','Round 1: 1 km @ 5:05 + 25 wall balls + 25 m sandbag lunge','Round 2 (rest 90 s)','Round 3','Round 4']},
- {d:'Sun',t:'long',ti:'Long run',x:['Run 15 km, last 4 km @ 5:20/km']}]},
-
-{n:9,dates:'19–25 Oct',km:'44 km',z4:'85 min Z4',days:[
- {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
- {d:'Tue',t:'thr',ti:'Threshold — 45 min in the zone',x:['3×15 min @ threshold with 2 min jog']},
- {d:'Wed',t:'sled',g:1,ti:'Lactate tolerance, compressed',x:['Sled push 3×50 m @ 152 kg — only 90 s rest','Sled pull 3×50 m @ 103 kg','RDL 3×8','Step-up 3×10 / leg','Core circuit ×3','Farmers carry 3×200 m @ 2×24 kg']},
- {d:'Thu',t:'easy',ti:'Easy run',x:['Run 10 km easy']},
- {d:'Fri',t:'rest',ti:'Recovery',x:['25 min Z1','15 min mobility']},
- {d:'Sat',t:'key',g:1,ti:'Compromised — 5 rounds',x:['Sled push 50 m @ 152 kg','Sled pull 50 m @ 103 kg','Round 1: 1 km @ 5:05 + 20 m burpee broad jump + 15 cal ski','Round 2','Round 3','Round 4','Round 5']},
- {d:'Sun',t:'long',ti:'Long run',x:['Run 16 km easy']}]},
-
-{n:10,dates:'26 Oct – 1 Nov',km:'43 km',z4:'95 min Z4',tag:'peak',days:[
- {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
- {d:'Tue',t:'thr',ti:'Peak running session of the plan',x:['2×22 min @ threshold with 3 min jog']},
- {d:'Wed',t:'sled',g:1,ti:'Sled: speed bucket',x:['Sled push 6×25 m @ 152 kg, 60 s rest — fast and crisp','Sled pull 6×25 m @ 103 kg, 60 s rest','Stop the set if turnover dies','Light accessories','100 wall balls for time']},
- {d:'Thu',t:'easy',ti:'Easy run',x:['Run 10 km easy']},
- {d:'Fri',t:'rest',ti:'Recovery',x:['25 min Z1','15 min mobility']},
- {d:'Sat',t:'key',g:1,ti:'Second-half simulation',x:['1 km @ 5:10 + row 1000 m','1 km @ 5:10 + farmers carry 200 m','1 km @ 5:10 + sandbag lunge 100 m','1 km @ 5:10 + 100 wall balls']},
- {d:'Sun',t:'long',ti:'Long run',x:['Run 16 km, last 5 km @ 5:15/km']}]},
-
-{n:11,dates:'2–8 Nov',km:'22 km',z4:'race sim week',days:[
- {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
- {d:'Tue',t:'thr',ti:'Short and sharp — sharpening, not building',x:['4×6 min @ threshold with 90 s jog']},
- {d:'Wed',t:'sled',g:1,ti:'Technical and light',x:['Sled push 4×12.5 m @ 152 kg','Sled pull 4×12.5 m @ 103 kg','20 wall balls','Nothing that leaves a mark']},
- {d:'Thu',t:'easy',ti:'Easy run',x:['Run 6 km easy','15 min mobility']},
- {d:'Fri',t:'rest',ti:'Rest + kit prep',x:['Complete rest','Lay out the exact kit, shoes and fuel you intend to race in']},
- {d:'Sat',t:'test',g:1,ti:'FULL RACE SIMULATION',x:['Race-day breakfast 90 min before','Run 1 + SkiErg 1000 m','Run 2 + sled push 50 m','Run 3 + sled pull 50 m','Run 4 + burpee broad jump 80 m','Run 5 + row 1000 m','Run 6 + farmers carry 200 m','Run 7 + sandbag lunge 100 m','Run 8 + 100 wall balls','Log the total and your roxzone']},
- {d:'Sun',t:'rest',ti:'Rest',x:['Complete rest — you will be sore for three days, that is expected']}]},
-
-{n:12,dates:'9–15 Nov',km:'33 km',z4:'28 min Z4',tag:'eat at maintenance',days:[
+{n:12,dates:'9–15 Nov',km:'30 km',z4:'28 min Z4',tag:'eat at maintenance',days:[
  {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest, or 25 min Z1 walk to flush out the simulation','The calorie deficit ends today — eat at maintenance from here','15 min mobility']},
- {d:'Tue',t:'thr',ti:'Threshold — 28 min in the zone',x:['4×7 min @ threshold with 90 s jog']},
- {d:'Wed',t:'sled',g:1,ti:'Sled + station touch',x:['Sled push 4×25 m @ 152 kg','Sled pull 4×25 m @ 103 kg','Light accessories','50 m sandbag lunge','20 m burpee broad jump']},
- {d:'Thu',t:'easy',ti:'Easy run',x:['Run 8 km easy','6×20 s strides']},
- {d:'Fri',t:'rest',ti:'Recovery',x:['20 min Z1','15 min mobility']},
- {d:'Sat',t:'key',g:1,ti:'Compromised — 3 rounds',x:['Sled push 4×25 m @ 152 kg','Sled pull 4×25 m @ 103 kg','Round 1: 1 km @ 5:00 + 20 wall balls','Round 2','Round 3']},
- {d:'Sun',t:'long',ti:'Long run',x:['Run 12 km easy']}]},
+ {d:'Tue',t:'thr',loc:'home',ti:'Threshold — 28 min in the zone',x:['4×7 min @ threshold with 90 s jog']},
+ {d:'Wed',t:'sled',loc:'hx',ti:'Sled + station touch',x:['Sled push 4×25 m @ 152 kg','Sled pull 4×25 m @ 103 kg','50 m sandbag lunge','20 m burpee broad jump']},
+ {d:'Thu',t:'rest',ti:'Recovery',x:['20 min Z1','15 min mobility']},
+ {d:'Fri',t:'key',loc:'hx',ti:'Compromised — 3 rounds',x:['Sled push 4×25 m @ 152 kg','Sled pull 4×25 m @ 103 kg','Round 1: 1 km @ 5:00 + 20 wall balls','Round 2','Round 3']},
+ {d:'Sat',t:'long',loc:'home',ti:'Long run',x:['Run 12 km easy']},
+ {d:'Sun',t:'stations',loc:'dl',ti:'Light strength',x:['Run 5 km easy','Split squat 3×8 per leg','Pull-up 3×8','DB press 3×10','Core circuit ×3']}]},
 
-{n:13,dates:'16–22 Nov',km:'30 km',z4:'30 min Z4',days:[
+{n:13,dates:'16–22 Nov',km:'28 km',z4:'30 min Z4',days:[
  {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
- {d:'Tue',t:'thr',ti:'Threshold — 30 min in the zone',x:['3×10 min @ threshold with 2 min jog']},
- {d:'Wed',t:'sled',g:1,ti:'Sled, sharp',x:['Sled push 5×25 m @ 152 kg','Sled pull 5×25 m @ 103 kg','Light accessories only']},
- {d:'Thu',t:'easy',ti:'Easy run',x:['Run 7 km easy']},
- {d:'Fri',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
- {d:'Sat',t:'test',g:1,ti:'Race-pace half simulation',x:['1 km @ 5:05 + sled push 50 m — target 4:15','1 km @ 5:05 + sled pull 50 m — target 5:00','1 km @ 5:05 + burpee broad jump 80 m — target 6:30','1 km @ 5:05 + sandbag lunge 100 m — target 5:00','Full race-day rehearsal: breakfast, warm-up, kit, fuel']},
- {d:'Sun',t:'long',ti:'Long run',x:['Run 8 km easy']}]},
+ {d:'Tue',t:'thr',loc:'home',ti:'Threshold — 30 min in the zone',x:['3×10 min @ threshold with 2 min jog']},
+ {d:'Wed',t:'sled',loc:'hx',ti:'Sled, sharp',x:['Sled push 5×25 m @ 152 kg','Sled pull 5×25 m @ 103 kg','Wall balls 3×20','Light only — Friday is the rehearsal']},
+ {d:'Thu',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
+ {d:'Fri',t:'test',loc:'hx',ti:'Race-pace half simulation',x:['1 km @ 5:05 + sled push 50 m — target 4:15','1 km @ 5:05 + sled pull 50 m — target 5:00','1 km @ 5:05 + burpee broad jump 80 m — target 6:30','1 km @ 5:05 + sandbag lunge 100 m — target 5:00','Full race-day rehearsal: breakfast, warm-up, kit, fuel']},
+ {d:'Sat',t:'long',loc:'home',ti:'Long run',x:['Run 10 km easy']},
+ {d:'Sun',t:'stations',loc:'dl',ti:'Light strength',x:['Run 5 km easy','Split squat 3×8 per leg','Pull-up 3×6','DB press 3×10']}]},
 
-{n:14,dates:'23–29 Nov',km:'26 km',z4:'25 min Z4',days:[
+{n:14,dates:'23–29 Nov',km:'24 km',z4:'25 min Z4',days:[
  {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
- {d:'Tue',t:'thr',ti:'Threshold — 25 min in the zone',x:['5×5 min @ threshold with 90 s jog']},
- {d:'Wed',t:'sled',g:1,ti:'Sled, easy and sharp',x:['Sled push 4×12.5 m @ 152 kg','Sled pull 4×12.5 m @ 103 kg','Minimal accessories','25 wall balls']},
- {d:'Thu',t:'easy',ti:'Easy run',x:['Run 6 km easy']},
- {d:'Fri',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
- {d:'Sat',t:'key',g:1,ti:'Short and race-specific',x:['Round 1: 1 km @ 5:00 + 25 wall balls + 20 m burpee broad jump','Round 2']},
- {d:'Sun',t:'long',ti:'Long run',x:['Run 8 km easy — last long run of the plan']}]},
+ {d:'Tue',t:'thr',loc:'home',ti:'Threshold — 25 min in the zone',x:['5×5 min @ threshold with 90 s jog']},
+ {d:'Wed',t:'sled',loc:'hx',ti:'Sled, easy and sharp',x:['Sled push 4×12.5 m @ 152 kg','Sled pull 4×12.5 m @ 103 kg','25 wall balls','Minimal accessories']},
+ {d:'Thu',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
+ {d:'Fri',t:'key',loc:'hx',ti:'Short and race-specific',x:['Round 1: 1 km @ 5:00 + 25 wall balls + 20 m burpee broad jump','Round 2']},
+ {d:'Sat',t:'long',loc:'home',ti:'Long run',x:['Run 10 km easy — last long run of the plan']},
+ {d:'Sun',t:'stations',loc:'dl',ti:'Very light',x:['Run 4 km easy','Bodyweight circuit ×2','Row 10 min Z2','15 min mobility']}]},
 
 {n:15,dates:'30 Nov – 5 Dec',km:'taper',z4:'nothing new',tag:'race week',days:[
  {d:'Mon',t:'rest',ti:'Rest',x:['Complete rest','15 min mobility']},
- {d:'Tue',t:'thr',ti:'Stay sharp',x:['Run 5 km easy including 3×3 min @ threshold']},
- {d:'Wed',t:'sled',g:1,ti:'Final gym visit',x:['Sled push 3×12.5 m @ 152 kg','Sled pull 3×12.5 m @ 103 kg','20 wall balls','Nothing hard — leave feeling you could have done more']},
- {d:'Thu',t:'easy',ti:'Shakeout',x:['Run 4 km very easy','15 min mobility','Carbs up from today, hydrate steadily']},
- {d:'Fri',t:'rest',ti:'Rest + kit check',x:['15 min easy jog','3 burpee broad jumps, nothing more','Kit check, bib, travel sorted','Early night — restless legs are the taper working']},
+ {d:'Tue',t:'thr',loc:'home',ti:'Stay sharp',x:['Run 5 km easy including 3×3 min @ threshold']},
+ {d:'Wed',t:'sled',loc:'hx',ti:'Final Hyrox gym visit',x:['Sled push 3×12.5 m @ 152 kg','Sled pull 3×12.5 m @ 103 kg','20 wall balls','Nothing hard — leave feeling you could have done more']},
+ {d:'Thu',t:'easy',loc:'home',ti:'Shakeout',x:['Run 4 km very easy','15 min mobility','Carbs up from today, hydrate steadily']},
+ {d:'Fri',t:'rest',ti:'Rest + kit check',x:['15 min easy jog','3 burpee broad jumps, nothing more','No gym today — the Wednesday visit was the last one','Kit check, bib, travel sorted','Early night — restless legs are the taper working']},
  {d:'Sat',t:'race',ti:'HYROX LONDON — Men’s Open, Single',x:['Race-day breakfast 90 min before','Warm-up: 15 min jog, mobility, 3×20 s strides, 10 wall balls, 12.5 m sled push, 5 burpee broad jumps','Run 1 at 4:45 — not a second faster','Execute the table, not the feeling']},
  {d:'Sun',t:'rest',ti:'Done',x:['Complete rest','Log your finish time and splits','Eat whatever you like']}]}
 ];
@@ -568,7 +577,7 @@ var DAYDET={thr:'thr',easy:'easy',long:'easy'};
         for(var m=0;m<MATCH.length;m++){ if(MATCH[m][0].test(txt)){r=MATCH[m][1];break} }
         out.push(r?{id:base+'-'+i,t:txt,r:r}:{id:base+'-'+i,t:txt});
       }
-      if(day.g) out.unshift({id:base+'-wu',t:'Warm-up — 10 min',r:'wugym'});
+      if(day.loc==='hx'||day.loc==='dl') out.unshift({id:base+'-wu',t:'Warm-up — 10 min',r:'wugym'});
       else if(day.t==='thr'||day.t==='test') out.unshift({id:base+'-wu',t:'Warm-up — 15 min',r:'wurun'});
       if(day.t==='thr'||day.t==='key'||day.t==='test'||day.t==='sled') out.push({id:base+'-cd',t:'Cool-down — 8 min',r:'cd'});
       day.x=out;
@@ -593,19 +602,22 @@ var RULES=[
 '<b>Sharp pain stops the session. Dull soreness proceeds.</b> Especially calves, Achilles and knees in weeks 1–4. A week off in September is cheap; a torn calf in November is the whole race.',
 '<b>Never make up a missed session.</b> Skip it and carry on with the week as written.',
 '<b>Miss a whole week? Repeat the previous week.</b> Do not jump ahead to stay on schedule.',
-'<b>If you lose a gym day,</b> protect the sled work. Move Wednesday to Friday, or fold its sled sets onto the front of Saturday and cut Saturday’s station volume. Never drop both sled days in one week.',
+'<b>If you lose a Hyrox gym day,</b> protect the sled work. Slide it to the other midday slot, or fold its sled sets onto the front of the remaining Hyrox session and cut that session’s station volume. Never drop both sled days in one week.',
 '<b>Abandon a threshold session if pace drifts more than 10 s/km.</b> Willpower alone trains fatigue, not fitness.',
 '<b>Two poor key sessions back to back means three easy days.</b> Not more effort.',
-'<b>Priority when the week compresses:</b> Saturday key → Tuesday threshold → Wednesday sled → Sunday long run → everything else.',
-'<b>Four days done consistently beats six done sporadically.</b> If work eats a fortnight, drop to Tue / Wed / Sat / Sun and keep the shape.'];
+'<b>Priority when the week compresses:</b> Friday key → Tuesday threshold → Wednesday sled → Saturday long run → Sunday at David Lloyd.',
+'<b>Four days done consistently beats six done sporadically.</b> If work eats a fortnight, drop to Tue / Wed / Fri / Sat and keep the shape.',
+'<b>Every session says where it happens.</b> The Hyrox gym is Wednesday and Friday midday — sled, sandbag, farmers, burpees and every race simulation live there and nowhere else. David Lloyd is Sunday: barbell, rack and ergs. Tuesday and Saturday are out of your own front door.',
+'<b>Friday–Saturday–Sunday is the heavy end of the week.</b> Friday is the priority. Saturday’s long run is deliberately on tired legs — that is Hyrox. Sunday’s lower-body work is the first thing to cut if you arrive flat.',
+'<b>No heavy squatting at home.</b> The barbell at home is for deadlifts and shoulders only. If a Sunday at David Lloyd falls through, do the deadlift and press at home and let the sled cover the legs.'];
 
 var FUELR=[
 '<b>Weeks 1–11:</b> roughly a 600–700 kcal daily deficit. Judge the trend over three weeks, never one morning.',
 '<b>Weeks 12–15:</b> eat at maintenance. Sled power and recovery matter more than the last two pounds.',
 '<b>Protein 165–200 g a day.</b> This is what protects muscle while the deficit runs.',
-'<b>Never run threshold or key sessions fasted.</b> Carbs around Tuesday, Wednesday and Saturday even in deficit weeks.',
+'<b>Never run threshold or key sessions fasted.</b> Carbs around Tuesday, Wednesday and Friday even in deficit weeks.',
 '<b>The stall rule:</b> if threshold pace goes backwards two weeks running, add food, not effort.',
-'<b>From week 8:</b> same breakfast 90 min before every Saturday session, same gels at the same points.'];
+'<b>From week 8:</b> same breakfast 90 min before every Friday session, same gels at the same points.'];
 
 var RACEDAY=[
 '<b>Warm up exactly as rehearsed.</b> 15 min jog, mobility, 3×20 s strides, 10 wall balls, 12.5 m sled push, 5 burpee broad jumps. Finish 10 min before your slot.',
@@ -746,9 +758,9 @@ function renderDetail(dt){
 
 function cardView(w,d){
   var day=dayOf(w,d), wk=PLAN[w], k=ovKey(w,d), full=dayFull(w,d);
-  var h='<div class="card'+(day.g?' gym':'')+'">';
+  var h='<div class="card'+(day.loc?' loc-'+day.loc:'')+'">';
   h+='<div class="ch"><div class="ch-r1">'+pillFor(day.t)+'<span class="ch-d">'+esc(day.d)+'</span>'
-   +(day.g?'<span class="gymtag">Hyrox gym</span>':'')
+   +(day.loc?'<span class="loctag '+day.loc+'">'+esc(LOC[day.loc])+'</span>':'')
    +(day.ed?'<span class="edb">Edited</span>':'')
    +'<span class="ch-w">W'+wk.n+' · '+esc(dateOf(w,d))+'</span></div>'
    +'<div class="ch-t">'+esc(day.ti)+'</div>';
@@ -847,7 +859,7 @@ function viewPlan(){
       h+='<div class="wkb">';
       for(var d2=0;d2<nDays(w);d2++){
         var day=dayOf(w,d2), c=dayCount(w,d2), fu=c.c===c.t&&c.t>0;
-        h+='<button class="dr'+(day.g?' gym':'')+'" data-day="'+w+'-'+d2+'">'
+        h+='<button class="dr'+(day.loc?' loc-'+day.loc:'')+'" data-day="'+w+'-'+d2+'">'
          +'<span class="drd">'+esc(day.d)+'</span><span class="drt">'+esc(day.ti)+'</span>'
          +(day.ed?'<span class="drm">Ed</span>':'')
          +'<span class="drc'+(fu?' done':'')+'">'+(fu?'✓':c.c+'/'+c.t)+'</span></button>';

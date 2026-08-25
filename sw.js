@@ -1,7 +1,7 @@
 /* Offline shell cache.
    Bump CACHE whenever you change index.html, and the next visit with a
    connection will pick the new version up. */
-var CACHE = 'hyrox-v1';
+var CACHE = 'hyrox-v2';
 var SHELL = [
   './',
   './index.html',
