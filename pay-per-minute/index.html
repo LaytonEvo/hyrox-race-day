@@ -17,6 +17,7 @@
   --accent: #D62F28;
   --accent-soft: #FBE7E5;
   --good: #1F7A4D;
+  --good-soft: #E3F1E9;
   --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
   --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -24,13 +25,13 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --paper: #0E1320; --sheet: #161D2E; --ink: #E7EBF3; --muted: #9AA4B9;
-    --line: #2A3349; --accent: #FF5B4F; --accent-soft: #3A1E22; --good: #4CC38A;
+    --line: #2A3349; --good-soft: #17302A; --accent: #FF5B4F; --accent-soft: #3A1E22; --good: #3FAE7A;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --paper: #0E1320; --sheet: #161D2E; --ink: #E7EBF3; --muted: #9AA4B9;
-  --line: #2A3349; --accent: #FF5B4F; --accent-soft: #3A1E22; --good: #4CC38A;
+  --line: #2A3349; --good-soft: #17302A; --accent: #FF5B4F; --accent-soft: #3A1E22; --good: #3FAE7A;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -84,6 +85,7 @@ header.hero { padding-top: 40px; display: grid; gap: 20px; }
 }
 .row:first-child { border-top: 0; }
 .row.head { background: var(--paper); padding-block: 8px; }
+#value .row { --vcols: 32px minmax(0, 1.6fr) repeat(4, minmax(0, 1fr)) minmax(0, 1.1fr); grid-template-columns: var(--vcols); }
 .row .rank { color: var(--muted); font-family: var(--mono); font-size: 13px; }
 .who { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .who strong { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -113,6 +115,29 @@ header.hero { padding-top: 40px; display: grid; gap: 20px; }
 .versus-out b { font-family: var(--mono); font-size: 22px; font-variant-numeric: tabular-nums; }
 .versus-out span { color: var(--muted); font-size: 13px; }
 
+/* Value chart */
+.chart { position: relative; background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; padding: 12px 8px 4px; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart text { font: 11px var(--body); fill: var(--muted); }
+.chart .tick { stroke: var(--line); stroke-width: 1; }
+.chart .mid { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 4; opacity: .6; }
+.chart .zone { font: 700 13px var(--display); letter-spacing: .08em; text-transform: uppercase; }
+.chart .zone.good { fill: var(--good); } .chart .zone.bad { fill: var(--accent); }
+.chart .dot { fill: var(--muted); opacity: .45; stroke: var(--sheet); stroke-width: 2; }
+.chart .dot.best { fill: var(--good); opacity: 1; }
+.chart .dot.worst { fill: var(--sheet); stroke: var(--accent); stroke-width: 2.5; opacity: 1; }
+.chart .dot.on { opacity: 1; stroke: var(--ink); stroke-width: 2; }
+.chart .name { font: 600 11px var(--body); fill: var(--ink); paint-order: stroke; stroke: var(--sheet); stroke-width: 3px; }
+.chart .hit { fill: transparent; cursor: pointer; }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--paper); border-radius: 4px; padding: 8px 10px; font-size: 12px; line-height: 1.4; white-space: nowrap; transform: translate(-50%, calc(-100% - 12px)); z-index: 2; }
+.tip b { font-size: 13px; }
+.key { display: flex; flex-wrap: wrap; gap: 6px 18px; color: var(--muted); font-size: 12px; padding: 4px 8px 8px; }
+.key span { display: inline-flex; align-items: center; gap: 6px; }
+.key i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.score { font-family: var(--mono); font-weight: 600; font-size: 18px; text-align: right; font-variant-numeric: tabular-nums; }
+.score.best { color: var(--good); } .score.worst { color: var(--accent); }
+.score .bar { background: var(--line); } .score.best .bar i { background: var(--good); } .score.worst .bar i { background: var(--accent); }
+
 footer { color: var(--muted); font-size: 13px; display: grid; gap: 8px; max-width: 70ch; }
 footer code { font-family: var(--mono); font-size: 12px; }
 
@@ -120,6 +145,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
   .row { grid-template-columns: 22px minmax(0, 1fr) auto auto; gap: 4px 12px; padding-inline: 12px; }
   .cell.ppm { font-size: 16px; }
   .row .cell.opt { display: none; }
+  #value .row { --vcols: 22px minmax(0, 1fr) auto auto; }
   .row.head .cell.opt { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
@@ -143,7 +169,8 @@ footer code { font-family: var(--mono); font-size: 12px; }
       <h2 id="players-h">Players</h2>
       <div class="seg" role="group" aria-label="Sort players">
         <button type="button" data-sort="ppm" aria-pressed="true">Dearest minute</button>
-        <button type="button" data-sort="value" aria-pressed="false">Best value</button>
+        <button type="button" data-sort="cheap" aria-pressed="false">Cheapest minute</button>
+        <button type="button" data-sort="rating" aria-pressed="false">Top rated</button>
         <button type="button" data-sort="earned" aria-pressed="false">Most paid</button>
       </div>
     </div>
@@ -157,6 +184,23 @@ footer code { font-family: var(--mono); font-size: 12px; }
     </div>
     <div class="ledger" id="players"></div>
     <button class="more" id="more" type="button" hidden>Show all</button>
+  </section>
+
+  <section class="section" aria-labelledby="value-h">
+    <div class="section-head">
+      <h2 id="value-h">Best value</h2>
+      <div class="seg" role="group" aria-label="Show best or worst value">
+        <button type="button" data-vmode="best" aria-pressed="true">Bargains</button>
+        <button type="button" data-vmode="worst" aria-pressed="false">Overpaid</button>
+      </div>
+    </div>
+    <p class="lede">Higher rating and cheaper minutes means better value. Top left is where you want to be. Players need <span id="vmin">270</span> league minutes to qualify.</p>
+    <div class="chart" id="chart">
+      <div class="key"><span><i style="background:var(--good)"></i>Top 10 value (filled)</span><span><i style="border:2.5px solid var(--accent);box-sizing:border-box"></i>Bottom 10 value (ring)</span><span><i style="background:var(--muted);opacity:.45"></i>Everyone else</span></div>
+      <svg id="scatter" role="img" aria-label="Scatter chart of performance rating against pay per minute"></svg>
+      <div class="tip" id="tip" hidden></div>
+    </div>
+    <div class="ledger" id="value"></div>
   </section>
 
   <section class="section" aria-labelledby="bench-h">
@@ -186,6 +230,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
   <footer>
     <p><strong>How it's worked out.</strong> Pay so far = weekly wage × weeks since the season's first deadline. Pay per minute = pay so far ÷ league minutes played. Minutes come from the official Fantasy Premier League API and refresh daily.</p>
     <p><strong>Wages are estimates.</strong> Clubs don't publish salaries. Figures are gross basic weekly wages as publicly reported, rounded, and exclude bonuses, image rights and loan splits. They live in <code>wages.csv</code> and are easy to correct.</p>
+    <p><strong>Rating and value.</strong> The rating is built from FPL's Bonus Points System (BPS), which scores every pass, tackle, save, chance and goal from Opta data. We take each player's BPS per 90 minutes and compare it with every Premier League player in the same position who has played 270+ minutes, then put it on a 4 to 10 scale where 6.5 is average. The value score (0 to 100) averages two rankings among tracked players: how high their rating is, and how cheap their minutes are.</p>
     <p>League minutes only; cup and European minutes aren't counted. Clubs show only the players we have a wage for.</p>
   </footer>
 </div>
@@ -223,6 +268,84 @@ function prepare(data) {
   D.days = days;
 }
 
+let vmode = "best", V = [];
+function prepareValue() {
+  const pool = P.filter(p => p.minutes >= D.rating_min_minutes && p.rating != null);
+  const pct = (arr, key) => { const s = arr.map(p => p[key]).sort((a, b) => a - b);
+    return v => s.length > 1 ? (s.filter(x => x < v).length + (s.filter(x => x === v).length - 1) / 2) / (s.length - 1) * 100 : 50; };
+  const rPct = pct(pool, "rating"), cPct = pct(pool, "ppm");
+  V = pool.map(p => Object.assign(p, { value: Math.round((rPct(p.rating) + (100 - cPct(p.ppm))) / 2) }))
+    .sort((a, b) => b.value - a.value || a.ppm - b.ppm);
+  V.forEach((p, i) => { p.vclass = i < 10 ? "best" : i >= V.length - 10 ? "worst" : ""; });
+  $("vmin").textContent = D.rating_min_minutes;
+}
+
+function renderValueList() {
+  const list = vmode === "best" ? V.slice(0, 10) : V.slice(-10).reverse();
+  const head = `<div class="row head"><span></span><span class="who">Player</span><span class="cell opt">Minutes</span><span class="cell opt">Paid so far</span><span class="cell">Rating</span><span class="cell">£ / min</span></div>`;
+  $("value").innerHTML = head.replace('<span class="cell">£ / min</span>', '<span class="cell opt">£ / min</span><span class="cell">Value</span>') + list.map((p, i) => `
+    <div class="row">
+      <span class="rank">${i + 1}</span>
+      <span class="who">${chip(p.team)}<span style="min-width:0"><strong>${esc(p.name)}</strong><small>${p.pos} · ${compact(p.weekly)} a week</small></span></span>
+      <span class="cell opt">${n0.format(p.minutes)}</span>
+      <span class="cell opt">${compact(p.earned)}</span>
+      <span class="cell">${p.rating.toFixed(1)}</span>
+      <span class="cell opt">${money(p.ppm)}</span>
+      <span class="score ${vmode}">${p.value}<div class="bar"><i style="width:${p.value}%"></i></div></span>
+    </div>`).join("");
+}
+
+function renderChart() {
+  const svg = $("scatter"), W = Math.max(300, $("chart").clientWidth - 16), narrow = W < 560;
+  const H = narrow ? 350 : 430, m = { t: 28, r: narrow ? 12 : 24, b: 40, l: 36 };
+  const xs = V.map(p => p.ppm), lo = Math.min(...xs) * 0.8, hi = Math.max(...xs) * 1.25;
+  const x = v => m.l + (Math.log(v) - Math.log(lo)) / (Math.log(hi) - Math.log(lo)) * (W - m.l - m.r);
+  const y = v => m.t + (10 - v) / 6 * (H - m.t - m.b);
+  const ticksX = [50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000].filter(v => v >= lo && v <= hi)
+    .filter((v, i) => !narrow || [100, 1000, 10000, 500, 5000].includes(v));
+  const med = a => { const s = [...a].sort((p, q) => p - q); return s[Math.floor(s.length / 2)]; };
+  const mx = med(xs), my = med(V.map(p => p.rating));
+  let g = `<g>`;
+  for (let r = 4; r <= 10; r++) g += `<line class="tick" x1="${m.l}" x2="${W - m.r}" y1="${y(r)}" y2="${y(r)}"/><text x="${m.l - 8}" y="${y(r) + 4}" text-anchor="end">${r}</text>`;
+  for (const t of ticksX) g += `<text x="${x(t)}" y="${H - m.b + 18}" text-anchor="middle">${t >= 1000 ? "£" + t / 1000 + "k" : "£" + t}</text>`;
+  g += `<text x="${W - m.r}" y="${H - 4}" text-anchor="end">Pay per minute, log scale →</text>`;
+  g += `<text x="${m.l - 26}" y="${m.t - 14}" text-anchor="start">Rating ↑</text>`;
+  g += `<line class="mid" x1="${x(mx)}" x2="${x(mx)}" y1="${m.t}" y2="${H - m.b}"/><line class="mid" x1="${m.l}" x2="${W - m.r}" y1="${y(my)}" y2="${y(my)}"/>`;
+  g += `<text class="zone good" x="${m.l + 8}" y="${m.t + 16}">Bargains</text><text class="zone bad" x="${W - m.r - 8}" y="${H - m.b - 10}" text-anchor="end">Overpaid</text>`;
+  const order = [...V].sort((a, b) => (a.vclass ? 1 : 0) - (b.vclass ? 1 : 0));
+  for (const p of order) g += `<circle class="dot ${p.vclass}" data-id="${p.id}" cx="${x(p.ppm)}" cy="${y(p.rating)}" r="${p.vclass ? 6 : 5}"/>`;
+  // direct labels: top 5 bargains and bottom 3, nudged apart vertically
+  const lab = [...V.slice(0, narrow ? 3 : 5), ...V.slice(narrow ? -2 : -3)].map(p => ({ p, x: x(p.ppm), y: y(p.rating) + 4 })).sort((a, b) => a.y - b.y);
+  for (let i = 1; i < lab.length; i++) if (Math.abs(lab[i].x - lab[i - 1].x) < 90 && lab[i].y - lab[i - 1].y < 13) lab[i].y = lab[i - 1].y + 13;
+  for (const l of lab) { const right = l.x < W - 110; g += `<text class="name" x="${l.x + (right ? 10 : -10)}" y="${l.y}" text-anchor="${right ? "start" : "end"}">${esc(l.p.name)}</text>`; }
+  for (const p of V) g += `<circle class="hit" data-id="${p.id}" cx="${x(p.ppm)}" cy="${y(p.rating)}" r="12"/>`;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.innerHTML = g + `</g>`;
+}
+
+function bindChart() {
+  const tip = $("tip"), byId = Object.fromEntries(V.map(p => [p.id, p]));
+  const show = e => {
+    const c = e.target.closest(".hit"); if (!c) return;
+    const p = byId[c.dataset.id], box = $("chart").getBoundingClientRect(), r = c.getBoundingClientRect();
+    tip.innerHTML = `<b>${esc(p.name)}</b> · ${esc(p.team)}<br>Rated ${p.rating.toFixed(1)} · ${money(p.ppm)} a minute<br>Value score ${p.value}/100`;
+    tip.hidden = false;
+    const left = Math.min(Math.max(r.left - box.left + r.width / 2, 90), box.width - 90);
+    tip.style.left = left + "px"; tip.style.top = (r.top - box.top + r.height / 2 - 6) + "px";
+    document.querySelectorAll(".dot.on").forEach(d => d.classList.remove("on"));
+    $("scatter").querySelector(`.dot[data-id="${p.id}"]`)?.classList.add("on");
+  };
+  $("scatter").addEventListener("pointerover", show);
+  $("scatter").addEventListener("pointerdown", show);
+  $("scatter").addEventListener("pointerleave", () => { tip.hidden = true; document.querySelectorAll(".dot.on").forEach(d => d.classList.remove("on")); });
+  document.querySelectorAll("[data-vmode]").forEach(b => b.addEventListener("click", () => {
+    vmode = b.dataset.vmode;
+    document.querySelectorAll("[data-vmode]").forEach(x => x.setAttribute("aria-pressed", x === b));
+    renderValueList();
+  }));
+  let t; addEventListener("resize", () => { clearTimeout(t); t = setTimeout(renderChart, 150); });
+}
+
 function renderStamp() {
   $("season-label").textContent = `Premier League ${D.season}`;
   const built = new Date(D.built_at).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
@@ -233,7 +356,8 @@ function filtered() {
   const q = $("q").value.trim().toLowerCase(), club = $("club").value, pos = $("pos").value, min = +$("minmins").value;
   let list = P.filter(p => p.minutes >= min && (!club || p.team === club) && (!pos || p.pos === pos)
     && (!q || p.name.toLowerCase().includes(q) || p.full_name.toLowerCase().includes(q)));
-  const by = { ppm: (a, b) => b.ppm - a.ppm, value: (a, b) => a.ppm - b.ppm, earned: (a, b) => b.earned - a.earned }[sortKey];
+  const by = { ppm: (a, b) => b.ppm - a.ppm, cheap: (a, b) => a.ppm - b.ppm, earned: (a, b) => b.earned - a.earned,
+    rating: (a, b) => (b.rating ?? 0) - (a.rating ?? 0) }[sortKey];
   return list.sort(by);
 }
 
@@ -245,7 +369,7 @@ function renderPlayers() {
   $("players").innerHTML = head + (shown.length ? shown.map((p, i) => `
     <div class="row">
       <span class="rank">${i + 1}</span>
-      <span class="who">${chip(p.team)}<span style="min-width:0"><strong>${esc(p.name)}</strong><small>${p.pos} · ${p.perGA ? compact(p.perGA) + " per goal/assist" : "no goals or assists"}</small></span></span>
+      <span class="who">${chip(p.team)}<span style="min-width:0"><strong>${esc(p.name)}</strong><small>${p.pos}${p.rating != null ? " · rated " + p.rating.toFixed(1) : ""} · ${p.perGA ? compact(p.perGA) + " per goal/assist" : "no goals or assists"}</small></span></span>
       <span class="cell opt">${compact(p.weekly)}</span>
       <span class="cell opt">${compact(p.earned)}</span>
       <span class="cell">${n0.format(p.minutes)}</span>
@@ -327,7 +451,7 @@ function bind() {
 }
 
 fetch("data.json").then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(data => {
-  prepare(data); renderStamp(); bind(); renderPlayers(); renderBench(); renderClubs(); renderVersus(); startTicker();
+  prepare(data); prepareValue(); renderStamp(); bind(); renderPlayers(); renderChart(); bindChart(); renderValueList(); renderBench(); renderClubs(); renderVersus(); startTicker();
 }).catch(() => {
   $("players").innerHTML = `<div class="empty">Couldn't load data.json. Run <code>python3 build.py</code> in this folder, then reload.</div>`;
 });

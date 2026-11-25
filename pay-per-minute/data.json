@@ -2,7 +2,8 @@
  "season": "2026/27",
  "season_start": "2026-08-21T17:30:00Z",
  "gameweek": 11,
- "built_at": "2026-11-25T18:04:41+00:00",
+ "built_at": "2026-11-25T18:10:54+00:00",
+ "rating_min_minutes": 270,
  "players": [
   {
    "id": 411,
@@ -16,6 +17,9 @@
    "starts": 11,
    "goals": 9,
    "assists": 0,
+   "bps": 320,
+   "points": 72,
+   "rating": 7.87,
    "photo": "223094",
    "status": "a",
    "news": ""
@@ -32,6 +36,9 @@
    "starts": 4,
    "goals": 0,
    "assists": 0,
+   "bps": 61,
+   "points": 11,
+   "rating": 5.75,
    "photo": "176297",
    "status": "i",
    "news": "Hip injury - Unknown return date"
@@ -48,6 +55,9 @@
    "starts": 3,
    "goals": 0,
    "assists": 0,
+   "bps": 80,
+   "points": 11,
+   "rating": 6.64,
    "photo": "114283",
    "status": "a",
    "news": ""
@@ -64,6 +74,9 @@
    "starts": 10,
    "goals": 4,
    "assists": 2,
+   "bps": 246,
+   "points": 47,
+   "rating": 7.34,
    "photo": "141746",
    "status": "a",
    "news": ""
@@ -80,6 +93,9 @@
    "starts": 10,
    "goals": 3,
    "assists": 1,
+   "bps": 151,
+   "points": 40,
+   "rating": 6.09,
    "photo": "219847",
    "status": "a",
    "news": ""
@@ -96,6 +112,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 0,
+   "bps": 0,
+   "points": 0,
+   "rating": null,
    "photo": "205651",
    "status": "u",
    "news": "Has joined FC Barcelona permanently"
@@ -112,6 +131,9 @@
    "starts": 3,
    "goals": 0,
    "assists": 0,
+   "bps": 24,
+   "points": 3,
+   "rating": 5.61,
    "photo": "225796",
    "status": "i",
    "news": "Knee injury - Unknown return date"
@@ -128,6 +150,9 @@
    "starts": 1,
    "goals": 0,
    "assists": 0,
+   "bps": 43,
+   "points": 7,
+   "rating": 6.61,
    "photo": "184341",
    "status": "a",
    "news": ""
@@ -144,6 +169,9 @@
    "starts": 11,
    "goals": 4,
    "assists": 1,
+   "bps": 199,
+   "points": 47,
+   "rating": 6.46,
    "photo": "446008",
    "status": "a",
    "news": ""
@@ -160,6 +188,9 @@
    "starts": 11,
    "goals": 3,
    "assists": 1,
+   "bps": 262,
+   "points": 55,
+   "rating": 7.56,
    "photo": "184029",
    "status": "a",
    "news": ""
@@ -176,6 +207,9 @@
    "starts": 11,
    "goals": 0,
    "assists": 5,
+   "bps": 229,
+   "points": 53,
+   "rating": 6.99,
    "photo": "204480",
    "status": "a",
    "news": ""
@@ -192,6 +226,9 @@
    "starts": 5,
    "goals": 1,
    "assists": 2,
+   "bps": 124,
+   "points": 23,
+   "rating": 7.58,
    "photo": "209244",
    "status": "a",
    "news": ""
@@ -208,6 +245,9 @@
    "starts": 11,
    "goals": 0,
    "assists": 0,
+   "bps": 175,
+   "points": 49,
+   "rating": 6.94,
    "photo": "97032",
    "status": "a",
    "news": ""
@@ -224,6 +264,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 0,
+   "bps": 0,
+   "points": 0,
+   "rating": null,
    "photo": "220566",
    "status": "u",
    "news": "Has joined Barcelona permanently"
@@ -240,6 +283,9 @@
    "starts": 1,
    "goals": 0,
    "assists": 1,
+   "bps": 47,
+   "points": 11,
+   "rating": 7.03,
    "photo": "224117",
    "status": "a",
    "news": ""
@@ -256,6 +302,9 @@
    "starts": 11,
    "goals": 0,
    "assists": 0,
+   "bps": 148,
+   "points": 35,
+   "rating": 6.07,
    "photo": "204936",
    "status": "a",
    "news": ""
@@ -272,6 +321,9 @@
    "starts": 0,
    "goals": 1,
    "assists": 0,
+   "bps": 39,
+   "points": 8,
+   "rating": 10.0,
    "photo": "485711",
    "status": "i",
    "news": "Shin injury - Unknown return date"
@@ -288,6 +340,9 @@
    "starts": 1,
    "goals": 0,
    "assists": 0,
+   "bps": -6,
+   "points": 2,
+   "rating": 4.0,
    "photo": "209365",
    "status": "a",
    "news": ""
@@ -304,6 +359,9 @@
    "starts": 7,
    "goals": 3,
    "assists": 0,
+   "bps": 162,
+   "points": 37,
+   "rating": 7.32,
    "photo": "223340",
    "status": "i",
    "news": "Thigh injury - Expected back 20 Dec"
@@ -320,6 +378,9 @@
    "starts": 11,
    "goals": 2,
    "assists": 6,
+   "bps": 274,
+   "points": 60,
+   "rating": 7.94,
    "photo": "494595",
    "status": "a",
    "news": ""
@@ -336,6 +397,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 0,
+   "bps": 0,
+   "points": 0,
+   "rating": null,
    "photo": "462424",
    "status": "a",
    "news": ""
@@ -352,6 +416,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 0,
+   "bps": 0,
+   "points": 0,
+   "rating": null,
    "photo": "444145",
    "status": "u",
    "news": "Has joined Al Hilal permanently"
@@ -368,6 +435,9 @@
    "starts": 3,
    "goals": 1,
    "assists": 0,
+   "bps": 68,
+   "points": 19,
+   "rating": 6.61,
    "photo": "232413",
    "status": "a",
    "news": ""
@@ -384,6 +454,9 @@
    "starts": 9,
    "goals": 1,
    "assists": 4,
+   "bps": 201,
+   "points": 46,
+   "rating": 7.27,
    "photo": "430871",
    "status": "a",
    "news": ""
@@ -400,6 +473,9 @@
    "starts": 11,
    "goals": 0,
    "assists": 0,
+   "bps": 117,
+   "points": 30,
+   "rating": 6.12,
    "photo": "171314",
    "status": "a",
    "news": ""
@@ -416,6 +492,9 @@
    "starts": 3,
    "goals": 1,
    "assists": 0,
+   "bps": 85,
+   "points": 16,
+   "rating": 8.27,
    "photo": "172780",
    "status": "a",
    "news": ""
@@ -432,6 +511,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 0,
+   "bps": 0,
+   "points": 0,
+   "rating": null,
    "photo": "221632",
    "status": "u",
    "news": "Has joined Atletico Madrid permanently"
@@ -448,6 +530,9 @@
    "starts": 11,
    "goals": 1,
    "assists": 0,
+   "bps": 231,
+   "points": 67,
+   "rating": 7.73,
    "photo": "226597",
    "status": "a",
    "news": ""
@@ -464,6 +549,9 @@
    "starts": 6,
    "goals": 0,
    "assists": 0,
+   "bps": 89,
+   "points": 15,
+   "rating": 6.07,
    "photo": "486672",
    "status": "d",
    "news": "Back injury - 75% chance of playing"
@@ -480,6 +568,9 @@
    "starts": 9,
    "goals": 1,
    "assists": 0,
+   "bps": 150,
+   "points": 30,
+   "rating": 5.88,
    "photo": "243016",
    "status": "a",
    "news": ""
@@ -496,6 +587,9 @@
    "starts": 11,
    "goals": 0,
    "assists": 0,
+   "bps": 186,
+   "points": 49,
+   "rating": 6.79,
    "photo": "116535",
    "status": "a",
    "news": ""
@@ -512,6 +606,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 0,
+   "bps": 3,
+   "points": 1,
+   "rating": 10.0,
    "photo": "223541",
    "status": "a",
    "news": ""
@@ -528,6 +625,9 @@
    "starts": 8,
    "goals": 1,
    "assists": 4,
+   "bps": 170,
+   "points": 45,
+   "rating": 7.81,
    "photo": "477424",
    "status": "a",
    "news": ""
@@ -544,6 +644,9 @@
    "starts": 1,
    "goals": 0,
    "assists": 1,
+   "bps": 43,
+   "points": 7,
+   "rating": 10.0,
    "photo": "91651",
    "status": "a",
    "news": ""
@@ -560,6 +663,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 0,
+   "bps": 0,
+   "points": 0,
+   "rating": null,
    "photo": "433036",
    "status": "u",
    "news": "Has joined Al Qadsiah permanently"
@@ -576,6 +682,9 @@
    "starts": 3,
    "goals": 0,
    "assists": 0,
+   "bps": 35,
+   "points": 6,
+   "rating": 5.0,
    "photo": "180974",
    "status": "i",
    "news": "Unspecified injury - Unknown return date"
@@ -592,6 +701,9 @@
    "starts": 10,
    "goals": 1,
    "assists": 3,
+   "bps": 205,
+   "points": 41,
+   "rating": 6.62,
    "photo": "222531",
    "status": "a",
    "news": ""
@@ -608,6 +720,9 @@
    "starts": 6,
    "goals": 0,
    "assists": 3,
+   "bps": 164,
+   "points": 30,
+   "rating": 7.17,
    "photo": "460842",
    "status": "a",
    "news": ""
@@ -624,6 +739,9 @@
    "starts": 7,
    "goals": 0,
    "assists": 3,
+   "bps": 159,
+   "points": 42,
+   "rating": 8.65,
    "photo": "198869",
    "status": "a",
    "news": ""
@@ -640,6 +758,9 @@
    "starts": 5,
    "goals": 2,
    "assists": 1,
+   "bps": 144,
+   "points": 30,
+   "rating": 7.41,
    "photo": "248857",
    "status": "a",
    "news": ""
@@ -656,6 +777,9 @@
    "starts": 10,
    "goals": 7,
    "assists": 1,
+   "bps": 260,
+   "points": 66,
+   "rating": 7.7,
    "photo": "219168",
    "status": "a",
    "news": ""
@@ -672,6 +796,9 @@
    "starts": 6,
    "goals": 2,
    "assists": 1,
+   "bps": 130,
+   "points": 29,
+   "rating": 6.74,
    "photo": "154566",
    "status": "a",
    "news": ""
@@ -688,6 +815,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 0,
+   "bps": 0,
+   "points": 0,
+   "rating": null,
    "photo": "178301",
    "status": "u",
    "news": "Has joined Al Hilal permanently"
@@ -704,6 +834,9 @@
    "starts": 0,
    "goals": 1,
    "assists": 0,
+   "bps": 52,
+   "points": 10,
+   "rating": 8.63,
    "photo": "458249",
    "status": "a",
    "news": ""
@@ -720,6 +853,9 @@
    "starts": 11,
    "goals": 3,
    "assists": 4,
+   "bps": 275,
+   "points": 49,
+   "rating": 7.51,
    "photo": "244851",
    "status": "a",
    "news": ""
@@ -736,6 +872,9 @@
    "starts": 11,
    "goals": 0,
    "assists": 0,
+   "bps": 191,
+   "points": 40,
+   "rating": 6.88,
    "photo": "111234",
    "status": "a",
    "news": ""
@@ -752,6 +891,9 @@
    "starts": 8,
    "goals": 2,
    "assists": 1,
+   "bps": 190,
+   "points": 38,
+   "rating": 7.56,
    "photo": "424876",
    "status": "a",
    "news": ""
@@ -768,6 +910,9 @@
    "starts": 7,
    "goals": 1,
    "assists": 3,
+   "bps": 141,
+   "points": 40,
+   "rating": 6.73,
    "photo": "243298",
    "status": "i",
    "news": "Calf injury - Expected back 2 Dec"
@@ -784,6 +929,9 @@
    "starts": 5,
    "goals": 1,
    "assists": 2,
+   "bps": 170,
+   "points": 27,
+   "rating": 8.56,
    "photo": "248875",
    "status": "a",
    "news": ""
@@ -800,6 +948,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 0,
+   "bps": 0,
+   "points": 0,
+   "rating": null,
    "photo": "232112",
    "status": "i",
    "news": "Knee injury - Unknown return date"
@@ -816,6 +967,9 @@
    "starts": 8,
    "goals": 0,
    "assists": 0,
+   "bps": 26,
+   "points": 9,
+   "rating": 5.0,
    "photo": "221820",
    "status": "a",
    "news": ""
@@ -832,6 +986,9 @@
    "starts": 6,
    "goals": 0,
    "assists": 0,
+   "bps": 3,
+   "points": 9,
+   "rating": 4.55,
    "photo": "550864",
    "status": "a",
    "news": ""
@@ -848,6 +1005,9 @@
    "starts": 5,
    "goals": 0,
    "assists": 0,
+   "bps": 51,
+   "points": 9,
+   "rating": 5.22,
    "photo": "493250",
    "status": "a",
    "news": ""
@@ -864,6 +1024,9 @@
    "starts": 11,
    "goals": 0,
    "assists": 0,
+   "bps": 237,
+   "points": 61,
+   "rating": 7.85,
    "photo": "154561",
    "status": "d",
    "news": "Shoulder injury - 50% chance of playing"
@@ -880,6 +1043,9 @@
    "starts": 10,
    "goals": 1,
    "assists": 2,
+   "bps": 176,
+   "points": 58,
+   "rating": 7.34,
    "photo": "466075",
    "status": "a",
    "news": ""
@@ -896,6 +1062,9 @@
    "starts": 9,
    "goals": 3,
    "assists": 1,
+   "bps": 197,
+   "points": 42,
+   "rating": 7.09,
    "photo": "247632",
    "status": "a",
    "news": ""
@@ -912,6 +1081,9 @@
    "starts": 11,
    "goals": 1,
    "assists": 1,
+   "bps": 180,
+   "points": 52,
+   "rating": 7.15,
    "photo": "17761",
    "status": "s",
    "news": "Suspended until 13 Dec"
@@ -928,6 +1100,9 @@
    "starts": 7,
    "goals": 5,
    "assists": 2,
+   "bps": 242,
+   "points": 55,
+   "rating": 9.6,
    "photo": "466052",
    "status": "a",
    "news": ""
@@ -944,6 +1119,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 0,
+   "bps": 0,
+   "points": 0,
+   "rating": null,
    "photo": "448514",
    "status": "a",
    "news": ""
@@ -960,6 +1138,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 0,
+   "bps": 0,
+   "points": 0,
+   "rating": null,
    "photo": "98747",
    "status": "a",
    "news": ""
@@ -976,6 +1157,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 1,
+   "bps": 15,
+   "points": 5,
+   "rating": 7.16,
    "photo": "441191",
    "status": "a",
    "news": ""
@@ -992,6 +1176,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 0,
+   "bps": 24,
+   "points": 4,
+   "rating": 10.0,
    "photo": "445044",
    "status": "a",
    "news": ""
@@ -1008,6 +1195,9 @@
    "starts": 8,
    "goals": 0,
    "assists": 0,
+   "bps": 142,
+   "points": 31,
+   "rating": 7.17,
    "photo": "491279",
    "status": "a",
    "news": ""
@@ -1024,6 +1214,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 0,
+   "bps": 3,
+   "points": 1,
+   "rating": 5.98,
    "photo": "465920",
    "status": "i",
    "news": "Ankle injury - Unknown return date"
@@ -1040,6 +1233,9 @@
    "starts": 10,
    "goals": 0,
    "assists": 0,
+   "bps": 154,
+   "points": 31,
+   "rating": 6.83,
    "photo": "544877",
    "status": "a",
    "news": ""
@@ -1056,6 +1252,9 @@
    "starts": 1,
    "goals": 0,
    "assists": 0,
+   "bps": 51,
+   "points": 12,
+   "rating": 6.99,
    "photo": "195384",
    "status": "a",
    "news": ""
@@ -1072,6 +1271,9 @@
    "starts": 4,
    "goals": 0,
    "assists": 0,
+   "bps": 63,
+   "points": 15,
+   "rating": 6.54,
    "photo": "445122",
    "status": "a",
    "news": ""
@@ -1088,6 +1290,9 @@
    "starts": 1,
    "goals": 0,
    "assists": 0,
+   "bps": 6,
+   "points": 2,
+   "rating": 4.92,
    "photo": "212319",
    "status": "u",
    "news": "not included in squad."
@@ -1104,6 +1309,9 @@
    "starts": 2,
    "goals": 0,
    "assists": 0,
+   "bps": 30,
+   "points": 5,
+   "rating": 6.46,
    "photo": "216094",
    "status": "a",
    "news": ""
@@ -1120,6 +1328,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 0,
+   "bps": 0,
+   "points": 0,
+   "rating": null,
    "photo": "510663",
    "status": "i",
    "news": "Achilles injury - Unknown return date"
@@ -1136,6 +1347,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 0,
+   "bps": 10,
+   "points": 4,
+   "rating": 10.0,
    "photo": "171287",
    "status": "a",
    "news": ""
@@ -1152,6 +1366,9 @@
    "starts": 9,
    "goals": 0,
    "assists": 0,
+   "bps": 70,
+   "points": 16,
+   "rating": 5.68,
    "photo": "216051",
    "status": "a",
    "news": ""
@@ -1168,6 +1385,9 @@
    "starts": 9,
    "goals": 2,
    "assists": 4,
+   "bps": 187,
+   "points": 45,
+   "rating": 6.62,
    "photo": "122806",
    "status": "a",
    "news": ""
@@ -1184,6 +1404,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 0,
+   "bps": 0,
+   "points": 0,
+   "rating": null,
    "photo": "449871",
    "status": "i",
    "news": "Knee injury - Unknown return date"
@@ -1200,6 +1423,9 @@
    "starts": 6,
    "goals": 5,
    "assists": 3,
+   "bps": 206,
+   "points": 47,
+   "rating": 8.72,
    "photo": "475168",
    "status": "i",
    "news": "Thigh injury - Unknown return date"
@@ -1216,6 +1442,9 @@
    "starts": 8,
    "goals": 2,
    "assists": 1,
+   "bps": 131,
+   "points": 35,
+   "rating": 6.22,
    "photo": "200089",
    "status": "a",
    "news": ""
@@ -1232,6 +1461,9 @@
    "starts": 11,
    "goals": 3,
    "assists": 3,
+   "bps": 198,
+   "points": 51,
+   "rating": 6.22,
    "photo": "201666",
    "status": "a",
    "news": ""
@@ -1248,6 +1480,9 @@
    "starts": 5,
    "goals": 0,
    "assists": 1,
+   "bps": 112,
+   "points": 27,
+   "rating": 8.18,
    "photo": "441164",
    "status": "a",
    "news": ""
@@ -1264,6 +1499,9 @@
    "starts": 11,
    "goals": 0,
    "assists": 1,
+   "bps": 182,
+   "points": 37,
+   "rating": 5.98,
    "photo": "226944",
    "status": "a",
    "news": ""
@@ -1280,6 +1518,9 @@
    "starts": 8,
    "goals": 1,
    "assists": 1,
+   "bps": 130,
+   "points": 30,
+   "rating": 6.22,
    "photo": "195546",
    "status": "a",
    "news": ""
@@ -1296,6 +1537,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 0,
+   "bps": 0,
+   "points": 0,
+   "rating": null,
    "photo": "101188",
    "status": "u",
    "news": "Has joined Paris Saint-Germain permanently"
@@ -1312,6 +1556,9 @@
    "starts": 7,
    "goals": 0,
    "assists": 1,
+   "bps": 92,
+   "points": 22,
+   "rating": 6.68,
    "photo": "444463",
    "status": "a",
    "news": ""
@@ -1328,6 +1575,9 @@
    "starts": 7,
    "goals": 1,
    "assists": 1,
+   "bps": 141,
+   "points": 24,
+   "rating": 7.09,
    "photo": "514356",
    "status": "a",
    "news": ""
@@ -1344,6 +1594,9 @@
    "starts": 4,
    "goals": 0,
    "assists": 1,
+   "bps": 70,
+   "points": 11,
+   "rating": 6.26,
    "photo": "441266",
    "status": "i",
    "news": "Foot injury - Unknown return date"
@@ -1360,6 +1613,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 0,
+   "bps": 0,
+   "points": 0,
+   "rating": null,
    "photo": "206915",
    "status": "u",
    "news": "Has joined Internazionale permanently"
@@ -1376,6 +1632,9 @@
    "starts": 11,
    "goals": 1,
    "assists": 1,
+   "bps": 203,
+   "points": 47,
+   "rating": 7.34,
    "photo": "487838",
    "status": "d",
    "news": "Unspecified injury - 75% chance of playing"
@@ -1392,6 +1651,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 0,
+   "bps": 15,
+   "points": 4,
+   "rating": 8.29,
    "photo": "209046",
    "status": "i",
    "news": "Unspecified injury - Unknown return date"
@@ -1408,6 +1670,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 0,
+   "bps": 25,
+   "points": 9,
+   "rating": 6.22,
    "photo": "60689",
    "status": "a",
    "news": ""
@@ -1424,6 +1689,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 0,
+   "bps": 0,
+   "points": 0,
+   "rating": null,
    "photo": "215711",
    "status": "u",
    "news": "Has joined Olympiakos permanently"
@@ -1440,6 +1708,9 @@
    "starts": 4,
    "goals": 0,
    "assists": 0,
+   "bps": 68,
+   "points": 18,
+   "rating": 6.62,
    "photo": "149484",
    "status": "a",
    "news": ""
@@ -1456,6 +1727,9 @@
    "starts": 0,
    "goals": 0,
    "assists": 0,
+   "bps": 0,
+   "points": 0,
+   "rating": null,
    "photo": "180736",
    "status": "u",
    "news": "Has joined Como permanently"
@@ -1472,6 +1746,9 @@
    "starts": 7,
    "goals": 1,
    "assists": 0,
+   "bps": 62,
+   "points": 27,
+   "rating": 5.84,
    "photo": "220237",
    "status": "a",
    "news": ""
@@ -1488,6 +1765,9 @@
    "starts": 4,
    "goals": 0,
    "assists": 0,
+   "bps": 77,
+   "points": 14,
+   "rating": 6.01,
    "photo": "202993",
    "status": "a",
    "news": ""
@@ -1504,6 +1784,9 @@
    "starts": 4,
    "goals": 0,
    "assists": 0,
+   "bps": 94,
+   "points": 16,
+   "rating": 6.72,
    "photo": "88894",
    "status": "a",
    "news": ""
@@ -1520,6 +1803,9 @@
    "starts": 4,
    "goals": 0,
    "assists": 0,
+   "bps": 46,
+   "points": 15,
+   "rating": 6.24,
    "photo": "78916",
    "status": "a",
    "news": ""
@@ -1536,6 +1822,9 @@
    "starts": 2,
    "goals": 0,
    "assists": 0,
+   "bps": 26,
+   "points": 12,
+   "rating": 6.2,
    "photo": "119471",
    "status": "a",
    "news": ""
