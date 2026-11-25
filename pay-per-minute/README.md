@@ -17,6 +17,7 @@ How much every Premier League footballer is paid per minute they actually play.
 - Price per action = paid so far ÷ goals, assists, own goals, goals+assists, xGI, tackles, recoveries or FPL defensive contributions (270+ minutes, at least one action)
 - Team breakdown = a club's tracked players: paid so far ÷ goals, assists, goals+assists and minutes
 - Units: prices can be shown in meal deals, pints, sausage rolls, Freddos, match tickets, replica shirts, season tickets, UK average salaries or houses – edit `UNITS` in index.html
+- Actions are position-aware: goals/assists/xGI/tackles/recoveries/defensive actions are outfield-only; saves, penalty saves and goals conceded are keeper-only; clean sheets are GK+DEF; own goals apply to everyone
 - Every page has a position filter (All/GK/DEF/MID/FWD) that stays set across pages
 - Clubs are ranked only once at least 4 of their players have a wage in `wages.csv`.
 
