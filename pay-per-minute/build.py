@@ -4,11 +4,19 @@
 Usage: python3 build.py [path/to/bootstrap-static.json]
 Without an argument it downloads the FPL data. Writes data.json beside this file.
 """
-import csv, json, sys, urllib.request, datetime, pathlib, statistics
+import csv, re, json, sys, urllib.request, datetime, pathlib, statistics
 
 HERE = pathlib.Path(__file__).resolve().parent
 FPL_URL = "https://fantasy.premierleague.com/api/bootstrap-static/"
 POSITIONS = {1: "GK", 2: "DEF", 3: "MID", 4: "FWD"}
+LEFT_LEAGUE = re.compile(r"\bhas joined\b", re.I)  # FPL news for permanent moves and loans out
+
+
+def left_league(e):
+    """FPL keeps departed players in its list, marked unavailable with 'Has joined X ...' news."""
+    return e["status"] == "u" and bool(LEFT_LEAGUE.search(e["news"]))
+
+
 RATING_MIN_MINUTES = 270  # three full matches before a player counts towards the rating scale
 
 
@@ -54,7 +62,7 @@ def main(argv=None):
     season = f"{season_start[:4]}/{int(season_start[2:4]) + 1:02d}"
 
     scale = rating_scale(fpl["elements"])
-    players, missing = [], []
+    players, missing, departed = [], [], []
     with open(HERE / "wages.csv", newline="", encoding="utf-8") as f:
         for row in csv.DictReader(f):
             matches = by_key.get((row["team"], row["player"]))
@@ -62,6 +70,9 @@ def main(argv=None):
                 missing.append(f'{row["team"]} {row["player"]}' + (" (ambiguous)" if matches else ""))
                 continue
             e = matches[0]
+            if left_league(e):
+                departed.append(f'{row["team"]} {row["player"]}: {e["news"]}')
+                continue
             players.append({
                 "id": e["id"],
                 "name": e["web_name"],
@@ -101,11 +112,12 @@ def main(argv=None):
         "players": sorted(players, key=lambda p: -p["weekly"]),
         "clubs": clubs,
         "unmatched_wages": missing,
+        "left_league": departed,
     }
     tmp = HERE / "data.json.tmp"  # write then rename, so the server never serves a half-written file
     tmp.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     tmp.replace(HERE / "data.json")
-    print(f"{len(players)} players written, GW{out['gameweek']}, {len(missing)} unmatched: {missing}")
+    print(f"{len(players)} players written, GW{out['gameweek']}, {len(missing)} unmatched: {missing}, {len(departed)} left the league")
 
 
 if __name__ == "__main__":

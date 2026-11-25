@@ -1,12 +1,10 @@
 team,player,weekly_gbp,source
 ARS,Havertz,280000,Reported estimate
-ARS,G.Jesus,265000,Reported estimate
 ARS,Ødegaard,240000,Reported estimate
 ARS,Rice,240000,Reported estimate
 ARS,Gyökeres,200000,Reported estimate
 ARS,Saka,195000,Reported estimate
 ARS,Saliba,190000,Reported estimate
-ARS,Martinelli,180000,Reported estimate
 ARS,Eze,180000,Reported estimate
 ARS,Gabriel,150000,Reported estimate
 ARS,White,140000,Reported estimate
@@ -15,13 +13,10 @@ ARS,Raya,100000,Reported estimate
 ARS,Calafiori,100000,Reported estimate
 ARS,Merino,90000,Reported estimate
 ARS,J.Timber,90000,Reported estimate
-AVL,Watkins,130000,Reported estimate
 AVL,McGinn,80000,Reported estimate
 AVL,Onana,80000,Reported estimate
 AVL,Kamara,75000,Reported estimate
 AVL,Buendía,75000,Reported estimate
-AVL,Digne,75000,Reported estimate
-AVL,Bailey,70000,Reported estimate
 AVL,Mings,70000,Reported estimate
 AVL,Barkley,60000,Reported estimate
 CHE,James,250000,Reported estimate
@@ -31,7 +26,6 @@ CHE,Neto,100000,Reported estimate
 CHE,João Pedro,80000,Reported estimate
 CHE,Fofana,75000,Reported estimate
 CHE,Lavia,75000,Reported estimate
-CHE,Chalobah,70000,Reported estimate
 EVE,Grealish,300000,Reported estimate (full wage; loan split not public)
 EVE,Pickford,125000,Reported estimate
 EVE,Tarkowski,100000,Reported estimate
@@ -48,15 +42,12 @@ LIV,Frimpong,85000,Reported estimate
 LIV,Ekitiké,85000,Reported estimate
 LIV,Gomez,85000,Reported estimate
 LIV,Gravenberch,75000,Reported estimate
-LIV,C.Jones,75000,Reported estimate
 MCI,Haaland,525000,Reported estimate
 MCI,Foden,225000,Reported estimate
-MCI,Rodrigo,220000,Reported estimate
 MCI,Donnarumma,200000,Reported estimate
 MCI,Rúben,175000,Reported estimate
 MCI,Gvardiol,150000,Reported estimate
 MCI,Kovačić,150000,Reported estimate
-MCI,Reijnders,150000,Reported estimate
 MCI,Doku,120000,Reported estimate
 MCI,Cherki,100000,Reported estimate
 MCI,Aït-Nouri,100000,Reported estimate
@@ -86,7 +77,6 @@ NFO,Gibbs-White,150000,Reported estimate
 NFO,Hudson-Odoi,75000,Reported estimate
 NFO,Wood,75000,Reported estimate
 TOT,Maddison,170000,Reported estimate
-TOT,Romero,155000,Reported estimate
 TOT,Kudus,145000,Reported estimate
 TOT,Solanke,140000,Reported estimate
 TOT,Kulusevski,100000,Reported estimate

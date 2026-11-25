@@ -2,7 +2,7 @@
  "season": "2026/27",
  "season_start": "2026-08-21T17:30:00Z",
  "gameweek": 11,
- "built_at": "2026-11-25T18:13:28+00:00",
+ "built_at": "2026-11-25T18:20:09+00:00",
  "rating_min_minutes": 270,
  "players": [
   {
@@ -99,25 +99,6 @@
    "photo": "219847",
    "status": "a",
    "news": ""
-  },
-  {
-   "id": 27,
-   "name": "G.Jesus",
-   "full_name": "Gabriel Fernando de Jesus",
-   "team": "ARS",
-   "pos": "FWD",
-   "weekly": 265000,
-   "source": "Reported estimate",
-   "minutes": 0,
-   "starts": 0,
-   "goals": 0,
-   "assists": 0,
-   "bps": 0,
-   "points": 0,
-   "rating": null,
-   "photo": "205651",
-   "status": "u",
-   "news": "Has joined FC Barcelona permanently"
   },
   {
    "id": 142,
@@ -253,25 +234,6 @@
    "news": ""
   },
   {
-   "id": 402,
-   "name": "Rodrigo",
-   "full_name": "Rodrigo 'Rodri' Hernandez Cascante",
-   "team": "MCI",
-   "pos": "MID",
-   "weekly": 220000,
-   "source": "Reported estimate",
-   "minutes": 0,
-   "starts": 0,
-   "goals": 0,
-   "assists": 0,
-   "bps": 0,
-   "points": 0,
-   "rating": null,
-   "photo": "220566",
-   "status": "u",
-   "news": "Has joined Barcelona permanently"
-  },
-  {
    "id": 25,
    "name": "Gyökeres",
    "full_name": "Viktor Gyökeres",
@@ -405,25 +367,6 @@
    "news": ""
   },
   {
-   "id": 18,
-   "name": "Martinelli",
-   "full_name": "Gabriel Martinelli Silva",
-   "team": "ARS",
-   "pos": "MID",
-   "weekly": 180000,
-   "source": "Reported estimate",
-   "minutes": 0,
-   "starts": 0,
-   "goals": 0,
-   "assists": 0,
-   "bps": 0,
-   "points": 0,
-   "rating": null,
-   "photo": "444145",
-   "status": "u",
-   "news": "Has joined Al Hilal permanently"
-  },
-  {
    "id": 14,
    "name": "Eze",
    "full_name": "Eberechi Eze",
@@ -498,25 +441,6 @@
    "photo": "172780",
    "status": "a",
    "news": ""
-  },
-  {
-   "id": 500,
-   "name": "Romero",
-   "full_name": "Cristian Romero",
-   "team": "TOT",
-   "pos": "DEF",
-   "weekly": 155000,
-   "source": "Reported estimate",
-   "minutes": 0,
-   "starts": 0,
-   "goals": 0,
-   "assists": 0,
-   "bps": 0,
-   "points": 0,
-   "rating": null,
-   "photo": "221632",
-   "status": "u",
-   "news": "Has joined Atletico Madrid permanently"
   },
   {
    "id": 4,
@@ -652,25 +576,6 @@
    "news": ""
   },
   {
-   "id": 404,
-   "name": "Reijnders",
-   "full_name": "Tijjani Reijnders",
-   "team": "MCI",
-   "pos": "MID",
-   "weekly": 150000,
-   "source": "Reported estimate",
-   "minutes": 0,
-   "starts": 0,
-   "goals": 0,
-   "assists": 0,
-   "bps": 0,
-   "points": 0,
-   "rating": null,
-   "photo": "433036",
-   "status": "u",
-   "news": "Has joined Al Qadsiah permanently"
-  },
-  {
    "id": 458,
    "name": "Joelinton",
    "full_name": "Joelinton Cássio Apolinário de Lira",
@@ -802,25 +707,6 @@
    "photo": "154566",
    "status": "a",
    "news": ""
-  },
-  {
-   "id": 55,
-   "name": "Watkins",
-   "full_name": "Ollie Watkins",
-   "team": "AVL",
-   "pos": "FWD",
-   "weekly": 130000,
-   "source": "Reported estimate",
-   "minutes": 0,
-   "starts": 0,
-   "goals": 0,
-   "assists": 0,
-   "bps": 0,
-   "points": 0,
-   "rating": null,
-   "photo": "178301",
-   "status": "u",
-   "news": "Has joined Al Hilal permanently"
   },
   {
    "id": 440,
@@ -1526,25 +1412,6 @@
    "news": ""
   },
   {
-   "id": 30,
-   "name": "Digne",
-   "full_name": "Lucas Digne",
-   "team": "AVL",
-   "pos": "DEF",
-   "weekly": 75000,
-   "source": "Reported estimate",
-   "minutes": 0,
-   "starts": 0,
-   "goals": 0,
-   "assists": 0,
-   "bps": 0,
-   "points": 0,
-   "rating": null,
-   "photo": "101188",
-   "status": "u",
-   "news": "Has joined Paris Saint-Germain permanently"
-  },
-  {
    "id": 145,
    "name": "Fofana",
    "full_name": "Wesley Fofana",
@@ -1600,25 +1467,6 @@
    "photo": "441266",
    "status": "i",
    "news": "Foot injury - Unknown return date"
-  },
-  {
-   "id": 373,
-   "name": "C.Jones",
-   "full_name": "Curtis Jones",
-   "team": "LIV",
-   "pos": "MID",
-   "weekly": 75000,
-   "source": "Reported estimate",
-   "minutes": 0,
-   "starts": 0,
-   "goals": 0,
-   "assists": 0,
-   "bps": 0,
-   "points": 0,
-   "rating": null,
-   "photo": "206915",
-   "status": "u",
-   "news": "Has joined Internazionale permanently"
   },
   {
    "id": 449,
@@ -1678,25 +1526,6 @@
    "news": ""
   },
   {
-   "id": 44,
-   "name": "Bailey",
-   "full_name": "Leon Bailey",
-   "team": "AVL",
-   "pos": "MID",
-   "weekly": 70000,
-   "source": "Reported estimate",
-   "minutes": 0,
-   "starts": 0,
-   "goals": 0,
-   "assists": 0,
-   "bps": 0,
-   "points": 0,
-   "rating": null,
-   "photo": "215711",
-   "status": "u",
-   "news": "Has joined Olympiakos permanently"
-  },
-  {
    "id": 33,
    "name": "Mings",
    "full_name": "Tyrone Mings",
@@ -1714,25 +1543,6 @@
    "photo": "149484",
    "status": "a",
    "news": ""
-  },
-  {
-   "id": 143,
-   "name": "Chalobah",
-   "full_name": "Trevoh Chalobah",
-   "team": "CHE",
-   "pos": "DEF",
-   "weekly": 70000,
-   "source": "Reported estimate",
-   "minutes": 0,
-   "starts": 0,
-   "goals": 0,
-   "assists": 0,
-   "bps": 0,
-   "points": 0,
-   "rating": null,
-   "photo": "180736",
-   "status": "u",
-   "news": "Has joined Como permanently"
   },
   {
    "id": 447,
@@ -1952,5 +1762,6 @@
    "squad_minutes": 10781
   }
  ],
- "unmatched_wages": []
+ "unmatched_wages": [],
+ "left_league": []
 }
