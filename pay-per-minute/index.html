@@ -36,6 +36,16 @@
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
+.ic { width: 1.15em; height: 1.15em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.2em; flex: none; }
+.h-ic { width: .82em; height: .82em; color: var(--accent); stroke-width: 2.6; margin-right: .22em; vertical-align: -0.06em; }
+.navlinks a, .seg button, .more, .label-ic { display: inline-flex; align-items: center; gap: 6px; }
+.navlinks a .ic { opacity: .85; }
+.badge { width: 42px; height: 42px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; }
+.badge .ic { width: 24px; height: 24px; vertical-align: 0; }
+.tile .label, .slip .label { display: inline-flex; align-items: center; gap: 6px; }
+.tile .label .ic, .slip .label .ic { color: var(--accent); }
+.fact .ic { color: var(--accent); width: .9em; height: .9em; stroke-width: 2.6; vertical-align: -0.08em; margin-right: .12em; }
+.stamp span { display: inline-flex; align-items: center; gap: 6px; }
 html, body { margin: 0; }
 body {
   background: var(--paper); color: var(--ink); font: 15px/1.5 var(--body);
@@ -118,7 +128,7 @@ header.hero { padding-top: 40px; display: grid; gap: 20px; }
 }
 .row:first-child { border-top: 0; }
 .row.head { background: var(--paper); padding-block: 8px; }
-#value .row { --vcols: 32px minmax(0, 1.6fr) repeat(4, minmax(0, 1fr)) minmax(0, 1.1fr); grid-template-columns: var(--vcols); }
+#value-list .row { --vcols: 32px minmax(0, 1.6fr) repeat(4, minmax(0, 1fr)) minmax(0, 1.1fr); grid-template-columns: var(--vcols); }
 .row .rank { color: var(--muted); font-family: var(--mono); font-size: 13px; }
 .who { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .who strong { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -145,6 +155,7 @@ header.hero { padding-top: 40px; display: grid; gap: 20px; }
 .versus { background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; padding: 20px; display: grid; gap: 16px; }
 .versus-out { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
 .versus-out div { display: grid; gap: 2px; border-left: 2px solid var(--line); padding-left: 12px; }
+.versus-out b .ic { color: var(--accent); }
 .versus-out b { font-family: var(--mono); font-size: 22px; font-variant-numeric: tabular-nums; }
 .versus-out span { color: var(--muted); font-size: 13px; }
 
@@ -176,14 +187,16 @@ header.hero { padding-top: 40px; display: grid; gap: 20px; }
 .fact em { font-style: normal; color: var(--accent); }
 .toolbar { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: end; }
 .toolbar .field { flex: 0 1 220px; }
+.field:has(> .pos-slot) { flex: 0 0 auto; }
+.field .pos-slot .seg { flex-wrap: nowrap; }
 .pos-slot .seg { flex-wrap: wrap; }
 .field .pos-slot .seg { display: flex; } .field .pos-slot .seg button { flex: 1; }
 .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
 .tile { background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; display: grid; gap: 2px; min-width: 0; }
 .tile b { font-family: var(--mono); font-size: 22px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 .tile small { color: var(--muted); font-size: 12px; }
-#team .row { grid-template-columns: 32px minmax(0, 1.6fr) repeat(5, minmax(0, 1fr)); }
-#team .dash { color: var(--muted); }
+#team-list .row { grid-template-columns: 32px minmax(0, 1.6fr) repeat(5, minmax(0, 1fr)); }
+#team-list .dash { color: var(--muted); }
 
 footer { color: var(--muted); font-size: 13px; display: grid; gap: 8px; max-width: 70ch; }
 footer code { font-family: var(--mono); font-size: 12px; }
@@ -192,25 +205,26 @@ footer code { font-family: var(--mono); font-size: 12px; }
   .row { grid-template-columns: 22px minmax(0, 1fr) auto auto; gap: 4px 12px; padding-inline: 12px; }
   .cell.ppm { font-size: 16px; }
   .row .cell.opt { display: none; }
-  #value .row { --vcols: 22px minmax(0, 1fr) auto auto; }
-  #team .row { grid-template-columns: 22px minmax(0, 1fr) auto auto auto; gap: 4px 10px; }
+  #value-list .row { --vcols: 22px minmax(0, 1fr) auto auto; }
+  #team-list .row { grid-template-columns: 22px minmax(0, 1fr) auto auto auto; gap: 4px 10px; }
   .row.head .cell.opt { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-house" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9v12h14V9"/><path d="M10 21v-6h4v6"/></symbol><symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h12M9 12h12M9 18h12"/><circle cx="4.5" cy="6" r="1.2"/><circle cx="4.5" cy="12" r="1.2"/><circle cx="4.5" cy="18" r="1.2"/></symbol><symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v17M7 20h10M4 7h16"/><path d="M7 7l-3 7a3 2 0 0 0 6 0z"/><path d="M17 7l-3 7a3 2 0 0 0 6 0z"/></symbol><symbol id="i-receipt" viewBox="0 0 24 24"><path d="M5 3h14v18l-2.5-1.8L14 21l-2-1.8L10 21l-2.5-1.8L5 21z"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.8 3.4 8 8 9 4.6-1 8-4.2 8-9V6z"/><path d="M12 7v10M8 11h8"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18.5 14.5c1.8.9 3 2.9 3 5.5"/></symbol><symbol id="i-bench" viewBox="0 0 24 24"><path d="M3 10h18M3 14h18"/><path d="M5 14v6M19 14v6M6 10V6M18 10V6M4 6h16"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></symbol><symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="9" cy="7" rx="6" ry="3"/><path d="M3 7v4c0 1.7 2.7 3 6 3s6-1.3 6-3V7"/><path d="M15 10.2c3.4.3 6 1.6 6 3.3 0 1.9-2.7 3.5-6 3.5s-6-1.6-6-3.5"/><path d="M9 13.5V17c0 1.9 2.7 3.5 6 3.5s6-1.6 6-3.5v-3.5"/></symbol><symbol id="i-shuffle" viewBox="0 0 24 24"><path d="M3 7h3c4.5 0 6.5 10 11 10h4M3 17h3c1.6 0 2.8-1.4 3.9-3.2M14.2 9.6C15.3 8 16.5 7 18 7h3"/><path d="M18 4l3 3-3 3M18 14l3 3-3 3"/></symbol><symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M11 3l1.8 5.2L18 10l-5.2 1.8L11 17l-1.8-5.2L4 10l5.2-1.8z"/><path d="M19 14l.8 2.2L22 17l-2.2.8L19 20l-.8-2.2L16 17l2.2-.8z"/></symbol><symbol id="i-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 8.2l3.6 2.6-1.4 4.2H9.8l-1.4-4.2z"/><path d="M12 8.2V2.5M15.6 10.8l5.4-1.7M14.2 15l3.3 4.6M9.8 15l-3.3 4.6M8.4 10.8 3 9.1"/></symbol><symbol id="i-pass" viewBox="0 0 24 24"><path d="M3 19c3.5-7 9-11.5 17-13"/><path d="M14.5 3.5 20 6l-2.5 5.4"/><circle cx="4.5" cy="19" r="1.5"/></symbol><symbol id="i-oops" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></symbol><symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></symbol><symbol id="i-boot" viewBox="0 0 24 24"><path d="M5 4h5l1 6c3.5 0 9 1.5 9 5.5V17H5z"/><path d="M5 17h15M8 20v-3M12 20v-3M16 20v-3"/></symbol><symbol id="i-recover" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.6-4.4L3 9"/><path d="M3 4v5h5"/><path d="M4 13a8 8 0 0 0 14.6 4.4L21 15"/><path d="M21 20v-5h-5"/></symbol><symbol id="i-wall" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 9.7h18M3 14.3h18M9 5v4.7M15 5v4.7M12 9.7v4.6M7 14.3V19M17 14.3V19"/></symbol><symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 21.5c3.9 0 7-2.8 7-6.8 0-4.9-4.6-6.6-5-11.2-3 1.9-5 4.9-4.8 8.2-1.2-.6-2-1.8-2.2-3.2C5.4 10.2 5 12.6 5 14.7c0 4 3.1 6.8 7 6.8z"/></symbol><symbol id="i-down" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M8 13l4 4 4-4"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol><symbol id="i-note" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 10v4M18 10v4"/></symbol><symbol id="i-tick" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16.5 9.5"/></symbol><symbol id="i-cross" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></symbol><symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V5.5A1.5 1.5 0 0 0 17.5 4H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v9.5a1.5 1.5 0 0 1-1.5 1.5H5a2 2 0 0 1-2-2V6"/><path d="M16.5 14h.01"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15.4 6.4L3 16"/><path d="M3 21v-5h5"/><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8"/><path d="M21 3v5h-5"/></symbol><symbol id="i-gbp" viewBox="0 0 24 24"><path d="M17 20H7c1.8-1.4 3-3.2 3-6V8.5A4.5 4.5 0 0 1 17.5 6"/><path d="M6 13h8"/></symbol><symbol id="i-sandwich" viewBox="0 0 24 24"><path d="M3 17.5 12 5l9 12.5z"/><path d="M5.4 14.2h13.2"/></symbol><symbol id="i-pint" viewBox="0 0 24 24"><path d="M6 3h12l-1.6 18H7.6z"/><path d="M6.5 8.5h11"/></symbol><symbol id="i-roll" viewBox="0 0 24 24"><rect x="2.5" y="8" width="19" height="8" rx="4"/><path d="M8 8.3 7 15.7M12 8l-1 8M16 8.3l-1 7.4"/></symbol><symbol id="i-choc" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M5 9h14M5 15h14M12 3v18"/></symbol><symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4z"/><path d="M15 7v2M15 11v2M15 15v2"/></symbol><symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8.5 3 3 6l2 4.2 2-1V21h10V9.2l2 1L21 6l-5.5-3c0 1.7-1.6 3-3.5 3S8.5 4.7 8.5 3z"/></symbol><symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></symbol><symbol id="i-trophy" viewBox="0 0 24 24"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 21h8M9 18h6"/></symbol></svg>
 <nav class="topnav" aria-label="Pages">
   <div class="topnav-in">
     <a class="brand" href="#home">Pay per <span>minute</span></a>
     <div class="navlinks">
-      <a href="#home">Home</a>
-      <a href="#players">Players</a>
-      <a href="#value">Best value</a>
-      <a href="#actions">Price per action</a>
-      <a href="#clubs">Clubs</a>
-      <a href="#team">Team breakdown</a>
-      <a href="#bench">Paid to watch</a>
-      <a href="#you">You vs them</a>
+      <a href="#home"><svg class="ic" aria-hidden="true"><use href="#i-house"/></svg>Home</a>
+      <a href="#players"><svg class="ic" aria-hidden="true"><use href="#i-list"/></svg>Players</a>
+      <a href="#value"><svg class="ic" aria-hidden="true"><use href="#i-scale"/></svg>Best value</a>
+      <a href="#actions"><svg class="ic" aria-hidden="true"><use href="#i-receipt"/></svg>Price per action</a>
+      <a href="#clubs"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Clubs</a>
+      <a href="#team"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Team breakdown</a>
+      <a href="#bench"><svg class="ic" aria-hidden="true"><use href="#i-bench"/></svg>Paid to watch</a>
+      <a href="#you"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>You vs them</a>
     </div>
   </div>
 </nav>
@@ -221,13 +235,13 @@ footer code { font-family: var(--mono); font-size: 12px; }
     <h1>Pay per <span>minute</span></h1>
     <p class="lede">What every Premier League player has been paid this season, divided by the minutes they've actually spent on the pitch.</p>
     <div class="meter" aria-live="off">
-      <span class="label">Since you opened this page</span>
+      <span class="label label-ic"><svg class="ic" aria-hidden="true"><use href="#i-coins"/></svg>Since you opened this page</span>
       <span class="big" id="ticker">£0</span>
       <p id="ticker-note">paid to the players tracked below.</p>
     </div>
     <div class="didyou" aria-live="polite">
       <p class="fact" id="hero-fact"></p>
-      <button class="more" id="hero-next" type="button">Another one</button>
+      <button class="more" id="hero-next" type="button"><svg class="ic" aria-hidden="true"><use href="#i-shuffle"/></svg>Another one</button>
     </div>
     <div class="stamp" id="stamp"></div>
   </header>
@@ -238,12 +252,12 @@ footer code { font-family: var(--mono); font-size: 12px; }
 
   <section class="section page-top" data-page="players" aria-labelledby="players-h" hidden>
     <div class="section-head">
-      <h2 id="players-h">Players</h2>
+      <h2 id="players-h"><svg class="ic h-ic" aria-hidden="true"><use href="#i-list"/></svg>Players</h2>
       <div class="seg" role="group" aria-label="Sort players">
-        <button type="button" data-sort="ppm" aria-pressed="true">Dearest minute</button>
-        <button type="button" data-sort="cheap" aria-pressed="false">Cheapest minute</button>
-        <button type="button" data-sort="rating" aria-pressed="false">Top rated</button>
-        <button type="button" data-sort="earned" aria-pressed="false">Most paid</button>
+        <button type="button" data-sort="ppm" aria-pressed="true"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg>Dearest minute</button>
+        <button type="button" data-sort="cheap" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-down"/></svg>Cheapest minute</button>
+        <button type="button" data-sort="rating" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-star"/></svg>Top rated</button>
+        <button type="button" data-sort="earned" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-note"/></svg>Most paid</button>
       </div>
     </div>
     <div class="controls">
@@ -253,16 +267,16 @@ footer code { font-family: var(--mono); font-size: 12px; }
       <label class="field"><span class="label">Minimum minutes</span>
         <select id="minmins"><option value="1">Any</option><option value="90" selected>90+</option><option value="270">270+</option><option value="450">450+</option></select></label>
     </div>
-    <div class="ledger" id="players"></div>
+    <div class="ledger" id="players-list"></div>
     <button class="more" id="more" type="button" hidden>Show all</button>
   </section>
 
   <section class="section page-top" data-page="value" aria-labelledby="value-h" hidden>
     <div class="section-head">
-      <h2 id="value-h">Best value</h2>
+      <h2 id="value-h"><svg class="ic h-ic" aria-hidden="true"><use href="#i-scale"/></svg>Best value</h2>
       <div class="seg" role="group" aria-label="Show best or worst value">
-        <button type="button" data-vmode="best" aria-pressed="true">Bargains</button>
-        <button type="button" data-vmode="worst" aria-pressed="false">Overpaid</button>
+        <button type="button" data-vmode="best" aria-pressed="true"><svg class="ic" aria-hidden="true"><use href="#i-tick"/></svg>Bargains</button>
+        <button type="button" data-vmode="worst" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-cross"/></svg>Overpaid</button>
       </div>
     </div>
     <p class="lede">Higher rating and cheaper minutes means better value. Top left is where you want to be. Players need <span id="vmin">270</span> league minutes to qualify.</p>
@@ -272,15 +286,15 @@ footer code { font-family: var(--mono); font-size: 12px; }
       <svg id="scatter" role="img" aria-label="Scatter chart of performance rating against pay per minute"></svg>
       <div class="tip" id="tip" hidden></div>
     </div>
-    <div class="ledger" id="value"></div>
+    <div class="ledger" id="value-list"></div>
   </section>
 
   <section class="section page-top" data-page="actions" aria-labelledby="action-h" hidden>
     <div class="section-head">
-      <h2 id="action-h">Price per action</h2>
+      <h2 id="action-h"><svg class="ic h-ic" aria-hidden="true"><use href="#i-receipt"/></svg>Price per action</h2>
       <div class="seg" role="group" aria-label="Dearest or cheapest">
-        <button type="button" data-adir="dear" aria-pressed="true">Dearest</button>
-        <button type="button" data-adir="cheap" aria-pressed="false">Cheapest</button>
+        <button type="button" data-adir="dear" aria-pressed="true"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg>Dearest</button>
+        <button type="button" data-adir="cheap" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-down"/></svg>Cheapest</button>
       </div>
     </div>
     <p class="lede">What each player has been paid this season for every one of these, in the league. Players need <span class="amin">270</span> minutes and at least one of the chosen action to appear.</p>
@@ -289,41 +303,41 @@ footer code { font-family: var(--mono); font-size: 12px; }
       <label class="field"><span class="label">Measure in</span><select class="unit-pick" id="unit-a"></select></label>
     </div>
     <div class="seg" role="group" aria-label="Choose an action" style="flex-wrap:wrap;justify-self:start">
-      <button type="button" data-act="ga" aria-pressed="true">Key contribution (G+A)</button>
-      <button type="button" data-act="goals" aria-pressed="false">Goal</button>
-      <button type="button" data-act="assists" aria-pressed="false">Assist</button>
-      <button type="button" data-act="og" aria-pressed="false">Own goal</button>
-      <button type="button" data-act="xgi" aria-pressed="false">Expected goal involvement</button>
-      <button type="button" data-act="tackles" aria-pressed="false">Tackle</button>
-      <button type="button" data-act="recoveries" aria-pressed="false">Recovery</button>
-      <button type="button" data-act="defcon" aria-pressed="false">Defensive action</button>
+      <button type="button" data-act="ga" aria-pressed="true"><svg class="ic" aria-hidden="true"><use href="#i-trophy"/></svg>Key contribution (G+A)</button>
+      <button type="button" data-act="goals" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-ball"/></svg>Goal</button>
+      <button type="button" data-act="assists" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-pass"/></svg>Assist</button>
+      <button type="button" data-act="og" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-oops"/></svg>Own goal</button>
+      <button type="button" data-act="xgi" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg>Expected goal involvement</button>
+      <button type="button" data-act="tackles" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-boot"/></svg>Tackle</button>
+      <button type="button" data-act="recoveries" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-recover"/></svg>Recovery</button>
+      <button type="button" data-act="defcon" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-wall"/></svg>Defensive action</button>
     </div>
     <p class="fact" id="action-fact"></p>
-    <div class="ledger" id="actions"></div>
+    <div class="ledger" id="actions-list"></div>
     <p class="lede" id="action-note"></p>
   </section>
 
   <section class="section page-top" data-page="bench" aria-labelledby="bench-h" hidden>
     <div class="section-head">
-      <h2 id="bench-h">Paid to watch</h2>
+      <h2 id="bench-h"><svg class="ic h-ic" aria-hidden="true"><use href="#i-bench"/></svg>Paid to watch</h2>
       <p class="lede">The 12 best-paid players with less than one full match of league minutes this season.</p>
     </div>
     <div class="pos-slot"></div>
-    <div class="bench" id="bench"></div>
+    <div class="bench" id="bench-list"></div>
   </section>
 
   <section class="section page-top" data-page="clubs" aria-labelledby="clubs-h" hidden>
     <div class="section-head">
-      <h2 id="clubs-h">Clubs</h2>
+      <h2 id="clubs-h"><svg class="ic h-ic" aria-hidden="true"><use href="#i-shield"/></svg>Clubs</h2>
       <p class="lede">Wages paid to each club's tracked players divided by those players' minutes. Idle pay is wages for minutes they were available but not on the pitch.</p>
     </div>
     <div class="pos-slot"></div>
-    <div class="ledger" id="clubs"></div>
+    <div class="ledger" id="clubs-list"></div>
   </section>
 
   <section class="section page-top" data-page="team" aria-labelledby="team-h" hidden>
     <div class="section-head">
-      <h2 id="team-h">Team breakdown</h2>
+      <h2 id="team-h"><svg class="ic h-ic" aria-hidden="true"><use href="#i-users"/></svg>Team breakdown</h2>
     </div>
     <div class="toolbar">
       <label class="field"><span class="label">Club</span><select id="team-pick"></select></label>
@@ -332,11 +346,11 @@ footer code { font-family: var(--mono); font-size: 12px; }
     </div>
     <p class="fact" id="team-fact"></p>
     <div class="tiles" id="team-tiles"></div>
-    <div class="ledger" id="team"></div>
+    <div class="ledger" id="team-list"></div>
   </section>
 
   <section class="section page-top" data-page="you" aria-labelledby="you-h" hidden>
-    <h2 id="you-h">You vs them</h2>
+    <h2 id="you-h"><svg class="ic h-ic" aria-hidden="true"><use href="#i-user"/></svg>You vs them</h2>
     <div class="pos-slot"></div>
     <div class="versus">
       <label class="field" style="max-width:280px"><span class="label">Your annual salary (£)</span><input id="salary" type="number" inputmode="numeric" min="0" step="1000" value="35000"></label>
@@ -406,7 +420,7 @@ function renderValueList() {
   const VV = V.filter(posOK);
   const list = vmode === "best" ? VV.slice(0, 10) : VV.slice(-10).reverse();
   const head = `<div class="row head"><span></span><span class="who">Player</span><span class="cell opt">Minutes</span><span class="cell opt">Paid so far</span><span class="cell">Rating</span><span class="cell">£ / min</span></div>`;
-  $("value").innerHTML = head.replace('<span class="cell">£ / min</span>', '<span class="cell opt">£ / min</span><span class="cell">Value</span>') + list.map((p, i) => `
+  $("value-list").innerHTML = head.replace('<span class="cell">£ / min</span>', '<span class="cell opt">£ / min</span><span class="cell">Value</span>') + list.map((p, i) => `
     <div class="row">
       <span class="rank">${i + 1}</span>
       <span class="who">${chip(p.team)}<span style="min-width:0"><strong>${esc(p.name)}</strong><small>${p.pos} · ${compact(p.weekly)} a week</small></span></span>
@@ -473,17 +487,18 @@ function bindChart() {
   let t; addEventListener("resize", () => { clearTimeout(t); t = setTimeout(renderChart, 150); });
 }
 
+const ic = (n, c = "") => `<svg class="ic${c ? " " + c : ""}" aria-hidden="true"><use href="#i-${n}"/></svg>`;
 const UNITS = {
-  gbp: { name: "Pounds (£)", price: 1 },
-  meal: { name: "Meal deals (£4)", price: 4.00, many: "meal deals", one: "meal deal" },
-  pint: { name: "Pints (£5)", price: 5.00, many: "pints", one: "pint" },
-  roll: { name: "Greggs sausage rolls (£1.35)", price: 1.35, many: "sausage rolls", one: "sausage roll" },
-  freddo: { name: "Freddos (30p)", price: 0.30, many: "Freddos", one: "Freddo" },
-  ticket: { name: "PL match tickets (£50)", price: 50, many: "match tickets", one: "match ticket" },
-  shirt: { name: "Replica shirts (£85)", price: 85, many: "replica shirts", one: "replica shirt" },
-  season: { name: "Season tickets (£800)", price: 800, many: "season tickets", one: "season ticket" },
-  salary: { name: "UK average salaries (£37k)", price: 37000, many: "average UK salaries", one: "average UK salary" },
-  house: { name: "Average UK houses (£270k)", price: 270000, many: "average UK houses", one: "average UK house" },
+  gbp: { name: "Pounds (£)", price: 1, icon: "gbp" },
+  meal: { name: "Meal deals (£4)", price: 4.00, icon: "sandwich", many: "meal deals", one: "meal deal" },
+  pint: { name: "Pints (£5)", price: 5.00, icon: "pint", many: "pints", one: "pint" },
+  roll: { name: "Greggs sausage rolls (£1.35)", price: 1.35, icon: "roll", many: "sausage rolls", one: "sausage roll" },
+  freddo: { name: "Freddos (30p)", price: 0.30, icon: "choc", many: "Freddos", one: "Freddo" },
+  ticket: { name: "PL match tickets (£50)", price: 50, icon: "ticket", many: "match tickets", one: "match ticket" },
+  shirt: { name: "Replica shirts (£85)", price: 85, icon: "shirt", many: "replica shirts", one: "replica shirt" },
+  season: { name: "Season tickets (£800)", price: 800, icon: "calendar", many: "season tickets", one: "season ticket" },
+  salary: { name: "UK average salaries (£37k)", price: 37000, icon: "briefcase", many: "average UK salaries", one: "average UK salary" },
+  house: { name: "Average UK houses (£270k)", price: 270000, icon: "house", many: "average UK houses", one: "average UK house" },
 };
 let unit = "gbp";
 const shortNum = n => n >= 1e6 ? (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + "m" : n >= 1e4 ? Math.round(n / 1e3) + "k"
@@ -496,7 +511,7 @@ function duration(sec) {
   if (sec < 172800) { const h = sec / 3600; return `${h < 10 ? +h.toFixed(1) : Math.round(h)} hours`; }
   return `${+(sec / 86400).toFixed(1)} days`;
 }
-const amount = (v, k) => { const U = UNITS[k], n = v / U.price; return `${shortNum(n)} ${Math.abs(n - 1) < 0.05 ? U.one : U.many}`; };
+const amount = (v, k) => { const U = UNITS[k], n = v / U.price; return `${ic(U.icon)}${shortNum(n)} ${Math.abs(n - 1) < 0.05 ? U.one : U.many}`; };
 function heroFacts() {
   const rich = [...P].sort((a, b) => b.weekly - a.weekly).slice(0, 40);
   const scorers = P.filter(p => p.goals > 0);
@@ -507,7 +522,7 @@ function heroFacts() {
     () => {
       const p = pickOne(rich), k = pickOne([...small, "season", "salary"]), U = UNITS[k], perSec = p.weekly / 604800, sec = U.price / perSec;
       if (sec < 1) return `${esc(p.name)} earns <em>${shortNum(perSec / U.price)} ${U.many}</em> every second, day and night.`;
-      return `${esc(p.name)} earns ${/^[aeiou]/i.test(U.one) ? "an" : "a"} ${U.one} every <em>${duration(sec)}</em>.`;
+      return `${esc(p.name)} earns ${/^[aeiou]/i.test(U.one) ? "an" : "a"} ${U.one} every <em>${ic(U.icon)}${duration(sec)}</em>.`;
     },
     () => { const p = pickOne(scorers), k = pickOne([...big, "ticket", "shirt", "meal"]); return `Each league goal from ${esc(p.name)} has cost <em>${amount(p.earned / p.goals, k)}</em>.`; },
     () => { const p = pickOne(playing), k = pickOne(["pint", "meal", "ticket", "shirt"]); return `Every minute ${esc(p.name)} plays costs <em>${amount(p.ppm, k)}</em>.`; },
@@ -547,7 +562,7 @@ function renderActions() {
   const max = Math.max(...list.map(r => r.per), 1);
   const none = pool.filter(p => !(A.count(p) > 0));
   const head = `<div class="row head"><span></span><span class="who">Player</span><span class="cell opt">Paid so far</span><span class="cell opt">Minutes</span><span class="cell">${A.plural}</span><span class="cell">${costHead()}</span></div>`;
-  $("actions").innerHTML = head + list.map((r, i) => `
+  $("actions-list").innerHTML = head + list.map((r, i) => `
     <div class="row">
       <span class="rank">${i + 1}</span>
       <span class="who">${chip(r.p.team)}<span style="min-width:0"><strong>${esc(r.p.name)}</strong><small>${r.p.pos} · ${A.fmt(+r.per90.toFixed(2))} per 90</small></span></span>
@@ -557,7 +572,7 @@ function renderActions() {
       <span class="cell ppm">${costNum(r.per)}<div class="bar"><i style="width:${(r.per / max * 100).toFixed(1)}%"></i></div></span>
     </div>`).join("");
   const top = list[0];
-  $("action-fact").innerHTML = top ? `It takes <em>${esc(cost(top.per))}</em> for every ${A.single} from ${esc(top.p.name)}.` : "";
+  $("action-fact").innerHTML = top ? `It takes <em>${unit === "gbp" ? "" : ic(UNITS[unit].icon)}${esc(cost(top.per))}</em> for every ${A.single} from ${esc(top.p.name)}.` : "";
   $("action-note").textContent = none.length
     ? `${none.length} qualifying player${none.length === 1 ? " has" : "s have"} no ${A.label} yet, so they can't be priced: ${none.sort((a, b) => b.earned - a.earned).slice(0, 6).map(p => p.name).join(", ")}${none.length > 6 ? " and others" : ""}.`
     : "";
@@ -568,7 +583,7 @@ function renderTeam() {
   const club = teamPick, names = Object.fromEntries(D.clubs.map(c => [c.short, c.name]));
   const squad = P.filter(p => p.team === club && posOK(p)).sort((a, b) => b.earned - a.earned);
   if (!squad.length) {
-    $("team-tiles").innerHTML = ""; $("team").innerHTML = "";
+    $("team-tiles").innerHTML = ""; $("team-list").innerHTML = "";
     $("team-fact").textContent = `We don't have wages for any ${posWord()} at ${names[club] || club} yet.`;
     return;
   }
@@ -576,19 +591,19 @@ function renderTeam() {
   const earned = sum("earned"), mins = sum("minutes"), goals = sum("goals"), assists = sum("assists");
   const per = n => n ? cost(earned / n) : "None yet";
   const tiles = [
-    ["Paid so far", compact(earned), `${squad.length} tracked players`],
-    ["Per goal", per(goals), `${goals} league goals`],
-    ["Per assist", per(assists), `${assists} assists`],
-    ["Per key contribution", per(goals + assists), `${goals + assists} goals + assists`],
-    ["Own goals", String(sum(p => p.og || 0)), sum(p => p.og || 0) ? `${esc(cost(earned / sum(p => p.og || 0)))} each` : "None yet"],
-    ["Per minute", unit === "gbp" ? money(mins ? earned / mins : 0) : cost(mins ? earned / mins : 0), `${n0.format(mins)} player minutes`],
+    ["wallet", "Paid so far", compact(earned), `${squad.length} tracked players`],
+    ["ball", "Per goal", per(goals), `${goals} league goals`],
+    ["pass", "Per assist", per(assists), `${assists} assists`],
+    ["trophy", "Per key contribution", per(goals + assists), `${goals + assists} goals + assists`],
+    ["oops", "Own goals", String(sum(p => p.og || 0)), sum(p => p.og || 0) ? `${esc(cost(earned / sum(p => p.og || 0)))} each` : "None yet"],
+    ["clock", "Per minute", unit === "gbp" ? money(mins ? earned / mins : 0) : cost(mins ? earned / mins : 0), `${n0.format(mins)} player minutes`],
   ];
-  $("team-tiles").innerHTML = tiles.map(([l, v, s]) => `<div class="tile"><span class="label">${l}</span><b>${esc(v)}</b><small>${s}</small></div>`).join("");
+  $("team-tiles").innerHTML = tiles.map(([i, l, v, s]) => `<div class="tile"><span class="label">${ic(i)}${l}</span><b>${esc(v)}</b><small>${s}</small></div>`).join("");
   const best = squad.filter(p => p.goals > 0).sort((a, b) => b.earned / b.goals - a.earned / a.goals)[0];
-  $("team-fact").innerHTML = best ? `${esc(names[club] || club)}'s dearest goals: <em>${esc(cost(best.earned / best.goals))}</em> each from ${esc(best.name)}.`
+  $("team-fact").innerHTML = best ? `${esc(names[club] || club)}'s dearest goals: <em>${unit === "gbp" ? "" : ic(UNITS[unit].icon)}${esc(cost(best.earned / best.goals))}</em> each from ${esc(best.name)}.`
     : `${esc(names[club] || club)}'s tracked players have no league goals yet.`;
   const head = `<div class="row head"><span></span><span class="who">Player</span><span class="cell opt">Paid so far</span><span class="cell opt">Minutes</span><span class="cell">G</span><span class="cell">A</span><span class="cell">${costHead("per G+A")}</span></div>`;
-  $("team").innerHTML = head + squad.map((p, i) => {
+  $("team-list").innerHTML = head + squad.map((p, i) => {
     const ga = p.goals + p.assists;
     return `<div class="row">
       <span class="rank">${i + 1}</span>
@@ -605,7 +620,7 @@ function renderTeam() {
 function renderStamp() {
   $("season-label").textContent = `Premier League ${D.season}`;
   const built = new Date(D.built_at).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
-  $("stamp").innerHTML = `<span>After gameweek ${D.gameweek}</span><span>${Math.round(D.days)} days of wages</span><span>${P.length} players tracked</span><span>Minutes updated ${built}</span>`;
+  $("stamp").innerHTML = `<span>${ic("ball")}After gameweek ${D.gameweek}</span><span>${ic("calendar")}${Math.round(D.days)} days of wages</span><span>${ic("users")}${P.length} players tracked</span><span>${ic("refresh")}Minutes updated ${built}</span>`;
 }
 
 function filtered() {
@@ -622,7 +637,7 @@ function renderPlayers() {
   const shown = showAll ? list : list.slice(0, 25);
   const max = Math.max(...list.map(p => p.ppm).filter(isFinite), 1);
   const head = `<div class="row head"><span></span><span class="who">Player</span><span class="cell opt">Weekly</span><span class="cell opt">Paid so far</span><span class="cell">Minutes</span><span class="cell">£ / min</span></div>`;
-  $("players").innerHTML = head + (shown.length ? shown.map((p, i) => `
+  $("players-list").innerHTML = head + (shown.length ? shown.map((p, i) => `
     <div class="row">
       <span class="rank">${i + 1}</span>
       <span class="who">${chip(p.team)}<span style="min-width:0"><strong>${esc(p.name)}</strong><small>${p.pos}${p.rating != null ? " · rated " + p.rating.toFixed(1) : ""} · ${p.perGA ? compact(p.perGA) + " per goal/assist" : "no goals or assists"}</small></span></span>
@@ -637,11 +652,12 @@ function renderPlayers() {
 
 function renderBench() {
   const list = P.filter(p => p.minutes < 90 && posOK(p)).sort((a, b) => b.earned - a.earned).slice(0, 12);
-  $("bench").innerHTML = list.length ? list.map(p => `
+  $("bench-list").innerHTML = list.length ? list.map(p => `
     <div class="slip">
       <span class="who">${chip(p.team)}<strong>${esc(p.name)}</strong></span>
+      <span class="label">${ic(p.minutes ? "clock" : "bench")}${p.minutes ? p.minutes + " minutes" : "Not kicked a ball"}</span>
       <span class="amt">${compact(p.earned)}</span>
-      <p>${p.minutes ? `${p.minutes} minutes, so ${money(p.ppm)} a minute` : "0 minutes played"}${p.news ? ". " + esc(p.news) : ""}</p>
+      <p>${p.minutes ? `That's ${money(p.ppm)} for every minute played` : "Paid every week all the same"}${p.news ? ". " + esc(p.news) : ""}</p>
     </div>`).join("") : `<p class="lede">Every tracked ${posWord()} has played at least a full match.</p>`;
 }
 
@@ -657,7 +673,7 @@ function renderClubs() {
   const max = Math.max(...rows.map(r => r.ppm));
   const head = `<div class="row head"><span></span><span class="who">Club</span><span class="cell opt">Players</span><span class="cell opt">Paid so far</span><span class="cell">Idle pay</span><span class="cell">£ / min</span></div>`;
   const missing = D.clubs.filter(c => !(by[c.short] && by[c.short].n >= minN && by[c.short].minutes > 0)).map(c => c.name);
-  $("clubs").innerHTML = head + rows.map((c, i) => `
+  $("clubs-list").innerHTML = head + rows.map((c, i) => `
     <div class="row">
       <span class="rank">${i + 1}</span>
       <span class="who">${chip(c.team)}<strong>${esc(names[c.team] || c.team)}</strong></span>
@@ -682,7 +698,8 @@ function renderVersus() {
     out.push([h ? `${h}h ${m}m` : `${m} min`, `for ${esc(richest.name)} to be paid your annual salary, day or night`]);
   }
   if (cheapest) out.push([`${n0.format(Math.round(salary / cheapest.ppm))} min`, `of ${esc(cheapest.name)}, the best value tracked, for the same money`]);
-  $("versus").innerHTML = out.map(([b, s]) => `<div><b>${b}</b><span>${s}</span></div>`).join("");
+  const vIcons = ["clock", "briefcase", "star"];
+  $("versus").innerHTML = out.map(([b, s], i) => `<div><b>${ic(vIcons[i] || "clock", "v-ic")} ${b}</b><span>${s}</span></div>`).join("");
 }
 
 function startTicker() {
@@ -758,15 +775,15 @@ function renderHome() {
   const idle = P.filter(p => p.minutes < 90).sort((a, b) => b.earned - a.earned)[0];
   const top = [...P].sort((a, b) => b.weekly - a.weekly)[0];
   const cards = [
-    ["players", "Players", "Every tracked player's pay per minute on the pitch.", dear && `Dearest minute: ${dear.name}, ${money(dear.ppm)}`],
-    ["value", "Best value", "Rating against cost per minute. Who's a bargain?", best && `Best value: ${best.name}, ${best.value}/100`],
-    ["actions", "Price per action", "Pay per goal, assist, tackle and more, in pounds or meal deals.", goal && `Dearest goals: ${goal.name}, ${compact(goal.earned / goal.goals)} each`],
-    ["clubs", "Clubs", "Which club pays the most per minute of football.", club && `Top: ${names[club.t] || club.t}, ${money(club.e / club.m)} a minute`],
-    ["team", "Team breakdown", "Pick a club: cost per goal, assist and minute.", "Every club, player by player"],
-    ["bench", "Paid to watch", "The best-paid players who've barely played.", idle && `${idle.name}: ${compact(idle.earned)} for ${idle.minutes} minutes`],
-    ["you", "You vs them", "Put your salary next to theirs.", top && `${top.name} earns ${compact(top.weekly)} a week`],
+    ["players", "list", "Players", "Every tracked player's pay per minute on the pitch.", dear && `Dearest minute: ${dear.name}, ${money(dear.ppm)}`],
+    ["value", "scale", "Best value", "Rating against cost per minute. Who's a bargain?", best && `Best value: ${best.name}, ${best.value}/100`],
+    ["actions", "receipt", "Price per action", "Pay per goal, assist, tackle and more, in pounds or meal deals.", goal && `Dearest goals: ${goal.name}, ${compact(goal.earned / goal.goals)} each`],
+    ["clubs", "shield", "Clubs", "Which club pays the most per minute of football.", club && `Top: ${names[club.t] || club.t}, ${money(club.e / club.m)} a minute`],
+    ["team", "users", "Team breakdown", "Pick a club: cost per goal, assist and minute.", "Every club, player by player"],
+    ["bench", "bench", "Paid to watch", "The best-paid players who've barely played.", idle && `${idle.name}: ${compact(idle.earned)} for ${idle.minutes} minutes`],
+    ["you", "user", "You vs them", "Put your salary next to theirs.", top && `${top.name} earns ${compact(top.weekly)} a week`],
   ];
-  $("home-cards").innerHTML = cards.map(([h, t, d, teaser]) => `<a class="card" href="#${h}"><h3>${t}</h3><p>${d}</p>${teaser ? `<span class="teaser">${esc(teaser)}</span>` : ""}<span class="go">Open →</span></a>`).join("");
+  $("home-cards").innerHTML = cards.map(([h, i, t, d, teaser]) => `<a class="card" href="#${h}"><span class="badge">${ic(i)}</span><h3>${t}</h3><p>${d}</p>${teaser ? `<span class="teaser">${esc(teaser)}</span>` : ""}<span class="go">Open →</span></a>`).join("");
 }
 
 fetch("data.json").then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(data => {
@@ -774,6 +791,6 @@ fetch("data.json").then(r => { if (!r.ok) throw new Error(r.status); return r.js
   showHeroFact(); $("hero-next").addEventListener("click", showHeroFact);
   renderHome(); route(false);
 }).catch(() => {
-  $("players").innerHTML = `<div class="empty">Couldn't load data.json. Run <code>python3 build.py</code> in this folder, then reload.</div>`;
+  $("players-list").innerHTML = `<div class="empty">Couldn't load data.json. Run <code>python3 build.py</code> in this folder, then reload.</div>`;
 });
 </script>
