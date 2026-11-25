@@ -15,6 +15,8 @@ How much every Premier League footballer is paid per minute they actually play.
 - Rating = BPS per 90 compared with every PL player in the same position with 270+ minutes, on a 4–10 scale (6.5 = average)
 - Value score (0–100) = average of the rating percentile and the cheapness percentile (inverse of £ per minute) among tracked players with 270+ minutes
 - Price per action = paid so far ÷ goals+assists, xGI, tackles, recoveries or FPL defensive contributions (270+ minutes, at least one action)
+- Team breakdown = a club's tracked players: paid so far ÷ goals, assists, goals+assists and minutes
+- Units: prices can be shown in meal deals (£4), pints (£5), Greggs sausage rolls (£1.35) or Freddos (30p) – edit `UNITS` in index.html
 - Clubs are ranked only once at least 4 of their players have a wage in `wages.csv`.
 
 ## Ideas for next

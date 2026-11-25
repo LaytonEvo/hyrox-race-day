@@ -138,6 +138,18 @@ header.hero { padding-top: 40px; display: grid; gap: 20px; }
 .score.best { color: var(--good); } .score.worst { color: var(--accent); }
 .score .bar { background: var(--line); } .score.best .bar i { background: var(--good); } .score.worst .bar i { background: var(--accent); }
 
+/* Fun facts, unit picker, team tiles */
+.fact { font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: clamp(22px, 3.6vw, 32px); line-height: 1.05; text-wrap: balance; }
+.fact em { font-style: normal; color: var(--accent); }
+.toolbar { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: end; }
+.toolbar .field { flex: 0 1 220px; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.tile { background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; display: grid; gap: 2px; min-width: 0; }
+.tile b { font-family: var(--mono); font-size: 22px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.tile small { color: var(--muted); font-size: 12px; }
+#team .row { grid-template-columns: 32px minmax(0, 1.6fr) repeat(5, minmax(0, 1fr)); }
+#team .dash { color: var(--muted); }
+
 footer { color: var(--muted); font-size: 13px; display: grid; gap: 8px; max-width: 70ch; }
 footer code { font-family: var(--mono); font-size: 12px; }
 
@@ -146,6 +158,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
   .cell.ppm { font-size: 16px; }
   .row .cell.opt { display: none; }
   #value .row { --vcols: 22px minmax(0, 1fr) auto auto; }
+  #team .row { grid-template-columns: 22px minmax(0, 1fr) auto auto auto; gap: 4px 10px; }
   .row.head .cell.opt { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
@@ -212,13 +225,19 @@ footer code { font-family: var(--mono); font-size: 12px; }
       </div>
     </div>
     <p class="lede">What each player has been paid this season for every one of these, in the league. Players need <span class="amin">270</span> minutes and at least one of the chosen action to appear.</p>
+    <div class="toolbar">
+      <label class="field"><span class="label">Measure in</span><select class="unit-pick" id="unit-a"></select></label>
+    </div>
     <div class="seg" role="group" aria-label="Choose an action" style="flex-wrap:wrap;justify-self:start">
-      <button type="button" data-act="ga" aria-pressed="true">Goal or assist</button>
+      <button type="button" data-act="ga" aria-pressed="true">Key contribution (G+A)</button>
+      <button type="button" data-act="goals" aria-pressed="false">Goal</button>
+      <button type="button" data-act="assists" aria-pressed="false">Assist</button>
       <button type="button" data-act="xgi" aria-pressed="false">Expected goal involvement</button>
       <button type="button" data-act="tackles" aria-pressed="false">Tackle</button>
       <button type="button" data-act="recoveries" aria-pressed="false">Recovery</button>
       <button type="button" data-act="defcon" aria-pressed="false">Defensive action</button>
     </div>
+    <p class="fact" id="action-fact"></p>
     <div class="ledger" id="actions"></div>
     <p class="lede" id="action-note"></p>
   </section>
@@ -239,6 +258,19 @@ footer code { font-family: var(--mono); font-size: 12px; }
     <div class="ledger" id="clubs"></div>
   </section>
 
+  <section class="section" aria-labelledby="team-h">
+    <div class="section-head">
+      <h2 id="team-h">Team breakdown</h2>
+    </div>
+    <div class="toolbar">
+      <label class="field"><span class="label">Club</span><select id="team-pick"></select></label>
+      <label class="field"><span class="label">Measure in</span><select class="unit-pick" id="unit-t"></select></label>
+    </div>
+    <p class="fact" id="team-fact"></p>
+    <div class="tiles" id="team-tiles"></div>
+    <div class="ledger" id="team"></div>
+  </section>
+
   <section class="section" aria-labelledby="you-h">
     <h2 id="you-h">You vs them</h2>
     <div class="versus">
@@ -252,6 +284,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
     <p><strong>Wages are estimates.</strong> Clubs don't publish salaries. Figures are gross basic weekly wages as publicly reported, rounded, and exclude bonuses, image rights and loan splits. Each figure comes from published reporting (Spotrac, FBref/Capology, SalaryLeaks, bet365 News and others), and its source is listed beside it in <code>wages.csv</code>. Where sources disagree we use the most recent 2026/27 figure.</p>
     <p><strong>Rating and value.</strong> The rating is built from FPL's Bonus Points System (BPS), which scores every pass, tackle, save, chance and goal from Opta data. We take each player's BPS per 90 minutes and compare it with every Premier League player in the same position who has played 270+ minutes, then put it on a 4 to 10 scale where 6.5 is average. The value score (0 to 100) averages two rankings among tracked players: how high their rating is, and how cheap their minutes are.</p>
     <p><strong>Price per action.</strong> Tackles, recoveries, defensive actions (FPL's defensive contribution: clearances, blocks, interceptions and tackles, plus recoveries for midfielders and forwards) and expected goal involvement (xG + xA) come from the FPL API, which uses Opta data.</p>
+    <p><strong>Meal deals and friends.</strong> Rough 2026 UK prices: meal deal £4, pint £5, Greggs sausage roll £1.35, Freddo 30p. They're for fun, not to the penny.</p>
     <p>League minutes only; cup and European minutes aren't counted. Clubs show only the players we have a wage for.</p>
   </footer>
 </div>
@@ -367,12 +400,32 @@ function bindChart() {
   let t; addEventListener("resize", () => { clearTimeout(t); t = setTimeout(renderChart, 150); });
 }
 
+const UNITS = {
+  gbp: { name: "Pounds (£)", price: 1 },
+  meal: { name: "Meal deals (£4)", price: 4.00, many: "meal deals", one: "meal deal" },
+  pint: { name: "Pints (£5)", price: 5.00, many: "pints", one: "pint" },
+  roll: { name: "Greggs sausage rolls (£1.35)", price: 1.35, many: "sausage rolls", one: "sausage roll" },
+  freddo: { name: "Freddos (30p)", price: 0.30, many: "Freddos", one: "Freddo" },
+};
+let unit = "gbp";
+const shortNum = n => n >= 1e6 ? (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + "m" : n >= 1e4 ? Math.round(n / 1e3) + "k" : n0.format(Math.round(n));
+function cost(v) {
+  const U = UNITS[unit];
+  if (unit === "gbp") return compact(v);
+  const n = v / U.price;
+  return `${shortNum(n)} ${Math.round(n) === 1 ? U.one : U.many}`;
+}
+const costNum = v => unit === "gbp" ? compact(v) : shortNum(v / UNITS[unit].price);
+const costHead = (suffix = "each") => unit === "gbp" ? `£ ${suffix}` : `${UNITS[unit].many} ${suffix}`;
+
 const ACTIONS = {
-  ga: { label: "goals or assists", plural: "G+A", count: p => p.goals + p.assists, fmt: v => v },
-  xgi: { label: "expected goal involvement", plural: "xGI", count: p => p.xgi, fmt: v => v.toFixed(1) },
-  tackles: { label: "tackles", plural: "Tackles", count: p => p.tackles, fmt: v => v },
-  recoveries: { label: "ball recoveries", plural: "Recoveries", count: p => p.recoveries, fmt: v => v },
-  defcon: { label: "defensive actions", plural: "Def. actions", count: p => p.defcon, fmt: v => v },
+  ga: { label: "goals or assists", single: "goal or assist", plural: "G+A", count: p => p.goals + p.assists, fmt: v => v },
+  goals: { label: "goals", single: "goal", plural: "Goals", count: p => p.goals, fmt: v => v },
+  assists: { label: "assists", single: "assist", plural: "Assists", count: p => p.assists, fmt: v => v },
+  xgi: { label: "expected goal involvement", single: "expected goal involvement", plural: "xGI", count: p => p.xgi, fmt: v => v.toFixed(1) },
+  tackles: { label: "tackles", single: "tackle", plural: "Tackles", count: p => p.tackles, fmt: v => v },
+  recoveries: { label: "ball recoveries", single: "ball recovery", plural: "Recoveries", count: p => p.recoveries, fmt: v => v },
+  defcon: { label: "defensive actions", single: "defensive action", plural: "Def. actions", count: p => p.defcon, fmt: v => v },
 };
 let act = "ga", adir = "dear";
 function renderActions() {
@@ -382,7 +435,7 @@ function renderActions() {
     .sort((a, b) => adir === "dear" ? b.per - a.per : a.per - b.per).slice(0, 15);
   const max = Math.max(...list.map(r => r.per), 1);
   const none = pool.filter(p => !(A.count(p) > 0));
-  const head = `<div class="row head"><span></span><span class="who">Player</span><span class="cell opt">Paid so far</span><span class="cell opt">Minutes</span><span class="cell">${A.plural}</span><span class="cell">£ each</span></div>`;
+  const head = `<div class="row head"><span></span><span class="who">Player</span><span class="cell opt">Paid so far</span><span class="cell opt">Minutes</span><span class="cell">${A.plural}</span><span class="cell">${costHead()}</span></div>`;
   $("actions").innerHTML = head + list.map((r, i) => `
     <div class="row">
       <span class="rank">${i + 1}</span>
@@ -390,11 +443,46 @@ function renderActions() {
       <span class="cell opt">${compact(r.p.earned)}</span>
       <span class="cell opt">${n0.format(r.p.minutes)}</span>
       <span class="cell">${A.fmt(r.n)}</span>
-      <span class="cell ppm">${compact(r.per)}<div class="bar"><i style="width:${(r.per / max * 100).toFixed(1)}%"></i></div></span>
+      <span class="cell ppm">${costNum(r.per)}<div class="bar"><i style="width:${(r.per / max * 100).toFixed(1)}%"></i></div></span>
     </div>`).join("");
+  const top = list[0];
+  $("action-fact").innerHTML = top ? `It takes <em>${esc(cost(top.per))}</em> for every ${A.single} from ${esc(top.p.name)}.` : "";
   $("action-note").textContent = none.length
     ? `${none.length} qualifying player${none.length === 1 ? " has" : "s have"} no ${A.label} yet, so they can't be priced: ${none.sort((a, b) => b.earned - a.earned).slice(0, 6).map(p => p.name).join(", ")}${none.length > 6 ? " and others" : ""}.`
     : "";
+}
+
+let teamPick = "";
+function renderTeam() {
+  const club = teamPick, names = Object.fromEntries(D.clubs.map(c => [c.short, c.name]));
+  const squad = P.filter(p => p.team === club).sort((a, b) => b.earned - a.earned);
+  const sum = k => squad.reduce((s, p) => s + (typeof k === "function" ? k(p) : p[k]), 0);
+  const earned = sum("earned"), mins = sum("minutes"), goals = sum("goals"), assists = sum("assists");
+  const per = n => n ? cost(earned / n) : "None yet";
+  const tiles = [
+    ["Paid so far", compact(earned), `${squad.length} tracked players`],
+    ["Per goal", per(goals), `${goals} league goals`],
+    ["Per assist", per(assists), `${assists} assists`],
+    ["Per key contribution", per(goals + assists), `${goals + assists} goals + assists`],
+    ["Per minute", unit === "gbp" ? money(mins ? earned / mins : 0) : cost(mins ? earned / mins : 0), `${n0.format(mins)} player minutes`],
+  ];
+  $("team-tiles").innerHTML = tiles.map(([l, v, s]) => `<div class="tile"><span class="label">${l}</span><b>${esc(v)}</b><small>${s}</small></div>`).join("");
+  const best = squad.filter(p => p.goals > 0).sort((a, b) => b.earned / b.goals - a.earned / a.goals)[0];
+  $("team-fact").innerHTML = best ? `${esc(names[club] || club)}'s dearest goals: <em>${esc(cost(best.earned / best.goals))}</em> each from ${esc(best.name)}.`
+    : `${esc(names[club] || club)}'s tracked players have no league goals yet.`;
+  const head = `<div class="row head"><span></span><span class="who">Player</span><span class="cell opt">Paid so far</span><span class="cell opt">Minutes</span><span class="cell">G</span><span class="cell">A</span><span class="cell">${costHead("per G+A")}</span></div>`;
+  $("team").innerHTML = head + squad.map((p, i) => {
+    const ga = p.goals + p.assists;
+    return `<div class="row">
+      <span class="rank">${i + 1}</span>
+      <span class="who">${chip(p.team)}<span style="min-width:0"><strong>${esc(p.name)}</strong><small>${p.pos} · ${compact(p.weekly)}/wk</small></span></span>
+      <span class="cell opt">${compact(p.earned)}</span>
+      <span class="cell opt">${n0.format(p.minutes)}</span>
+      <span class="cell">${p.goals}</span>
+      <span class="cell">${p.assists}</span>
+      <span class="cell ppm${ga ? "" : " dash"}">${ga ? esc(costNum(p.earned / ga)) : "–"}</span>
+    </div>`;
+  }).join("");
 }
 
 function renderStamp() {
@@ -506,10 +594,21 @@ function bind() {
     renderActions();
   }));
   pick("data-act", v => act = v); pick("data-adir", v => adir = v);
+  document.querySelectorAll(".unit-pick").forEach(sel => {
+    sel.innerHTML = Object.entries(UNITS).map(([k, u]) => `<option value="${k}">${u.name}</option>`).join("");
+    sel.addEventListener("change", () => { unit = sel.value; document.querySelectorAll(".unit-pick").forEach(o => o.value = unit); renderActions(); renderTeam(); });
+  });
+  const clubsByPpm = [...new Set(P.map(p => p.team))].map(t => {
+    const sq = P.filter(p => p.team === t); return [t, sq.reduce((s, p) => s + p.earned, 0) / Math.max(1, sq.reduce((s, p) => s + p.minutes, 0))];
+  }).sort((a, b) => b[1] - a[1]).map(x => x[0]);
+  teamPick = clubsByPpm[0];
+  $("team-pick").innerHTML = [...clubsByPpm].sort((a, b) => (names[a] || a).localeCompare(names[b] || b)).map(c => `<option value="${c}">${esc(names[c] || c)}</option>`).join("");
+  $("team-pick").value = teamPick;
+  $("team-pick").addEventListener("change", e => { teamPick = e.target.value; renderTeam(); });
 }
 
 fetch("data.json").then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(data => {
-  prepare(data); prepareValue(); renderStamp(); bind(); renderPlayers(); renderChart(); bindChart(); renderValueList(); renderActions(); renderBench(); renderClubs(); renderVersus(); startTicker();
+  prepare(data); prepareValue(); renderStamp(); bind(); renderPlayers(); renderChart(); bindChart(); renderValueList(); renderActions(); renderTeam(); renderBench(); renderClubs(); renderVersus(); startTicker();
 }).catch(() => {
   $("players").innerHTML = `<div class="empty">Couldn't load data.json. Run <code>python3 build.py</code> in this folder, then reload.</div>`;
 });
