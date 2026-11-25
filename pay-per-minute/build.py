@@ -40,8 +40,9 @@ def load_fpl(path=None):
         return json.load(r)
 
 
-def main():
-    fpl = load_fpl(sys.argv[1] if len(sys.argv) > 1 else None)
+def main(argv=None):
+    argv = sys.argv[1:] if argv is None else argv
+    fpl = load_fpl(argv[0] if argv else None)
     teams = {t["id"]: t for t in fpl["teams"]}
     by_key = {}
     for e in fpl["elements"]:
@@ -101,7 +102,9 @@ def main():
         "clubs": clubs,
         "unmatched_wages": missing,
     }
-    (HERE / "data.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    tmp = HERE / "data.json.tmp"  # write then rename, so the server never serves a half-written file
+    tmp.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    tmp.replace(HERE / "data.json")
     print(f"{len(players)} players written, GW{out['gameweek']}, {len(missing)} unmatched: {missing}")
 
 
