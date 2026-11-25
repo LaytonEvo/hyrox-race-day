@@ -26,8 +26,8 @@ CHE,Neto,100000,Reported estimate
 CHE,João Pedro,80000,Reported estimate
 CHE,Fofana,75000,Reported estimate
 CHE,Lavia,75000,Reported estimate
-EVE,Grealish,300000,Reported estimate (full wage; loan split not public)
-EVE,Pickford,125000,Reported estimate
+EVE,Grealish,270000,SalarySport 2026/27
+EVE,Pickford,150000,SalaryLeaks 2026/27 (£7.8m/yr base)
 EVE,Tarkowski,100000,Reported estimate
 LIV,Virgil,220000,Reported estimate
 LIV,Wirtz,195000,Reported estimate
@@ -85,3 +85,79 @@ TOT,Mudryk,97000,Reported estimate
 TOT,Richarlison,90000,Reported estimate
 TOT,Pedro Porro,80000,Reported estimate
 TOT,Bentancur,70000,Reported estimate
+BOU,Evanilson,125000,Spotrac 2026-27
+BOU,Kluivert,110000,Spotrac 2026-27
+BOU,Tavernier,90000,Spotrac 2026-27
+BOU,Christie,85000,Spotrac 2026-27
+BOU,Adams,80000,Spotrac 2026-27
+BOU,Petrović,70000,SillySeason 2026-27
+BRE,Thiago,110000,FBref/Capology 2026-27 (unverified)
+BRE,Damsgaard,90000,FBref/Capology 2026-27 (unverified)
+BRE,Kelleher,80000,FBref/Capology 2026-27 (unverified)
+BRE,Janelt,50000,SalaryLeaks (2030 contract)
+BHA,Mitoma,100000,SillySeason (€117.9k converted)
+BHA,Groß,90000,Football Whispers/Capology 2026-27
+BHA,F.Kadıoğlu,88000,SalaryLeaks 2026/27 (£4.6m/yr base)
+BHA,Gomez,25000,FBref/Capology (unverified)
+BHA,Ayari,20000,Spotrac 2026-27
+COV,Awoniyi,50000,Spotrac 2026-27
+COV,Rushworth,40000,Spotrac 2026-27
+COV,Onyeka,40000,SalarySport 2026/27
+COV,Grimes,35000,Spotrac 2026-27
+COV,Simms,35000,FBref/Capology 2026-27 (unverified)
+COV,Thomas-Asante,25000,Spotrac 2026-27
+COV,Wright,21000,SalarySport 2026/27
+CRY,Strand Larsen,125000,Spotrac 2026-27
+CRY,Kamada,105000,Spotrac 2026-27
+CRY,Henderson,100000,Spotrac 2026-27
+CRY,Nketiah,90000,Spotrac 2026-27
+CRY,Sarr,75000,Spotrac 2026-27
+CRY,Richards,50000,GiveMeSport ('north of £50k')
+EVE,Branthwaite,120000,Football Fancast 2026/27
+EVE,Dewsbury-Hall,100000,FBref/Capology 2026-27 (unverified)
+EVE,Garner,90000,FBref/Capology 2026-27 (unverified)
+EVE,Mykolenko,90000,FBref/Capology 2026-27 (unverified)
+EVE,Keane,80000,FBref/Capology 2026-27 (unverified)
+EVE,Barry,45000,GiveMeSport / Football Fancast 2026/27
+EVE,George,25000,GiveMeSport 2026/27
+FUL,Leno,130000,Spotrac 2026-27
+FUL,Berge,120000,Spotrac 2026-27
+FUL,Andersen,110000,Spotrac 2026-27
+FUL,Iwobi,110000,Spotrac 2026-27
+FUL,Smith Rowe,90000,Spotrac 2026-27
+FUL,Robinson,85000,Spotrac 2026-27
+FUL,Castagne,70000,Spotrac 2026-27
+FUL,Bassey,60000,Spotrac 2026-27
+HUL,Targett,75000,SalaryLeaks 2026/27 (£3.9m/yr base)
+HUL,Giles,35000,bet365 News July 2026
+HUL,Ömür,35000,bet365 News July 2026
+HUL,McBurnie,30000,Capology
+HUL,Butland,30000,SalaryLeaks 2026/27
+HUL,Slater,12500,SalaryLeaks 2025/26
+IPS,Palacios,100000,FBref/Capology 2026-27 (unverified)
+IPS,Enciso,60000,FBref/Capology 2026-27 (unverified)
+IPS,Fatawu,40000,FBref/Capology 2026-27 (unverified)
+IPS,Walton,35000,FBref/Capology 2026-27 (unverified)
+IPS,Davis,35000,Football Whispers 2026-27
+IPS,O'Shea,35000,Football Whispers 2026-27
+IPS,Núñez,30000,FBref/Capology 2026-27 (unverified)
+LEE,Calvert-Lewin,120000,FBref/Capology 2026-27 (unverified)
+LEE,Trafford,100000,FBref/Capology 2026-27 (unverified)
+LEE,Okafor,80000,FBref/Capology 2026-27 (unverified)
+LEE,Ampadu,80000,FBref/Capology 2026-27 (unverified)
+LEE,Stach,50000,FBref/Capology 2026-27 (unverified)
+LEE,Gudmundsson,45000,Spotrac 2026-27
+LEE,Justin,40000,Spotrac 2026-27
+LEE,Tanaka,30000,Spotrac 2026-27
+NFO,Milenković,105000,Football Fancast 2025/26
+NFO,Ndoye,85000,Football Fancast 2025/26
+NFO,Murillo,75000,Football Fancast 2025/26
+NFO,N.Williams,65000,Football Fancast 2025/26
+NFO,Kalimuendo,60000,Football Fancast 2025/26
+SUN,Xhaka,110000,bet365 News July 2026 / SalaryLeaks
+SUN,Mukiele,100000,bet365 News July 2026 / FBref
+SUN,Brobbey,100000,FBref/Capology 2026-27 (unverified)
+SUN,E.Le Fée,75000,bet365 News July 2026
+SUN,Diarra,50000,FBref/Capology 2026-27 (unverified)
+SUN,Sadiki,40000,FBref/Capology 2026-27 (unverified)
+SUN,Roefs,35000,Spotrac 2026-27

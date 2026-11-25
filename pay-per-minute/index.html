@@ -229,7 +229,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
 
   <footer>
     <p><strong>How it's worked out.</strong> Pay so far = weekly wage × weeks since the season's first deadline. Pay per minute = pay so far ÷ league minutes played. Minutes come from the official Fantasy Premier League API and refresh daily.</p>
-    <p><strong>Wages are estimates.</strong> Clubs don't publish salaries. Figures are gross basic weekly wages as publicly reported, rounded, and exclude bonuses, image rights and loan splits. They live in <code>wages.csv</code> and are easy to correct.</p>
+    <p><strong>Wages are estimates.</strong> Clubs don't publish salaries. Figures are gross basic weekly wages as publicly reported, rounded, and exclude bonuses, image rights and loan splits. Each figure comes from published reporting (Spotrac, FBref/Capology, SalaryLeaks, bet365 News and others), and its source is listed beside it in <code>wages.csv</code>. Where sources disagree we use the most recent 2026/27 figure.</p>
     <p><strong>Rating and value.</strong> The rating is built from FPL's Bonus Points System (BPS), which scores every pass, tackle, save, chance and goal from Opta data. We take each player's BPS per 90 minutes and compare it with every Premier League player in the same position who has played 270+ minutes, then put it on a 4 to 10 scale where 6.5 is average. The value score (0 to 100) averages two rankings among tracked players: how high their rating is, and how cheap their minutes are.</p>
     <p>League minutes only; cup and European minutes aren't counted. Clubs show only the players we have a wage for.</p>
   </footer>
@@ -396,10 +396,10 @@ function renderClubs() {
     c.n++; c.earned += p.earned; c.minutes += p.minutes; c.idle += p.idle;
   }
   const names = Object.fromEntries(D.clubs.map(c => [c.short, c.name]));
-  const rows = Object.values(by).filter(c => c.n >= 5).map(c => ({ ...c, ppm: c.earned / c.minutes })).sort((a, b) => b.ppm - a.ppm);
+  const rows = Object.values(by).filter(c => c.n >= 4).map(c => ({ ...c, ppm: c.earned / c.minutes })).sort((a, b) => b.ppm - a.ppm);
   const max = Math.max(...rows.map(r => r.ppm));
   const head = `<div class="row head"><span></span><span class="who">Club</span><span class="cell opt">Players</span><span class="cell opt">Paid so far</span><span class="cell">Idle pay</span><span class="cell">£ / min</span></div>`;
-  const missing = D.clubs.filter(c => !(by[c.short] && by[c.short].n >= 5)).map(c => c.name);
+  const missing = D.clubs.filter(c => !(by[c.short] && by[c.short].n >= 4)).map(c => c.name);
   $("clubs").innerHTML = head + rows.map((c, i) => `
     <div class="row">
       <span class="rank">${i + 1}</span>

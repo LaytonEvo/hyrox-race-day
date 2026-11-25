@@ -14,7 +14,7 @@ How much every Premier League footballer is paid per minute they actually play.
 - Idle pay = paid so far × share of available league minutes (gameweeks × 90) the player didn't play
 - Rating = BPS per 90 compared with every PL player in the same position with 270+ minutes, on a 4–10 scale (6.5 = average)
 - Value score (0–100) = average of the rating percentile and the cheapness percentile (inverse of £ per minute) among tracked players with 270+ minutes
-- Clubs are ranked only once at least 5 of their players have a wage in `wages.csv`.
+- Clubs are ranked only once at least 4 of their players have a wage in `wages.csv`.
 
 ## Ideas for next
 
