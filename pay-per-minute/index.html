@@ -35,6 +35,7 @@
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html, body { margin: 0; }
 body {
   background: var(--paper); color: var(--ink); font: 15px/1.5 var(--body);
@@ -49,6 +50,35 @@ h2 { font-size: clamp(28px, 4vw, 40px); }
 .label { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 600; }
 p { margin: 0; }
 .lede { color: var(--muted); max-width: 62ch; }
+
+/* Top navigation */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--ink); }
+.topnav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ink); color: var(--paper);
+  margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))) calc(-1 * max(16px, env(safe-area-inset-right, 0px)));
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.topnav-in { max-width: 1040px; margin: 0 auto; display: flex; align-items: center; gap: 4px 18px; min-height: 52px; }
+.brand { font: 900 20px/1 var(--display); text-transform: uppercase; color: var(--paper); text-decoration: none; letter-spacing: .02em; white-space: nowrap; }
+.brand span { color: var(--accent); }
+.navlinks { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; min-width: 0; flex: 1; padding-block: 8px; }
+.navlinks::-webkit-scrollbar { display: none; }
+.navlinks a { color: var(--paper); opacity: .72; text-decoration: none; font-size: 14px; font-weight: 500; padding: 6px 10px; border-radius: 4px; white-space: nowrap; }
+.navlinks a:hover { opacity: 1; }
+.navlinks a[aria-current="page"] { opacity: 1; background: color-mix(in srgb, var(--paper) 16%, transparent); }
+.navlinks a:focus-visible, .brand:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 720px) { .topnav-in { flex-wrap: wrap; padding-top: 10px; } .navlinks { flex-basis: 100%; padding-top: 2px; } }
+.page-top { padding-top: 24px; }
+
+/* Home cards */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.card { background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; padding: 16px; display: grid; gap: 6px; color: inherit; text-decoration: none; align-content: start; transition: border-color .15s; }
+.card:hover { border-color: var(--ink); }
+.card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.card h3 { margin: 0; font: 900 24px/1 var(--display); text-transform: uppercase; }
+.card p { color: var(--muted); font-size: 14px; }
+.card .teaser { color: var(--ink); font-family: var(--mono); font-size: 14px; font-variant-numeric: tabular-nums; }
+.card .go { color: var(--accent); font-weight: 600; font-size: 14px; }
 
 /* Hero */
 header.hero { padding-top: 40px; display: grid; gap: 20px; }
@@ -167,8 +197,24 @@ footer code { font-family: var(--mono); font-size: 12px; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 
+<nav class="topnav" aria-label="Pages">
+  <div class="topnav-in">
+    <a class="brand" href="#home">Pay per <span>minute</span></a>
+    <div class="navlinks">
+      <a href="#home">Home</a>
+      <a href="#players">Players</a>
+      <a href="#value">Best value</a>
+      <a href="#actions">Price per action</a>
+      <a href="#clubs">Clubs</a>
+      <a href="#team">Team breakdown</a>
+      <a href="#bench">Paid to watch</a>
+      <a href="#you">You vs them</a>
+    </div>
+  </div>
+</nav>
+
 <div class="wrap">
-  <header class="hero">
+  <header class="hero" data-page="home">
     <p class="label" id="season-label">Premier League</p>
     <h1>Pay per <span>minute</span></h1>
     <p class="lede">What every Premier League player has been paid this season, divided by the minutes they've actually spent on the pitch.</p>
@@ -184,7 +230,11 @@ footer code { font-family: var(--mono); font-size: 12px; }
     <div class="stamp" id="stamp"></div>
   </header>
 
-  <section class="section" aria-labelledby="players-h">
+  <section class="section" data-page="home" aria-label="Pages">
+    <div class="cards" id="home-cards"></div>
+  </section>
+
+  <section class="section page-top" data-page="players" aria-labelledby="players-h" hidden>
     <div class="section-head">
       <h2 id="players-h">Players</h2>
       <div class="seg" role="group" aria-label="Sort players">
@@ -206,7 +256,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
     <button class="more" id="more" type="button" hidden>Show all</button>
   </section>
 
-  <section class="section" aria-labelledby="value-h">
+  <section class="section page-top" data-page="value" aria-labelledby="value-h" hidden>
     <div class="section-head">
       <h2 id="value-h">Best value</h2>
       <div class="seg" role="group" aria-label="Show best or worst value">
@@ -223,7 +273,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
     <div class="ledger" id="value"></div>
   </section>
 
-  <section class="section" aria-labelledby="action-h">
+  <section class="section page-top" data-page="actions" aria-labelledby="action-h" hidden>
     <div class="section-head">
       <h2 id="action-h">Price per action</h2>
       <div class="seg" role="group" aria-label="Dearest or cheapest">
@@ -249,7 +299,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
     <p class="lede" id="action-note"></p>
   </section>
 
-  <section class="section" aria-labelledby="bench-h">
+  <section class="section page-top" data-page="bench" aria-labelledby="bench-h" hidden>
     <div class="section-head">
       <h2 id="bench-h">Paid to watch</h2>
       <p class="lede">The 12 best-paid players with less than one full match of league minutes this season.</p>
@@ -257,7 +307,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
     <div class="bench" id="bench"></div>
   </section>
 
-  <section class="section" aria-labelledby="clubs-h">
+  <section class="section page-top" data-page="clubs" aria-labelledby="clubs-h" hidden>
     <div class="section-head">
       <h2 id="clubs-h">Clubs</h2>
       <p class="lede">Wages paid to each club's tracked players divided by those players' minutes. Idle pay is wages for minutes they were available but not on the pitch.</p>
@@ -265,7 +315,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
     <div class="ledger" id="clubs"></div>
   </section>
 
-  <section class="section" aria-labelledby="team-h">
+  <section class="section page-top" data-page="team" aria-labelledby="team-h" hidden>
     <div class="section-head">
       <h2 id="team-h">Team breakdown</h2>
     </div>
@@ -278,7 +328,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
     <div class="ledger" id="team"></div>
   </section>
 
-  <section class="section" aria-labelledby="you-h">
+  <section class="section page-top" data-page="you" aria-labelledby="you-h" hidden>
     <h2 id="you-h">You vs them</h2>
     <div class="versus">
       <label class="field" style="max-width:280px"><span class="label">Your annual salary (£)</span><input id="salary" type="number" inputmode="numeric" min="0" step="1000" value="35000"></label>
@@ -357,6 +407,7 @@ function renderValueList() {
 }
 
 function renderChart() {
+  if (!$("chart").clientWidth) return;
   const svg = $("scatter"), W = Math.max(300, $("chart").clientWidth - 16), narrow = W < 560;
   const H = narrow ? 350 : 430, m = { t: 28, r: narrow ? 12 : 24, b: 40, l: 36 };
   const xs = V.map(p => p.ppm), lo = Math.min(...xs) * 0.8, hi = Math.max(...xs) * 1.25;
@@ -612,7 +663,7 @@ function renderVersus() {
 function startTicker() {
   const perSec = P.reduce((s, p) => s + p.weekly, 0) / 604800;
   const t0 = performance.now();
-  $("ticker-note").textContent = `paid to the ${P.length} players tracked below. That's ${money(perSec)} a second, playing or not.`;
+  $("ticker-note").textContent = `paid to the ${P.length} players we track. That's ${money(perSec)} a second, playing or not.`;
   const tick = () => { $("ticker").textContent = fmt2.format(perSec * (performance.now() - t0) / 1000); };
   tick(); setInterval(tick, 100);
 }
@@ -649,9 +700,45 @@ function bind() {
   $("team-pick").addEventListener("change", e => { teamPick = e.target.value; renderTeam(); });
 }
 
+const PAGES = ["home", "players", "value", "actions", "clubs", "team", "bench", "you"];
+function currentPage() { const h = location.hash.slice(1); return PAGES.includes(h) ? h : "home"; }
+function route(scroll = true) {
+  const page = currentPage();
+  document.querySelectorAll("[data-page]").forEach(el => { el.hidden = el.dataset.page !== page; });
+  document.querySelectorAll(".navlinks a").forEach(a => { if (a.getAttribute("href") === "#" + page) { a.setAttribute("aria-current", "page"); a.scrollIntoView({ block: "nearest", inline: "nearest" }); } else a.removeAttribute("aria-current"); });
+  const titles = { home: "", players: "Players", value: "Best value", actions: "Price per action", clubs: "Clubs", team: "Team breakdown", bench: "Paid to watch", you: "You vs them" };
+  document.title = titles[page] ? `${titles[page]} · Pay Per Minute` : "Pay Per Minute";
+  if (page === "value" && V.length) renderChart();
+  if (scroll) scrollTo(0, 0);
+}
+addEventListener("hashchange", () => route());
+route(false);
+
+function renderHome() {
+  const playing = P.filter(p => p.minutes >= 90);
+  const dear = [...playing].sort((a, b) => b.ppm - a.ppm)[0];
+  const best = V[0];
+  const goal = P.filter(p => p.minutes >= D.rating_min_minutes && p.goals > 0).sort((a, b) => b.earned / b.goals - a.earned / a.goals)[0];
+  const club = Object.values(P.reduce((m, p) => { const c = m[p.team] ||= { t: p.team, e: 0, m: 0 }; c.e += p.earned; c.m += p.minutes; return m; }, {})).sort((a, b) => b.e / b.m - a.e / a.m)[0];
+  const names = Object.fromEntries(D.clubs.map(c => [c.short, c.name]));
+  const idle = P.filter(p => p.minutes < 90).sort((a, b) => b.earned - a.earned)[0];
+  const top = [...P].sort((a, b) => b.weekly - a.weekly)[0];
+  const cards = [
+    ["players", "Players", "Every tracked player's pay per minute on the pitch.", dear && `Dearest minute: ${dear.name}, ${money(dear.ppm)}`],
+    ["value", "Best value", "Rating against cost per minute. Who's a bargain?", best && `Best value: ${best.name}, ${best.value}/100`],
+    ["actions", "Price per action", "Pay per goal, assist, tackle and more, in pounds or meal deals.", goal && `Dearest goals: ${goal.name}, ${compact(goal.earned / goal.goals)} each`],
+    ["clubs", "Clubs", "Which club pays the most per minute of football.", club && `Top: ${names[club.t] || club.t}, ${money(club.e / club.m)} a minute`],
+    ["team", "Team breakdown", "Pick a club: cost per goal, assist and minute.", "Every club, player by player"],
+    ["bench", "Paid to watch", "The best-paid players who've barely played.", idle && `${idle.name}: ${compact(idle.earned)} for ${idle.minutes} minutes`],
+    ["you", "You vs them", "Put your salary next to theirs.", top && `${top.name} earns ${compact(top.weekly)} a week`],
+  ];
+  $("home-cards").innerHTML = cards.map(([h, t, d, teaser]) => `<a class="card" href="#${h}"><h3>${t}</h3><p>${d}</p>${teaser ? `<span class="teaser">${esc(teaser)}</span>` : ""}<span class="go">Open →</span></a>`).join("");
+}
+
 fetch("data.json").then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(data => {
   prepare(data); prepareValue(); renderStamp(); bind(); renderPlayers(); renderChart(); bindChart(); renderValueList(); renderActions(); renderTeam(); renderBench(); renderClubs(); renderVersus(); startTicker();
   showHeroFact(); $("hero-next").addEventListener("click", showHeroFact);
+  renderHome(); route(false);
 }).catch(() => {
   $("players").innerHTML = `<div class="empty">Couldn't load data.json. Run <code>python3 build.py</code> in this folder, then reload.</div>`;
 });
