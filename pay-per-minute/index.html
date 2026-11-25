@@ -60,6 +60,9 @@ header.hero { padding-top: 40px; display: grid; gap: 20px; }
 }
 .meter .big { font-family: var(--mono); font-size: clamp(32px, 7vw, 56px); font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.05; }
 .meter p { color: var(--muted); font-size: 14px; }
+.didyou { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 20px; border-top: 2px solid var(--ink); padding-top: 14px; }
+.didyou .fact { flex: 1 1 420px; min-width: 0; margin: 0; }
+.didyou .more { flex: none; }
 .stamp { display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--muted); font-size: 13px; }
 
 /* Controls */
@@ -174,6 +177,10 @@ footer code { font-family: var(--mono); font-size: 12px; }
       <span class="big" id="ticker">£0</span>
       <p id="ticker-note">paid to the players tracked below.</p>
     </div>
+    <div class="didyou" aria-live="polite">
+      <p class="fact" id="hero-fact"></p>
+      <button class="more" id="hero-next" type="button">Another one</button>
+    </div>
     <div class="stamp" id="stamp"></div>
   </header>
 
@@ -284,7 +291,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
     <p><strong>Wages are estimates.</strong> Clubs don't publish salaries. Figures are gross basic weekly wages as publicly reported, rounded, and exclude bonuses, image rights and loan splits. Each figure comes from published reporting (Spotrac, FBref/Capology, SalaryLeaks, bet365 News and others), and its source is listed beside it in <code>wages.csv</code>. Where sources disagree we use the most recent 2026/27 figure.</p>
     <p><strong>Rating and value.</strong> The rating is built from FPL's Bonus Points System (BPS), which scores every pass, tackle, save, chance and goal from Opta data. We take each player's BPS per 90 minutes and compare it with every Premier League player in the same position who has played 270+ minutes, then put it on a 4 to 10 scale where 6.5 is average. The value score (0 to 100) averages two rankings among tracked players: how high their rating is, and how cheap their minutes are.</p>
     <p><strong>Price per action.</strong> Tackles, recoveries, defensive actions (FPL's defensive contribution: clearances, blocks, interceptions and tackles, plus recoveries for midfielders and forwards) and expected goal involvement (xG + xA) come from the FPL API, which uses Opta data.</p>
-    <p><strong>Meal deals and friends.</strong> Rough 2026 UK prices: meal deal £4, pint £5, Greggs sausage roll £1.35, Freddo 30p. They're for fun, not to the penny.</p>
+    <p><strong>Meal deals and friends.</strong> Rough 2026 UK prices: meal deal £4, pint £5, Greggs sausage roll £1.35, Freddo 30p, Premier League match ticket £50, replica shirt £85, season ticket £800, average UK salary £37,000 and average UK house £270,000. They're for fun, not to the penny.</p>
     <p>League minutes only; cup and European minutes aren't counted. Clubs show only the players we have a wage for.</p>
   </footer>
 </div>
@@ -406,9 +413,44 @@ const UNITS = {
   pint: { name: "Pints (£5)", price: 5.00, many: "pints", one: "pint" },
   roll: { name: "Greggs sausage rolls (£1.35)", price: 1.35, many: "sausage rolls", one: "sausage roll" },
   freddo: { name: "Freddos (30p)", price: 0.30, many: "Freddos", one: "Freddo" },
+  ticket: { name: "PL match tickets (£50)", price: 50, many: "match tickets", one: "match ticket" },
+  shirt: { name: "Replica shirts (£85)", price: 85, many: "replica shirts", one: "replica shirt" },
+  season: { name: "Season tickets (£800)", price: 800, many: "season tickets", one: "season ticket" },
+  salary: { name: "UK average salaries (£37k)", price: 37000, many: "average UK salaries", one: "average UK salary" },
+  house: { name: "Average UK houses (£270k)", price: 270000, many: "average UK houses", one: "average UK house" },
 };
 let unit = "gbp";
-const shortNum = n => n >= 1e6 ? (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + "m" : n >= 1e4 ? Math.round(n / 1e3) + "k" : n0.format(Math.round(n));
+const shortNum = n => n >= 1e6 ? (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + "m" : n >= 1e4 ? Math.round(n / 1e3) + "k"
+  : n >= 10 ? n0.format(Math.round(n)) : n >= 1 ? (+n.toFixed(1)).toString() : (+n.toFixed(2)).toString();
+const pickOne = a => a[Math.floor(Math.random() * a.length)];
+function duration(sec) {
+  if (sec < 1.5) return "second";
+  if (sec < 90) return `${Math.round(sec)} seconds`;
+  if (sec < 5400) return `${Math.round(sec / 60)} minutes`;
+  if (sec < 172800) { const h = sec / 3600; return `${h < 10 ? +h.toFixed(1) : Math.round(h)} hours`; }
+  return `${+(sec / 86400).toFixed(1)} days`;
+}
+const amount = (v, k) => { const U = UNITS[k], n = v / U.price; return `${shortNum(n)} ${Math.abs(n - 1) < 0.05 ? U.one : U.many}`; };
+function heroFacts() {
+  const rich = [...P].sort((a, b) => b.weekly - a.weekly).slice(0, 40);
+  const scorers = P.filter(p => p.goals > 0);
+  const idle = P.filter(p => p.minutes === 0 && p.earned > 0);
+  const playing = P.filter(p => p.minutes >= 90);
+  const small = ["freddo", "roll", "meal", "pint", "ticket", "shirt"], big = ["season", "salary", "house"];
+  const facts = [
+    () => {
+      const p = pickOne(rich), k = pickOne([...small, "season", "salary"]), U = UNITS[k], perSec = p.weekly / 604800, sec = U.price / perSec;
+      if (sec < 1) return `${esc(p.name)} earns <em>${shortNum(perSec / U.price)} ${U.many}</em> every second, day and night.`;
+      return `${esc(p.name)} earns ${/^[aeiou]/i.test(U.one) ? "an" : "a"} ${U.one} every <em>${duration(sec)}</em>.`;
+    },
+    () => { const p = pickOne(scorers), k = pickOne([...big, "ticket", "shirt", "meal"]); return `Each league goal from ${esc(p.name)} has cost <em>${amount(p.earned / p.goals, k)}</em>.`; },
+    () => { const p = pickOne(playing), k = pickOne(["pint", "meal", "ticket", "shirt"]); return `Every minute ${esc(p.name)} plays costs <em>${amount(p.ppm, k)}</em>.`; },
+    () => { const p = pickOne(rich), k = pickOne(big); return `${esc(p.name)} has been paid <em>${amount(p.earned, k)}</em> so far this season.`; },
+  ];
+  if (idle.length) facts.push(() => { const p = pickOne(idle), k = pickOne(["season", "salary", "house"]); return `${esc(p.name)} has been paid <em>${amount(p.earned, k)}</em> without playing a league minute.`; });
+  return facts;
+}
+function showHeroFact() { try { $("hero-fact").innerHTML = pickOne(heroFacts())(); } catch (e) { $("hero-fact").textContent = ""; } }
 function cost(v) {
   const U = UNITS[unit];
   if (unit === "gbp") return compact(v);
@@ -609,6 +651,7 @@ function bind() {
 
 fetch("data.json").then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(data => {
   prepare(data); prepareValue(); renderStamp(); bind(); renderPlayers(); renderChart(); bindChart(); renderValueList(); renderActions(); renderTeam(); renderBench(); renderClubs(); renderVersus(); startTicker();
+  showHeroFact(); $("hero-next").addEventListener("click", showHeroFact);
 }).catch(() => {
   $("players").innerHTML = `<div class="empty">Couldn't load data.json. Run <code>python3 build.py</code> in this folder, then reload.</div>`;
 });
