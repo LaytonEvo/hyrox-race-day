@@ -2,7 +2,7 @@
  "season": "2026/27",
  "season_start": "2026-08-21T17:30:00Z",
  "gameweek": 11,
- "built_at": "2026-11-25T18:04:41+00:00",
+ "built_at": "2026-11-25T18:07:10+00:00",
  "players": [
   {
    "id": 411,
@@ -1393,8 +1393,8 @@
    "goals": 0,
    "assists": 0,
    "photo": "209046",
-   "status": "i",
-   "news": "Unspecified injury - Unknown return date"
+   "status": "a",
+   "news": ""
   },
   {
    "id": 490,
