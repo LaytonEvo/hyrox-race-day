@@ -176,6 +176,8 @@ header.hero { padding-top: 40px; display: grid; gap: 20px; }
 .fact em { font-style: normal; color: var(--accent); }
 .toolbar { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: end; }
 .toolbar .field { flex: 0 1 220px; }
+.pos-slot .seg { flex-wrap: wrap; }
+.field .pos-slot .seg { display: flex; } .field .pos-slot .seg button { flex: 1; }
 .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
 .tile { background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; display: grid; gap: 2px; min-width: 0; }
 .tile b { font-family: var(--mono); font-size: 22px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
@@ -247,8 +249,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
     <div class="controls">
       <label class="field"><span class="label">Search</span><input id="q" type="search" placeholder="Haaland, Saka…" autocomplete="off"></label>
       <label class="field"><span class="label">Club</span><select id="club"><option value="">All clubs</option></select></label>
-      <label class="field"><span class="label">Position</span>
-        <select id="pos"><option value="">All</option><option>GK</option><option>DEF</option><option>MID</option><option>FWD</option></select></label>
+      <div class="field"><span class="label">Position</span><div class="pos-slot"></div></div>
       <label class="field"><span class="label">Minimum minutes</span>
         <select id="minmins"><option value="1">Any</option><option value="90" selected>90+</option><option value="270">270+</option><option value="450">450+</option></select></label>
     </div>
@@ -265,8 +266,9 @@ footer code { font-family: var(--mono); font-size: 12px; }
       </div>
     </div>
     <p class="lede">Higher rating and cheaper minutes means better value. Top left is where you want to be. Players need <span id="vmin">270</span> league minutes to qualify.</p>
+    <div class="pos-slot"></div>
     <div class="chart" id="chart">
-      <div class="key"><span><i style="background:var(--good)"></i>Top 10 value (filled)</span><span><i style="border:2.5px solid var(--accent);box-sizing:border-box"></i>Bottom 10 value (ring)</span><span><i style="background:var(--muted);opacity:.45"></i>Everyone else</span></div>
+      <div class="key"><span><i style="background:var(--good)"></i>Best value (filled)</span><span><i style="border:2.5px solid var(--accent);box-sizing:border-box"></i>Worst value (ring)</span><span><i style="background:var(--muted);opacity:.45"></i>Everyone else</span></div>
       <svg id="scatter" role="img" aria-label="Scatter chart of performance rating against pay per minute"></svg>
       <div class="tip" id="tip" hidden></div>
     </div>
@@ -283,12 +285,14 @@ footer code { font-family: var(--mono); font-size: 12px; }
     </div>
     <p class="lede">What each player has been paid this season for every one of these, in the league. Players need <span class="amin">270</span> minutes and at least one of the chosen action to appear.</p>
     <div class="toolbar">
+      <div class="field"><span class="label">Position</span><div class="pos-slot"></div></div>
       <label class="field"><span class="label">Measure in</span><select class="unit-pick" id="unit-a"></select></label>
     </div>
     <div class="seg" role="group" aria-label="Choose an action" style="flex-wrap:wrap;justify-self:start">
       <button type="button" data-act="ga" aria-pressed="true">Key contribution (G+A)</button>
       <button type="button" data-act="goals" aria-pressed="false">Goal</button>
       <button type="button" data-act="assists" aria-pressed="false">Assist</button>
+      <button type="button" data-act="og" aria-pressed="false">Own goal</button>
       <button type="button" data-act="xgi" aria-pressed="false">Expected goal involvement</button>
       <button type="button" data-act="tackles" aria-pressed="false">Tackle</button>
       <button type="button" data-act="recoveries" aria-pressed="false">Recovery</button>
@@ -304,6 +308,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
       <h2 id="bench-h">Paid to watch</h2>
       <p class="lede">The 12 best-paid players with less than one full match of league minutes this season.</p>
     </div>
+    <div class="pos-slot"></div>
     <div class="bench" id="bench"></div>
   </section>
 
@@ -312,6 +317,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
       <h2 id="clubs-h">Clubs</h2>
       <p class="lede">Wages paid to each club's tracked players divided by those players' minutes. Idle pay is wages for minutes they were available but not on the pitch.</p>
     </div>
+    <div class="pos-slot"></div>
     <div class="ledger" id="clubs"></div>
   </section>
 
@@ -322,6 +328,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
     <div class="toolbar">
       <label class="field"><span class="label">Club</span><select id="team-pick"></select></label>
       <label class="field"><span class="label">Measure in</span><select class="unit-pick" id="unit-t"></select></label>
+      <div class="field"><span class="label">Position</span><div class="pos-slot"></div></div>
     </div>
     <p class="fact" id="team-fact"></p>
     <div class="tiles" id="team-tiles"></div>
@@ -330,6 +337,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
 
   <section class="section page-top" data-page="you" aria-labelledby="you-h" hidden>
     <h2 id="you-h">You vs them</h2>
+    <div class="pos-slot"></div>
     <div class="versus">
       <label class="field" style="max-width:280px"><span class="label">Your annual salary (£)</span><input id="salary" type="number" inputmode="numeric" min="0" step="1000" value="35000"></label>
       <div class="versus-out" id="versus"></div>
@@ -340,7 +348,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
     <p><strong>How it's worked out.</strong> Pay so far = weekly wage × weeks since the season's first deadline. Pay per minute = pay so far ÷ league minutes played. Minutes come from the official Fantasy Premier League API and refresh daily.</p>
     <p><strong>Wages are estimates.</strong> Clubs don't publish salaries. Figures are gross basic weekly wages as publicly reported, rounded, and exclude bonuses, image rights and loan splits. Each figure comes from published reporting (Spotrac, FBref/Capology, SalaryLeaks, bet365 News and others), and its source is listed beside it in <code>wages.csv</code>. Where sources disagree we use the most recent 2026/27 figure.</p>
     <p><strong>Rating and value.</strong> The rating is built from FPL's Bonus Points System (BPS), which scores every pass, tackle, save, chance and goal from Opta data. We take each player's BPS per 90 minutes and compare it with every Premier League player in the same position who has played 270+ minutes, then put it on a 4 to 10 scale where 6.5 is average. The value score (0 to 100) averages two rankings among tracked players: how high their rating is, and how cheap their minutes are.</p>
-    <p><strong>Price per action.</strong> Tackles, recoveries, defensive actions (FPL's defensive contribution: clearances, blocks, interceptions and tackles, plus recoveries for midfielders and forwards) and expected goal involvement (xG + xA) come from the FPL API, which uses Opta data.</p>
+    <p><strong>Price per action.</strong> Own goals, tackles, recoveries, defensive actions (FPL's defensive contribution: clearances, blocks, interceptions and tackles, plus recoveries for midfielders and forwards) and expected goal involvement (xG + xA) come from the FPL API, which uses Opta data.</p>
     <p><strong>Meal deals and friends.</strong> Rough 2026 UK prices: meal deal £4, pint £5, Greggs sausage roll £1.35, Freddo 30p, Premier League match ticket £50, replica shirt £85, season ticket £800, average UK salary £37,000 and average UK house £270,000. They're for fun, not to the penny.</p>
     <p>League minutes only; cup and European minutes aren't counted. Clubs show only the players we have a wage for.</p>
   </footer>
@@ -379,7 +387,10 @@ function prepare(data) {
   D.days = days;
 }
 
-let vmode = "best", V = [];
+let vmode = "best", V = [], posF = "";
+const posOK = p => !posF || p.pos === posF;
+const POS_NAMES = { "": "All", GK: "GK", DEF: "DEF", MID: "MID", FWD: "FWD" };
+const posWord = () => ({ "": "players", GK: "goalkeepers", DEF: "defenders", MID: "midfielders", FWD: "forwards" })[posF];
 function prepareValue() {
   const pool = P.filter(p => p.minutes >= D.rating_min_minutes && p.rating != null);
   const pct = (arr, key) => { const s = arr.map(p => p[key]).sort((a, b) => a - b);
@@ -392,7 +403,8 @@ function prepareValue() {
 }
 
 function renderValueList() {
-  const list = vmode === "best" ? V.slice(0, 10) : V.slice(-10).reverse();
+  const VV = V.filter(posOK);
+  const list = vmode === "best" ? VV.slice(0, 10) : VV.slice(-10).reverse();
   const head = `<div class="row head"><span></span><span class="who">Player</span><span class="cell opt">Minutes</span><span class="cell opt">Paid so far</span><span class="cell">Rating</span><span class="cell">£ / min</span></div>`;
   $("value").innerHTML = head.replace('<span class="cell">£ / min</span>', '<span class="cell opt">£ / min</span><span class="cell">Value</span>') + list.map((p, i) => `
     <div class="row">
@@ -410,13 +422,16 @@ function renderChart() {
   if (!$("chart").clientWidth) return;
   const svg = $("scatter"), W = Math.max(300, $("chart").clientWidth - 16), narrow = W < 560;
   const H = narrow ? 350 : 430, m = { t: 28, r: narrow ? 12 : 24, b: 40, l: 36 };
-  const xs = V.map(p => p.ppm), lo = Math.min(...xs) * 0.8, hi = Math.max(...xs) * 1.25;
+  const VV = V.filter(posOK), k = Math.min(10, Math.floor(VV.length / 4));
+  if (!VV.length) { $("scatter").innerHTML = ""; return; }
+  const cls = new Map(VV.map((p, i) => [p.id, i < k ? "best" : i >= VV.length - k ? "worst" : ""]));
+  const xs = VV.map(p => p.ppm), lo = Math.min(...xs) * 0.8, hi = Math.max(...xs) * 1.25;
   const x = v => m.l + (Math.log(v) - Math.log(lo)) / (Math.log(hi) - Math.log(lo)) * (W - m.l - m.r);
   const y = v => m.t + (10 - v) / 6 * (H - m.t - m.b);
   const ticksX = [50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000].filter(v => v >= lo && v <= hi)
     .filter((v, i) => !narrow || [100, 1000, 10000, 500, 5000].includes(v));
   const med = a => { const s = [...a].sort((p, q) => p - q); return s[Math.floor(s.length / 2)]; };
-  const mx = med(xs), my = med(V.map(p => p.rating));
+  const mx = med(xs), my = med(VV.map(p => p.rating));
   let g = `<g>`;
   for (let r = 4; r <= 10; r++) g += `<line class="tick" x1="${m.l}" x2="${W - m.r}" y1="${y(r)}" y2="${y(r)}"/><text x="${m.l - 8}" y="${y(r) + 4}" text-anchor="end">${r}</text>`;
   for (const t of ticksX) g += `<text x="${x(t)}" y="${H - m.b + 18}" text-anchor="middle">${t >= 1000 ? "£" + t / 1000 + "k" : "£" + t}</text>`;
@@ -424,13 +439,13 @@ function renderChart() {
   g += `<text x="${m.l - 26}" y="${m.t - 14}" text-anchor="start">Rating ↑</text>`;
   g += `<line class="mid" x1="${x(mx)}" x2="${x(mx)}" y1="${m.t}" y2="${H - m.b}"/><line class="mid" x1="${m.l}" x2="${W - m.r}" y1="${y(my)}" y2="${y(my)}"/>`;
   g += `<text class="zone good" x="${m.l + 8}" y="${m.t + 16}">Bargains</text><text class="zone bad" x="${W - m.r - 8}" y="${H - m.b - 10}" text-anchor="end">Overpaid</text>`;
-  const order = [...V].sort((a, b) => (a.vclass ? 1 : 0) - (b.vclass ? 1 : 0));
-  for (const p of order) g += `<circle class="dot ${p.vclass}" data-id="${p.id}" cx="${x(p.ppm)}" cy="${y(p.rating)}" r="${p.vclass ? 6 : 5}"/>`;
+  const order = [...VV].sort((a, b) => (cls.get(a.id) ? 1 : 0) - (cls.get(b.id) ? 1 : 0));
+  for (const p of order) g += `<circle class="dot ${cls.get(p.id)}" data-id="${p.id}" cx="${x(p.ppm)}" cy="${y(p.rating)}" r="${cls.get(p.id) ? 6 : 5}"/>`;
   // direct labels: top 5 bargains and bottom 3, nudged apart vertically
-  const lab = [...V.slice(0, narrow ? 3 : 5), ...V.slice(narrow ? -2 : -3)].map(p => ({ p, x: x(p.ppm), y: y(p.rating) + 4 })).sort((a, b) => a.y - b.y);
+  const lab = [...VV.slice(0, Math.min(k, narrow ? 3 : 5)), ...(k ? VV.slice(narrow ? -2 : -3) : [])].map(p => ({ p, x: x(p.ppm), y: y(p.rating) + 4 })).sort((a, b) => a.y - b.y);
   for (let i = 1; i < lab.length; i++) if (Math.abs(lab[i].x - lab[i - 1].x) < 90 && lab[i].y - lab[i - 1].y < 13) lab[i].y = lab[i - 1].y + 13;
   for (const l of lab) { const right = l.x < W - 110; g += `<text class="name" x="${l.x + (right ? 10 : -10)}" y="${l.y}" text-anchor="${right ? "start" : "end"}">${esc(l.p.name)}</text>`; }
-  for (const p of V) g += `<circle class="hit" data-id="${p.id}" cx="${x(p.ppm)}" cy="${y(p.rating)}" r="12"/>`;
+  for (const p of VV) g += `<circle class="hit" data-id="${p.id}" cx="${x(p.ppm)}" cy="${y(p.rating)}" r="12"/>`;
   svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
   svg.innerHTML = g + `</g>`;
 }
@@ -498,6 +513,8 @@ function heroFacts() {
     () => { const p = pickOne(playing), k = pickOne(["pint", "meal", "ticket", "shirt"]); return `Every minute ${esc(p.name)} plays costs <em>${amount(p.ppm, k)}</em>.`; },
     () => { const p = pickOne(rich), k = pickOne(big); return `${esc(p.name)} has been paid <em>${amount(p.earned, k)}</em> so far this season.`; },
   ];
+  const ogs = P.filter(p => p.og > 0);
+  if (ogs.length) facts.push(() => { const p = pickOne(ogs), k = pickOne(["ticket", "shirt", "season", "salary", "house"]); return `${esc(p.name)} has been paid <em>${amount(p.earned / p.og, k)}</em> per own goal this season.`; });
   if (idle.length) facts.push(() => { const p = pickOne(idle), k = pickOne(["season", "salary", "house"]); return `${esc(p.name)} has been paid <em>${amount(p.earned, k)}</em> without playing a league minute.`; });
   return facts;
 }
@@ -518,12 +535,13 @@ const ACTIONS = {
   xgi: { label: "expected goal involvement", single: "expected goal involvement", plural: "xGI", count: p => p.xgi, fmt: v => v.toFixed(1) },
   tackles: { label: "tackles", single: "tackle", plural: "Tackles", count: p => p.tackles, fmt: v => v },
   recoveries: { label: "ball recoveries", single: "ball recovery", plural: "Recoveries", count: p => p.recoveries, fmt: v => v },
+  og: { label: "own goals", single: "own goal", plural: "OGs", count: p => p.og || 0, fmt: v => v },
   defcon: { label: "defensive actions", single: "defensive action", plural: "Def. actions", count: p => p.defcon, fmt: v => v },
 };
 let act = "ga", adir = "dear";
 function renderActions() {
   const A = ACTIONS[act];
-  const pool = P.filter(p => p.minutes >= D.rating_min_minutes);
+  const pool = P.filter(p => p.minutes >= D.rating_min_minutes && posOK(p));
   const list = pool.filter(p => A.count(p) > 0).map(p => ({ p, n: A.count(p), per: p.earned / A.count(p), per90: A.count(p) / p.minutes * 90 }))
     .sort((a, b) => adir === "dear" ? b.per - a.per : a.per - b.per).slice(0, 15);
   const max = Math.max(...list.map(r => r.per), 1);
@@ -548,7 +566,12 @@ function renderActions() {
 let teamPick = "";
 function renderTeam() {
   const club = teamPick, names = Object.fromEntries(D.clubs.map(c => [c.short, c.name]));
-  const squad = P.filter(p => p.team === club).sort((a, b) => b.earned - a.earned);
+  const squad = P.filter(p => p.team === club && posOK(p)).sort((a, b) => b.earned - a.earned);
+  if (!squad.length) {
+    $("team-tiles").innerHTML = ""; $("team").innerHTML = "";
+    $("team-fact").textContent = `We don't have wages for any ${posWord()} at ${names[club] || club} yet.`;
+    return;
+  }
   const sum = k => squad.reduce((s, p) => s + (typeof k === "function" ? k(p) : p[k]), 0);
   const earned = sum("earned"), mins = sum("minutes"), goals = sum("goals"), assists = sum("assists");
   const per = n => n ? cost(earned / n) : "None yet";
@@ -557,6 +580,7 @@ function renderTeam() {
     ["Per goal", per(goals), `${goals} league goals`],
     ["Per assist", per(assists), `${assists} assists`],
     ["Per key contribution", per(goals + assists), `${goals + assists} goals + assists`],
+    ["Own goals", String(sum(p => p.og || 0)), sum(p => p.og || 0) ? `${esc(cost(earned / sum(p => p.og || 0)))} each` : "None yet"],
     ["Per minute", unit === "gbp" ? money(mins ? earned / mins : 0) : cost(mins ? earned / mins : 0), `${n0.format(mins)} player minutes`],
   ];
   $("team-tiles").innerHTML = tiles.map(([l, v, s]) => `<div class="tile"><span class="label">${l}</span><b>${esc(v)}</b><small>${s}</small></div>`).join("");
@@ -585,7 +609,7 @@ function renderStamp() {
 }
 
 function filtered() {
-  const q = $("q").value.trim().toLowerCase(), club = $("club").value, pos = $("pos").value, min = +$("minmins").value;
+  const q = $("q").value.trim().toLowerCase(), club = $("club").value, pos = posF, min = +$("minmins").value;
   let list = P.filter(p => p.minutes >= min && (!club || p.team === club) && (!pos || p.pos === pos)
     && (!q || p.name.toLowerCase().includes(q) || p.full_name.toLowerCase().includes(q)));
   const by = { ppm: (a, b) => b.ppm - a.ppm, cheap: (a, b) => a.ppm - b.ppm, earned: (a, b) => b.earned - a.earned,
@@ -612,26 +636,27 @@ function renderPlayers() {
 }
 
 function renderBench() {
-  const list = P.filter(p => p.minutes < 90).sort((a, b) => b.earned - a.earned).slice(0, 12);
+  const list = P.filter(p => p.minutes < 90 && posOK(p)).sort((a, b) => b.earned - a.earned).slice(0, 12);
   $("bench").innerHTML = list.length ? list.map(p => `
     <div class="slip">
       <span class="who">${chip(p.team)}<strong>${esc(p.name)}</strong></span>
       <span class="amt">${compact(p.earned)}</span>
       <p>${p.minutes ? `${p.minutes} minutes, so ${money(p.ppm)} a minute` : "0 minutes played"}${p.news ? ". " + esc(p.news) : ""}</p>
-    </div>`).join("") : `<p class="lede">Everyone tracked has played at least a full match.</p>`;
+    </div>`).join("") : `<p class="lede">Every tracked ${posWord()} has played at least a full match.</p>`;
 }
 
 function renderClubs() {
   const by = {};
-  for (const p of P) {
+  const minN = posF ? 1 : 4;
+  for (const p of P.filter(posOK)) {
     const c = by[p.team] ||= { team: p.team, n: 0, earned: 0, minutes: 0, idle: 0 };
     c.n++; c.earned += p.earned; c.minutes += p.minutes; c.idle += p.idle;
   }
   const names = Object.fromEntries(D.clubs.map(c => [c.short, c.name]));
-  const rows = Object.values(by).filter(c => c.n >= 4).map(c => ({ ...c, ppm: c.earned / c.minutes })).sort((a, b) => b.ppm - a.ppm);
+  const rows = Object.values(by).filter(c => c.n >= minN && c.minutes > 0).map(c => ({ ...c, ppm: c.earned / c.minutes })).sort((a, b) => b.ppm - a.ppm);
   const max = Math.max(...rows.map(r => r.ppm));
   const head = `<div class="row head"><span></span><span class="who">Club</span><span class="cell opt">Players</span><span class="cell opt">Paid so far</span><span class="cell">Idle pay</span><span class="cell">£ / min</span></div>`;
-  const missing = D.clubs.filter(c => !(by[c.short] && by[c.short].n >= 4)).map(c => c.name);
+  const missing = D.clubs.filter(c => !(by[c.short] && by[c.short].n >= minN && by[c.short].minutes > 0)).map(c => c.name);
   $("clubs").innerHTML = head + rows.map((c, i) => `
     <div class="row">
       <span class="rank">${i + 1}</span>
@@ -640,16 +665,16 @@ function renderClubs() {
       <span class="cell opt">${compact(c.earned)}</span>
       <span class="cell">${compact(c.idle)}</span>
       <span class="cell ppm">${money(c.ppm)}<div class="bar"><i style="width:${(c.ppm / max * 100).toFixed(1)}%"></i></div></span>
-    </div>`).join("") + (missing.length ? `<div class="empty">Not enough wage data yet for ${esc(missing.join(", "))}.</div>` : "");
+    </div>`).join("") + (missing.length ? `<div class="empty">${posF ? `No tracked ${posWord()} with minutes at` : "Not enough wage data yet for"} ${esc(missing.join(", "))}.</div>` : "");
 }
 
 function renderVersus() {
   const salary = Math.max(0, +$("salary").value || 0);
-  const playing = P.filter(p => p.minutes >= 90);
+  const playing = P.filter(p => p.minutes >= 90 && posOK(p));
   const top = [...playing].sort((a, b) => b.ppm - a.ppm)[0];
-  const richest = [...P].sort((a, b) => b.weekly - a.weekly)[0];
+  const richest = [...P.filter(posOK)].sort((a, b) => b.weekly - a.weekly)[0];
   const cheapest = [...playing].sort((a, b) => a.ppm - b.ppm)[0];
-  const perSec = richest.weekly / 604800;
+  const perSec = richest ? richest.weekly / 604800 : 0;
   const out = [];
   if (top) out.push([`${(salary / top.ppm).toFixed(salary / top.ppm < 10 ? 1 : 0)} min`, `of ${esc(top.name)} on the pitch costs the same as your year`]);
   if (richest) {
@@ -672,7 +697,7 @@ function bind() {
   const clubs = [...new Set(P.map(p => p.team))].sort();
   const names = Object.fromEntries(D.clubs.map(c => [c.short, c.name]));
   $("club").insertAdjacentHTML("beforeend", clubs.map(c => `<option value="${c}">${esc(names[c] || c)}</option>`).join(""));
-  ["q", "club", "pos", "minmins"].forEach(id => $(id).addEventListener("input", () => { showAll = false; renderPlayers(); }));
+  ["q", "club", "minmins"].forEach(id => $(id).addEventListener("input", () => { showAll = false; renderPlayers(); }));
   document.querySelectorAll("[data-sort]").forEach(b => b.addEventListener("click", () => {
     sortKey = b.dataset.sort;
     document.querySelectorAll("[data-sort]").forEach(x => x.setAttribute("aria-pressed", x === b));
@@ -687,6 +712,15 @@ function bind() {
     renderActions();
   }));
   pick("data-act", v => act = v); pick("data-adir", v => adir = v);
+  document.querySelectorAll(".pos-slot").forEach(slot => {
+    slot.innerHTML = `<div class="seg" role="group" aria-label="Filter by position">${Object.entries(POS_NAMES).map(([v, l]) => `<button type="button" data-pos="${v}" aria-pressed="${v === posF}">${l}</button>`).join("")}</div>`;
+  });
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-pos]"); if (!b) return;
+    posF = b.dataset.pos; showAll = false;
+    document.querySelectorAll("[data-pos]").forEach(x => x.setAttribute("aria-pressed", x.dataset.pos === posF));
+    renderPlayers(); renderValueList(); renderChart(); renderActions(); renderTeam(); renderBench(); renderClubs(); renderVersus();
+  });
   document.querySelectorAll(".unit-pick").forEach(sel => {
     sel.innerHTML = Object.entries(UNITS).map(([k, u]) => `<option value="${k}">${u.name}</option>`).join("");
     sel.addEventListener("change", () => { unit = sel.value; document.querySelectorAll(".unit-pick").forEach(o => o.value = unit); renderActions(); renderTeam(); });

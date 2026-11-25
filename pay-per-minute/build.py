@@ -93,6 +93,7 @@ def main(argv=None):
                 "recoveries": e["recoveries"],
                 "cbi": e["clearances_blocks_interceptions"],
                 "defcon": e["defensive_contribution"],
+                "og": e["own_goals"],
                 "photo": e["photo"].replace(".jpg", ""),
                 "status": e["status"],
                 "news": e["news"],

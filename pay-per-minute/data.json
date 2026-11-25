@@ -2,7 +2,7 @@
  "season": "2026/27",
  "season_start": "2026-08-21T17:30:00Z",
  "gameweek": 11,
- "built_at": "2026-11-25T18:32:19+00:00",
+ "built_at": "2026-11-25T18:44:46+00:00",
  "rating_min_minutes": 270,
  "players": [
   {
@@ -25,6 +25,7 @@
    "recoveries": 17,
    "cbi": 14,
    "defcon": 32,
+   "og": 0,
    "photo": "223094",
    "status": "a",
    "news": ""
@@ -49,6 +50,7 @@
    "recoveries": 10,
    "cbi": 4,
    "defcon": 18,
+   "og": 0,
    "photo": "176297",
    "status": "i",
    "news": "Hip injury - Unknown return date"
@@ -73,6 +75,7 @@
    "recoveries": 39,
    "cbi": 9,
    "defcon": 59,
+   "og": 0,
    "photo": "141746",
    "status": "a",
    "news": ""
@@ -97,6 +100,7 @@
    "recoveries": 12,
    "cbi": 15,
    "defcon": 30,
+   "og": 0,
    "photo": "219847",
    "status": "a",
    "news": ""
@@ -121,6 +125,7 @@
    "recoveries": 17,
    "cbi": 5,
    "defcon": 26,
+   "og": 0,
    "photo": "114283",
    "status": "a",
    "news": ""
@@ -145,6 +150,7 @@
    "recoveries": 15,
    "cbi": 11,
    "defcon": 13,
+   "og": 0,
    "photo": "225796",
    "status": "i",
    "news": "Knee injury - Unknown return date"
@@ -169,6 +175,7 @@
    "recoveries": 13,
    "cbi": 2,
    "defcon": 21,
+   "og": 0,
    "photo": "184341",
    "status": "a",
    "news": ""
@@ -193,6 +200,7 @@
    "recoveries": 24,
    "cbi": 10,
    "defcon": 42,
+   "og": 0,
    "photo": "446008",
    "status": "a",
    "news": ""
@@ -217,6 +225,7 @@
    "recoveries": 31,
    "cbi": 8,
    "defcon": 48,
+   "og": 0,
    "photo": "184029",
    "status": "a",
    "news": ""
@@ -241,6 +250,7 @@
    "recoveries": 45,
    "cbi": 33,
    "defcon": 91,
+   "og": 0,
    "photo": "204480",
    "status": "a",
    "news": ""
@@ -265,6 +275,7 @@
    "recoveries": 12,
    "cbi": 4,
    "defcon": 26,
+   "og": 0,
    "photo": "209244",
    "status": "a",
    "news": ""
@@ -289,6 +300,7 @@
    "recoveries": 38,
    "cbi": 92,
    "defcon": 103,
+   "og": 0,
    "photo": "97032",
    "status": "a",
    "news": ""
@@ -313,6 +325,7 @@
    "recoveries": 13,
    "cbi": 0,
    "defcon": 14,
+   "og": 0,
    "photo": "224117",
    "status": "a",
    "news": ""
@@ -337,6 +350,7 @@
    "recoveries": 72,
    "cbi": 10,
    "defcon": 0,
+   "og": 1,
    "photo": "204936",
    "status": "a",
    "news": ""
@@ -361,6 +375,7 @@
    "recoveries": 5,
    "cbi": 0,
    "defcon": 5,
+   "og": 0,
    "photo": "485711",
    "status": "i",
    "news": "Shin injury - Unknown return date"
@@ -385,6 +400,7 @@
    "recoveries": 0,
    "cbi": 10,
    "defcon": 11,
+   "og": 0,
    "photo": "209365",
    "status": "a",
    "news": ""
@@ -409,6 +425,7 @@
    "recoveries": 23,
    "cbi": 12,
    "defcon": 46,
+   "og": 0,
    "photo": "223340",
    "status": "i",
    "news": "Thigh injury - Expected back 20 Dec"
@@ -433,6 +450,7 @@
    "recoveries": 49,
    "cbi": 10,
    "defcon": 72,
+   "og": 0,
    "photo": "494595",
    "status": "a",
    "news": ""
@@ -457,6 +475,7 @@
    "recoveries": 0,
    "cbi": 0,
    "defcon": 0,
+   "og": 0,
    "photo": "462424",
    "status": "a",
    "news": ""
@@ -481,6 +500,7 @@
    "recoveries": 13,
    "cbi": 2,
    "defcon": 15,
+   "og": 0,
    "photo": "232413",
    "status": "a",
    "news": ""
@@ -505,6 +525,7 @@
    "recoveries": 28,
    "cbi": 5,
    "defcon": 49,
+   "og": 0,
    "photo": "430871",
    "status": "a",
    "news": ""
@@ -529,6 +550,7 @@
    "recoveries": 37,
    "cbi": 51,
    "defcon": 54,
+   "og": 0,
    "photo": "171314",
    "status": "a",
    "news": ""
@@ -553,6 +575,7 @@
    "recoveries": 15,
    "cbi": 9,
    "defcon": 33,
+   "og": 0,
    "photo": "172780",
    "status": "a",
    "news": ""
@@ -577,6 +600,7 @@
    "recoveries": 32,
    "cbi": 82,
    "defcon": 97,
+   "og": 0,
    "photo": "226597",
    "status": "a",
    "news": ""
@@ -601,6 +625,7 @@
    "recoveries": 17,
    "cbi": 21,
    "defcon": 47,
+   "og": 0,
    "photo": "486672",
    "status": "d",
    "news": "Back injury - 75% chance of playing"
@@ -625,6 +650,7 @@
    "recoveries": 112,
    "cbi": 19,
    "defcon": 0,
+   "og": 0,
    "photo": "111234",
    "status": "a",
    "news": ""
@@ -649,6 +675,7 @@
    "recoveries": 54,
    "cbi": 29,
    "defcon": 103,
+   "og": 0,
    "photo": "243016",
    "status": "a",
    "news": ""
@@ -673,6 +700,7 @@
    "recoveries": 96,
    "cbi": 14,
    "defcon": 0,
+   "og": 0,
    "photo": "116535",
    "status": "a",
    "news": ""
@@ -697,6 +725,7 @@
    "recoveries": 0,
    "cbi": 0,
    "defcon": 0,
+   "og": 0,
    "photo": "223541",
    "status": "a",
    "news": ""
@@ -721,6 +750,7 @@
    "recoveries": 35,
    "cbi": 32,
    "defcon": 53,
+   "og": 0,
    "photo": "477424",
    "status": "a",
    "news": ""
@@ -745,6 +775,7 @@
    "recoveries": 6,
    "cbi": 0,
    "defcon": 6,
+   "og": 0,
    "photo": "91651",
    "status": "a",
    "news": ""
@@ -769,6 +800,7 @@
    "recoveries": 11,
    "cbi": 11,
    "defcon": 27,
+   "og": 0,
    "photo": "180974",
    "status": "i",
    "news": "Unspecified injury - Unknown return date"
@@ -793,6 +825,7 @@
    "recoveries": 34,
    "cbi": 5,
    "defcon": 50,
+   "og": 0,
    "photo": "222531",
    "status": "a",
    "news": ""
@@ -817,6 +850,7 @@
    "recoveries": 44,
    "cbi": 5,
    "defcon": 60,
+   "og": 0,
    "photo": "460842",
    "status": "a",
    "news": ""
@@ -841,6 +875,7 @@
    "recoveries": 19,
    "cbi": 18,
    "defcon": 28,
+   "og": 0,
    "photo": "198869",
    "status": "a",
    "news": ""
@@ -865,6 +900,7 @@
    "recoveries": 23,
    "cbi": 5,
    "defcon": 33,
+   "og": 0,
    "photo": "248857",
    "status": "a",
    "news": ""
@@ -889,6 +925,7 @@
    "recoveries": 14,
    "cbi": 5,
    "defcon": 22,
+   "og": 0,
    "photo": "219168",
    "status": "a",
    "news": ""
@@ -913,6 +950,7 @@
    "recoveries": 20,
    "cbi": 15,
    "defcon": 39,
+   "og": 0,
    "photo": "154566",
    "status": "a",
    "news": ""
@@ -937,6 +975,7 @@
    "recoveries": 9,
    "cbi": 3,
    "defcon": 13,
+   "og": 0,
    "photo": "458249",
    "status": "a",
    "news": ""
@@ -961,6 +1000,7 @@
    "recoveries": 86,
    "cbi": 11,
    "defcon": 0,
+   "og": 0,
    "photo": "80201",
    "status": "a",
    "news": ""
@@ -985,6 +1025,7 @@
    "recoveries": 41,
    "cbi": 8,
    "defcon": 63,
+   "og": 0,
    "photo": "244851",
    "status": "a",
    "news": ""
@@ -1009,6 +1050,7 @@
    "recoveries": 34,
    "cbi": 23,
    "defcon": 67,
+   "og": 0,
    "photo": "444102",
    "status": "a",
    "news": ""
@@ -1033,6 +1075,7 @@
    "recoveries": 14,
    "cbi": 9,
    "defcon": 27,
+   "og": 0,
    "photo": "247412",
    "status": "a",
    "news": ""
@@ -1057,6 +1100,7 @@
    "recoveries": 45,
    "cbi": 18,
    "defcon": 71,
+   "og": 0,
    "photo": "424876",
    "status": "a",
    "news": ""
@@ -1081,6 +1125,7 @@
    "recoveries": 26,
    "cbi": 11,
    "defcon": 47,
+   "og": 0,
    "photo": "243298",
    "status": "i",
    "news": "Calf injury - Expected back 2 Dec"
@@ -1105,6 +1150,7 @@
    "recoveries": 19,
    "cbi": 3,
    "defcon": 27,
+   "og": 0,
    "photo": "248875",
    "status": "a",
    "news": ""
@@ -1129,6 +1175,7 @@
    "recoveries": 0,
    "cbi": 0,
    "defcon": 0,
+   "og": 0,
    "photo": "232112",
    "status": "i",
    "news": "Knee injury - Unknown return date"
@@ -1153,6 +1200,7 @@
    "recoveries": 22,
    "cbi": 37,
    "defcon": 43,
+   "og": 1,
    "photo": "221820",
    "status": "a",
    "news": ""
@@ -1177,6 +1225,7 @@
    "recoveries": 26,
    "cbi": 38,
    "defcon": 53,
+   "og": 0,
    "photo": "550864",
    "status": "a",
    "news": ""
@@ -1201,6 +1250,7 @@
    "recoveries": 17,
    "cbi": 6,
    "defcon": 32,
+   "og": 0,
    "photo": "493250",
    "status": "a",
    "news": ""
@@ -1225,6 +1275,7 @@
    "recoveries": 32,
    "cbi": 96,
    "defcon": 107,
+   "og": 0,
    "photo": "480455",
    "status": "a",
    "news": ""
@@ -1249,6 +1300,7 @@
    "recoveries": 38,
    "cbi": 28,
    "defcon": 81,
+   "og": 0,
    "photo": "207189",
    "status": "a",
    "news": ""
@@ -1273,6 +1325,7 @@
    "recoveries": 25,
    "cbi": 12,
    "defcon": 38,
+   "og": 0,
    "photo": "177815",
    "status": "a",
    "news": ""
@@ -1297,6 +1350,7 @@
    "recoveries": 24,
    "cbi": 7,
    "defcon": 35,
+   "og": 0,
    "photo": "222683",
    "status": "a",
    "news": ""
@@ -1321,6 +1375,7 @@
    "recoveries": 25,
    "cbi": 15,
    "defcon": 49,
+   "og": 0,
    "photo": "502500",
    "status": "s",
    "news": "Suspended until 5 Dec"
@@ -1345,6 +1400,7 @@
    "recoveries": 9,
    "cbi": 18,
    "defcon": 20,
+   "og": 0,
    "photo": "174874",
    "status": "a",
    "news": ""
@@ -1369,6 +1425,7 @@
    "recoveries": 46,
    "cbi": 9,
    "defcon": 65,
+   "og": 0,
    "photo": "153133",
    "status": "a",
    "news": ""
@@ -1393,6 +1450,7 @@
    "recoveries": 56,
    "cbi": 27,
    "defcon": 97,
+   "og": 0,
    "photo": "84450",
    "status": "i",
    "news": "Calf injury - Unknown return date"
@@ -1417,6 +1475,7 @@
    "recoveries": 51,
    "cbi": 16,
    "defcon": 84,
+   "og": 0,
    "photo": "209400",
    "status": "a",
    "news": ""
@@ -1441,6 +1500,7 @@
    "recoveries": 26,
    "cbi": 54,
    "defcon": 63,
+   "og": 1,
    "photo": "227444",
    "status": "a",
    "news": ""
@@ -1465,6 +1525,7 @@
    "recoveries": 123,
    "cbi": 15,
    "defcon": 0,
+   "og": 0,
    "photo": "154561",
    "status": "d",
    "news": "Shoulder injury - 50% chance of playing"
@@ -1489,6 +1550,7 @@
    "recoveries": 29,
    "cbi": 33,
    "defcon": 46,
+   "og": 0,
    "photo": "466075",
    "status": "a",
    "news": ""
@@ -1513,6 +1575,7 @@
    "recoveries": 30,
    "cbi": 15,
    "defcon": 60,
+   "og": 0,
    "photo": "247632",
    "status": "a",
    "news": ""
@@ -1537,6 +1600,7 @@
    "recoveries": 33,
    "cbi": 88,
    "defcon": 103,
+   "og": 0,
    "photo": "17761",
    "status": "s",
    "news": "Suspended until 13 Dec"
@@ -1561,6 +1625,7 @@
    "recoveries": 22,
    "cbi": 5,
    "defcon": 32,
+   "og": 0,
    "photo": "466052",
    "status": "a",
    "news": ""
@@ -1585,6 +1650,7 @@
    "recoveries": 0,
    "cbi": 0,
    "defcon": 0,
+   "og": 0,
    "photo": "448514",
    "status": "a",
    "news": ""
@@ -1609,6 +1675,7 @@
    "recoveries": 0,
    "cbi": 0,
    "defcon": 0,
+   "og": 0,
    "photo": "98747",
    "status": "a",
    "news": ""
@@ -1633,6 +1700,7 @@
    "recoveries": 6,
    "cbi": 1,
    "defcon": 4,
+   "og": 0,
    "photo": "441191",
    "status": "a",
    "news": ""
@@ -1657,6 +1725,7 @@
    "recoveries": 3,
    "cbi": 0,
    "defcon": 8,
+   "og": 0,
    "photo": "445044",
    "status": "a",
    "news": ""
@@ -1681,6 +1750,7 @@
    "recoveries": 29,
    "cbi": 42,
    "defcon": 49,
+   "og": 0,
    "photo": "491279",
    "status": "a",
    "news": ""
@@ -1705,6 +1775,7 @@
    "recoveries": 0,
    "cbi": 0,
    "defcon": 0,
+   "og": 0,
    "photo": "451340",
    "status": "i",
    "news": "Hamstring injury - Expected back 2 Dec"
@@ -1729,6 +1800,7 @@
    "recoveries": 56,
    "cbi": 13,
    "defcon": 0,
+   "og": 0,
    "photo": "172649",
    "status": "a",
    "news": ""
@@ -1753,6 +1825,7 @@
    "recoveries": 48,
    "cbi": 19,
    "defcon": 87,
+   "og": 0,
    "photo": "215413",
    "status": "a",
    "news": ""
@@ -1777,6 +1850,7 @@
    "recoveries": 76,
    "cbi": 29,
    "defcon": 126,
+   "og": 0,
    "photo": "218543",
    "status": "a",
    "news": ""
@@ -1801,6 +1875,7 @@
    "recoveries": 122,
    "cbi": 20,
    "defcon": 0,
+   "og": 0,
    "photo": "432720",
    "status": "a",
    "news": ""
@@ -1825,6 +1900,7 @@
    "recoveries": 39,
    "cbi": 79,
    "defcon": 103,
+   "og": 0,
    "photo": "200834",
    "status": "a",
    "news": ""
@@ -1849,6 +1925,7 @@
    "recoveries": 16,
    "cbi": 4,
    "defcon": 21,
+   "og": 0,
    "photo": "441264",
    "status": "i",
    "news": "Muscular injury - Unknown return date"
@@ -1873,6 +1950,7 @@
    "recoveries": 0,
    "cbi": 0,
    "defcon": 0,
+   "og": 0,
    "photo": "465920",
    "status": "i",
    "news": "Ankle injury - Unknown return date"
@@ -1897,6 +1975,7 @@
    "recoveries": 31,
    "cbi": 45,
    "defcon": 63,
+   "og": 0,
    "photo": "544877",
    "status": "a",
    "news": ""
@@ -1921,6 +2000,7 @@
    "recoveries": 17,
    "cbi": 3,
    "defcon": 23,
+   "og": 0,
    "photo": "195384",
    "status": "a",
    "news": ""
@@ -1945,6 +2025,7 @@
    "recoveries": 27,
    "cbi": 14,
    "defcon": 20,
+   "og": 0,
    "photo": "445122",
    "status": "a",
    "news": ""
@@ -1969,6 +2050,7 @@
    "recoveries": 0,
    "cbi": 1,
    "defcon": 1,
+   "og": 0,
    "photo": "212319",
    "status": "u",
    "news": "not included in squad."
@@ -1993,6 +2075,7 @@
    "recoveries": 59,
    "cbi": 12,
    "defcon": 85,
+   "og": 0,
    "photo": "201658",
    "status": "a",
    "news": ""
@@ -2017,6 +2100,7 @@
    "recoveries": 28,
    "cbi": 12,
    "defcon": 48,
+   "og": 0,
    "photo": "440089",
    "status": "a",
    "news": ""
@@ -2041,6 +2125,7 @@
    "recoveries": 29,
    "cbi": 25,
    "defcon": 69,
+   "og": 1,
    "photo": "60307",
    "status": "a",
    "news": ""
@@ -2065,6 +2150,7 @@
    "recoveries": 10,
    "cbi": 3,
    "defcon": 18,
+   "og": 0,
    "photo": "205533",
    "status": "a",
    "news": ""
@@ -2089,6 +2175,7 @@
    "recoveries": 59,
    "cbi": 31,
    "defcon": 119,
+   "og": 0,
    "photo": "232928",
    "status": "a",
    "news": ""
@@ -2113,6 +2200,7 @@
    "recoveries": 50,
    "cbi": 57,
    "defcon": 78,
+   "og": 0,
    "photo": "224967",
    "status": "a",
    "news": ""
@@ -2137,6 +2225,7 @@
    "recoveries": 2,
    "cbi": 1,
    "defcon": 3,
+   "og": 0,
    "photo": "209289",
    "status": "i",
    "news": "Hip injury - Expected back 29 Nov"
@@ -2161,6 +2250,7 @@
    "recoveries": 18,
    "cbi": 26,
    "defcon": 28,
+   "og": 0,
    "photo": "231416",
    "status": "a",
    "news": ""
@@ -2185,6 +2275,7 @@
    "recoveries": 9,
    "cbi": 8,
    "defcon": 13,
+   "og": 0,
    "photo": "216094",
    "status": "a",
    "news": ""
@@ -2209,6 +2300,7 @@
    "recoveries": 0,
    "cbi": 0,
    "defcon": 0,
+   "og": 0,
    "photo": "510663",
    "status": "i",
    "news": "Achilles injury - Unknown return date"
@@ -2233,6 +2325,7 @@
    "recoveries": 2,
    "cbi": 5,
    "defcon": 6,
+   "og": 0,
    "photo": "171287",
    "status": "a",
    "news": ""
@@ -2257,6 +2350,7 @@
    "recoveries": 54,
    "cbi": 41,
    "defcon": 62,
+   "og": 0,
    "photo": "216051",
    "status": "a",
    "news": ""
@@ -2281,6 +2375,7 @@
    "recoveries": 45,
    "cbi": 17,
    "defcon": 71,
+   "og": 0,
    "photo": "158499",
    "status": "a",
    "news": ""
@@ -2305,6 +2400,7 @@
    "recoveries": 30,
    "cbi": 47,
    "defcon": 68,
+   "og": 0,
    "photo": "169528",
    "status": "a",
    "news": ""
@@ -2329,6 +2425,7 @@
    "recoveries": 23,
    "cbi": 5,
    "defcon": 31,
+   "og": 0,
    "photo": "456512",
    "status": "a",
    "news": ""
@@ -2353,6 +2450,7 @@
    "recoveries": 42,
    "cbi": 15,
    "defcon": 70,
+   "og": 0,
    "photo": "122806",
    "status": "a",
    "news": ""
@@ -2377,6 +2475,7 @@
    "recoveries": 0,
    "cbi": 0,
    "defcon": 0,
+   "og": 0,
    "photo": "449871",
    "status": "i",
    "news": "Knee injury - Unknown return date"
@@ -2401,6 +2500,7 @@
    "recoveries": 11,
    "cbi": 4,
    "defcon": 17,
+   "og": 1,
    "photo": "475168",
    "status": "i",
    "news": "Thigh injury - Unknown return date"
@@ -2425,6 +2525,7 @@
    "recoveries": 25,
    "cbi": 8,
    "defcon": 45,
+   "og": 0,
    "photo": "200089",
    "status": "a",
    "news": ""
@@ -2449,6 +2550,7 @@
    "recoveries": 42,
    "cbi": 17,
    "defcon": 67,
+   "og": 0,
    "photo": "201666",
    "status": "a",
    "news": ""
@@ -2473,6 +2575,7 @@
    "recoveries": 19,
    "cbi": 9,
    "defcon": 16,
+   "og": 0,
    "photo": "441164",
    "status": "a",
    "news": ""
@@ -2497,6 +2600,7 @@
    "recoveries": 56,
    "cbi": 36,
    "defcon": 107,
+   "og": 0,
    "photo": "200785",
    "status": "a",
    "news": ""
@@ -2521,6 +2625,7 @@
    "recoveries": 95,
    "cbi": 12,
    "defcon": 0,
+   "og": 0,
    "photo": "200720",
    "status": "a",
    "news": ""
@@ -2545,6 +2650,7 @@
    "recoveries": 9,
    "cbi": 11,
    "defcon": 14,
+   "og": 0,
    "photo": "106611",
    "status": "a",
    "news": ""
@@ -2569,6 +2675,7 @@
    "recoveries": 16,
    "cbi": 6,
    "defcon": 29,
+   "og": 0,
    "photo": "435997",
    "status": "a",
    "news": ""
@@ -2593,6 +2700,7 @@
    "recoveries": 61,
    "cbi": 43,
    "defcon": 128,
+   "og": 0,
    "photo": "199598",
    "status": "a",
    "news": ""
@@ -2617,6 +2725,7 @@
    "recoveries": 44,
    "cbi": 39,
    "defcon": 112,
+   "og": 0,
    "photo": "226944",
    "status": "a",
    "news": ""
@@ -2641,6 +2750,7 @@
    "recoveries": 37,
    "cbi": 7,
    "defcon": 66,
+   "og": 0,
    "photo": "195546",
    "status": "a",
    "news": ""
@@ -2665,6 +2775,7 @@
    "recoveries": 27,
    "cbi": 69,
    "defcon": 78,
+   "og": 0,
    "photo": "444463",
    "status": "a",
    "news": ""
@@ -2689,6 +2800,7 @@
    "recoveries": 43,
    "cbi": 20,
    "defcon": 81,
+   "og": 0,
    "photo": "514356",
    "status": "a",
    "news": ""
@@ -2713,6 +2825,7 @@
    "recoveries": 18,
    "cbi": 18,
    "defcon": 44,
+   "og": 0,
    "photo": "441266",
    "status": "i",
    "news": "Foot injury - Unknown return date"
@@ -2737,6 +2850,7 @@
    "recoveries": 70,
    "cbi": 69,
    "defcon": 92,
+   "og": 0,
    "photo": "487838",
    "status": "d",
    "news": "Unspecified injury - 75% chance of playing"
@@ -2761,6 +2875,7 @@
    "recoveries": 3,
    "cbi": 0,
    "defcon": 4,
+   "og": 0,
    "photo": "209046",
    "status": "a",
    "news": ""
@@ -2785,6 +2900,7 @@
    "recoveries": 2,
    "cbi": 0,
    "defcon": 2,
+   "og": 0,
    "photo": "60689",
    "status": "a",
    "news": ""
@@ -2809,6 +2925,7 @@
    "recoveries": 2,
    "cbi": 0,
    "defcon": 2,
+   "og": 0,
    "photo": "232185",
    "status": "i",
    "news": "Groin injury - Expected back 29 Nov"
@@ -2833,6 +2950,7 @@
    "recoveries": 1,
    "cbi": 0,
    "defcon": 0,
+   "og": 0,
    "photo": "169359",
    "status": "i",
    "news": "Ankle injury - Unknown return date"
@@ -2857,6 +2975,7 @@
    "recoveries": 55,
    "cbi": 84,
    "defcon": 108,
+   "og": 0,
    "photo": "575476",
    "status": "a",
    "news": ""
@@ -2881,6 +3000,7 @@
    "recoveries": 43,
    "cbi": 8,
    "defcon": 68,
+   "og": 0,
    "photo": "484420",
    "status": "a",
    "news": ""
@@ -2905,6 +3025,7 @@
    "recoveries": 13,
    "cbi": 35,
    "defcon": 39,
+   "og": 0,
    "photo": "149484",
    "status": "a",
    "news": ""
@@ -2929,6 +3050,7 @@
    "recoveries": 18,
    "cbi": 74,
    "defcon": 80,
+   "og": 0,
    "photo": "220237",
    "status": "a",
    "news": ""
@@ -2953,6 +3075,7 @@
    "recoveries": 26,
    "cbi": 27,
    "defcon": 71,
+   "og": 0,
    "photo": "202993",
    "status": "a",
    "news": ""
@@ -2977,6 +3100,7 @@
    "recoveries": 88,
    "cbi": 12,
    "defcon": 0,
+   "og": 0,
    "photo": "457569",
    "status": "a",
    "news": ""
@@ -3001,6 +3125,7 @@
    "recoveries": 36,
    "cbi": 37,
    "defcon": 51,
+   "og": 0,
    "photo": "166477",
    "status": "a",
    "news": ""
@@ -3025,6 +3150,7 @@
    "recoveries": 53,
    "cbi": 42,
    "defcon": 63,
+   "og": 0,
    "photo": "215136",
    "status": "a",
    "news": ""
@@ -3049,6 +3175,7 @@
    "recoveries": 21,
    "cbi": 7,
    "defcon": 35,
+   "og": 0,
    "photo": "88894",
    "status": "a",
    "news": ""
@@ -3073,6 +3200,7 @@
    "recoveries": 10,
    "cbi": 34,
    "defcon": 39,
+   "og": 0,
    "photo": "78916",
    "status": "a",
    "news": ""
@@ -3097,6 +3225,7 @@
    "recoveries": 9,
    "cbi": 33,
    "defcon": 34,
+   "og": 0,
    "photo": "119471",
    "status": "a",
    "news": ""
@@ -3121,6 +3250,7 @@
    "recoveries": 35,
    "cbi": 60,
    "defcon": 78,
+   "og": 0,
    "photo": "232892",
    "status": "a",
    "news": ""
@@ -3145,6 +3275,7 @@
    "recoveries": 48,
    "cbi": 7,
    "defcon": 64,
+   "og": 0,
    "photo": "474120",
    "status": "a",
    "news": ""
@@ -3169,6 +3300,7 @@
    "recoveries": 2,
    "cbi": 1,
    "defcon": 4,
+   "og": 0,
    "photo": "465680",
    "status": "a",
    "news": ""
@@ -3193,6 +3325,7 @@
    "recoveries": 39,
    "cbi": 51,
    "defcon": 117,
+   "og": 0,
    "photo": "204580",
    "status": "a",
    "news": ""
@@ -3217,6 +3350,7 @@
    "recoveries": 15,
    "cbi": 4,
    "defcon": 21,
+   "og": 0,
    "photo": "210156",
    "status": "d",
    "news": "Ankle injury - 75% chance of playing"
@@ -3241,6 +3375,7 @@
    "recoveries": 28,
    "cbi": 98,
    "defcon": 123,
+   "og": 0,
    "photo": "427623",
    "status": "a",
    "news": ""
@@ -3265,6 +3400,7 @@
    "recoveries": 27,
    "cbi": 32,
    "defcon": 75,
+   "og": 0,
    "photo": "466525",
    "status": "a",
    "news": ""
@@ -3289,6 +3425,7 @@
    "recoveries": 3,
    "cbi": 0,
    "defcon": 3,
+   "og": 0,
    "photo": "547027",
    "status": "i",
    "news": "Muscular injury - Unknown return date"
@@ -3313,6 +3450,7 @@
    "recoveries": 14,
    "cbi": 21,
    "defcon": 38,
+   "og": 0,
    "photo": "586309",
    "status": "a",
    "news": ""
@@ -3337,6 +3475,7 @@
    "recoveries": 26,
    "cbi": 15,
    "defcon": 34,
+   "og": 0,
    "photo": "243526",
    "status": "a",
    "news": ""
@@ -3361,6 +3500,7 @@
    "recoveries": 103,
    "cbi": 7,
    "defcon": 0,
+   "og": 0,
    "photo": "472739",
    "status": "a",
    "news": ""
@@ -3385,6 +3525,7 @@
    "recoveries": 21,
    "cbi": 11,
    "defcon": 43,
+   "og": 0,
    "photo": "428580",
    "status": "a",
    "news": ""
@@ -3409,6 +3550,7 @@
    "recoveries": 21,
    "cbi": 10,
    "defcon": 45,
+   "og": 0,
    "photo": "531442",
    "status": "a",
    "news": ""
@@ -3433,6 +3575,7 @@
    "recoveries": 35,
    "cbi": 59,
    "defcon": 89,
+   "og": 0,
    "photo": "220627",
    "status": "a",
    "news": ""
@@ -3457,6 +3600,7 @@
    "recoveries": 37,
    "cbi": 25,
    "defcon": 74,
+   "og": 0,
    "photo": "577669",
    "status": "a",
    "news": ""
@@ -3481,6 +3625,7 @@
    "recoveries": 23,
    "cbi": 27,
    "defcon": 66,
+   "og": 0,
    "photo": "168144",
    "status": "a",
    "news": ""
@@ -3505,6 +3650,7 @@
    "recoveries": 2,
    "cbi": 1,
    "defcon": 3,
+   "og": 0,
    "photo": "218997",
    "status": "a",
    "news": ""
@@ -3529,6 +3675,7 @@
    "recoveries": 28,
    "cbi": 27,
    "defcon": 40,
+   "og": 0,
    "photo": "232351",
    "status": "a",
    "news": ""
@@ -3553,6 +3700,7 @@
    "recoveries": 0,
    "cbi": 0,
    "defcon": 0,
+   "og": 0,
    "photo": "208481",
    "status": "a",
    "news": ""
@@ -3577,6 +3725,7 @@
    "recoveries": 63,
    "cbi": 9,
    "defcon": 0,
+   "og": 0,
    "photo": "108813",
    "status": "a",
    "news": ""
@@ -3601,6 +3750,7 @@
    "recoveries": 25,
    "cbi": 52,
    "defcon": 62,
+   "og": 1,
    "photo": "455084",
    "status": "d",
    "news": "Calf injury - 75% chance of playing"
@@ -3625,6 +3775,7 @@
    "recoveries": 43,
    "cbi": 87,
    "defcon": 106,
+   "og": 0,
    "photo": "216616",
    "status": "a",
    "news": ""
@@ -3649,6 +3800,7 @@
    "recoveries": 90,
    "cbi": 14,
    "defcon": 0,
+   "og": 0,
    "photo": "498016",
    "status": "a",
    "news": ""
@@ -3673,6 +3825,7 @@
    "recoveries": 20,
    "cbi": 18,
    "defcon": 44,
+   "og": 0,
    "photo": "169432",
    "status": "a",
    "news": ""
@@ -3697,6 +3850,7 @@
    "recoveries": 0,
    "cbi": 0,
    "defcon": 0,
+   "og": 0,
    "photo": "105666",
    "status": "a",
    "news": ""
@@ -3721,6 +3875,7 @@
    "recoveries": 10,
    "cbi": 8,
    "defcon": 21,
+   "og": 0,
    "photo": "501390",
    "status": "a",
    "news": ""
@@ -3745,6 +3900,7 @@
    "recoveries": 36,
    "cbi": 23,
    "defcon": 84,
+   "og": 0,
    "photo": "248056",
    "status": "a",
    "news": ""
@@ -3769,6 +3925,7 @@
    "recoveries": 46,
    "cbi": 24,
    "defcon": 94,
+   "og": 0,
    "photo": "514254",
    "status": "a",
    "news": ""
@@ -3793,6 +3950,7 @@
    "recoveries": 21,
    "cbi": 21,
    "defcon": 50,
+   "og": 0,
    "photo": "230730",
    "status": "a",
    "news": ""
@@ -3817,6 +3975,7 @@
    "recoveries": 29,
    "cbi": 11,
    "defcon": 48,
+   "og": 0,
    "photo": "550615",
    "status": "a",
    "news": ""
@@ -3841,6 +4000,7 @@
    "recoveries": 0,
    "cbi": 0,
    "defcon": 0,
+   "og": 0,
    "photo": "176412",
    "status": "i",
    "news": "Lack of match fitness - Unknown return date"
@@ -3865,6 +4025,7 @@
    "recoveries": 28,
    "cbi": 11,
    "defcon": 47,
+   "og": 0,
    "photo": "509416",
    "status": "a",
    "news": ""
@@ -3889,6 +4050,7 @@
    "recoveries": 31,
    "cbi": 23,
    "defcon": 73,
+   "og": 0,
    "photo": "243413",
    "status": "a",
    "news": ""
