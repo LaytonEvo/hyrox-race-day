@@ -203,6 +203,26 @@ footer code { font-family: var(--mono); font-size: 12px; }
     <div class="ledger" id="value"></div>
   </section>
 
+  <section class="section" aria-labelledby="action-h">
+    <div class="section-head">
+      <h2 id="action-h">Price per action</h2>
+      <div class="seg" role="group" aria-label="Dearest or cheapest">
+        <button type="button" data-adir="dear" aria-pressed="true">Dearest</button>
+        <button type="button" data-adir="cheap" aria-pressed="false">Cheapest</button>
+      </div>
+    </div>
+    <p class="lede">What each player has been paid this season for every one of these, in the league. Players need <span class="amin">270</span> minutes and at least one of the chosen action to appear.</p>
+    <div class="seg" role="group" aria-label="Choose an action" style="flex-wrap:wrap;justify-self:start">
+      <button type="button" data-act="ga" aria-pressed="true">Goal or assist</button>
+      <button type="button" data-act="xgi" aria-pressed="false">Expected goal involvement</button>
+      <button type="button" data-act="tackles" aria-pressed="false">Tackle</button>
+      <button type="button" data-act="recoveries" aria-pressed="false">Recovery</button>
+      <button type="button" data-act="defcon" aria-pressed="false">Defensive action</button>
+    </div>
+    <div class="ledger" id="actions"></div>
+    <p class="lede" id="action-note"></p>
+  </section>
+
   <section class="section" aria-labelledby="bench-h">
     <div class="section-head">
       <h2 id="bench-h">Paid to watch</h2>
@@ -231,6 +251,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
     <p><strong>How it's worked out.</strong> Pay so far = weekly wage × weeks since the season's first deadline. Pay per minute = pay so far ÷ league minutes played. Minutes come from the official Fantasy Premier League API and refresh daily.</p>
     <p><strong>Wages are estimates.</strong> Clubs don't publish salaries. Figures are gross basic weekly wages as publicly reported, rounded, and exclude bonuses, image rights and loan splits. Each figure comes from published reporting (Spotrac, FBref/Capology, SalaryLeaks, bet365 News and others), and its source is listed beside it in <code>wages.csv</code>. Where sources disagree we use the most recent 2026/27 figure.</p>
     <p><strong>Rating and value.</strong> The rating is built from FPL's Bonus Points System (BPS), which scores every pass, tackle, save, chance and goal from Opta data. We take each player's BPS per 90 minutes and compare it with every Premier League player in the same position who has played 270+ minutes, then put it on a 4 to 10 scale where 6.5 is average. The value score (0 to 100) averages two rankings among tracked players: how high their rating is, and how cheap their minutes are.</p>
+    <p><strong>Price per action.</strong> Tackles, recoveries, defensive actions (FPL's defensive contribution: clearances, blocks, interceptions and tackles, plus recoveries for midfielders and forwards) and expected goal involvement (xG + xA) come from the FPL API, which uses Opta data.</p>
     <p>League minutes only; cup and European minutes aren't counted. Clubs show only the players we have a wage for.</p>
   </footer>
 </div>
@@ -346,6 +367,36 @@ function bindChart() {
   let t; addEventListener("resize", () => { clearTimeout(t); t = setTimeout(renderChart, 150); });
 }
 
+const ACTIONS = {
+  ga: { label: "goals or assists", plural: "G+A", count: p => p.goals + p.assists, fmt: v => v },
+  xgi: { label: "expected goal involvement", plural: "xGI", count: p => p.xgi, fmt: v => v.toFixed(1) },
+  tackles: { label: "tackles", plural: "Tackles", count: p => p.tackles, fmt: v => v },
+  recoveries: { label: "ball recoveries", plural: "Recoveries", count: p => p.recoveries, fmt: v => v },
+  defcon: { label: "defensive actions", plural: "Def. actions", count: p => p.defcon, fmt: v => v },
+};
+let act = "ga", adir = "dear";
+function renderActions() {
+  const A = ACTIONS[act];
+  const pool = P.filter(p => p.minutes >= D.rating_min_minutes);
+  const list = pool.filter(p => A.count(p) > 0).map(p => ({ p, n: A.count(p), per: p.earned / A.count(p), per90: A.count(p) / p.minutes * 90 }))
+    .sort((a, b) => adir === "dear" ? b.per - a.per : a.per - b.per).slice(0, 15);
+  const max = Math.max(...list.map(r => r.per), 1);
+  const none = pool.filter(p => !(A.count(p) > 0));
+  const head = `<div class="row head"><span></span><span class="who">Player</span><span class="cell opt">Paid so far</span><span class="cell opt">Minutes</span><span class="cell">${A.plural}</span><span class="cell">£ each</span></div>`;
+  $("actions").innerHTML = head + list.map((r, i) => `
+    <div class="row">
+      <span class="rank">${i + 1}</span>
+      <span class="who">${chip(r.p.team)}<span style="min-width:0"><strong>${esc(r.p.name)}</strong><small>${r.p.pos} · ${A.fmt(+r.per90.toFixed(2))} per 90</small></span></span>
+      <span class="cell opt">${compact(r.p.earned)}</span>
+      <span class="cell opt">${n0.format(r.p.minutes)}</span>
+      <span class="cell">${A.fmt(r.n)}</span>
+      <span class="cell ppm">${compact(r.per)}<div class="bar"><i style="width:${(r.per / max * 100).toFixed(1)}%"></i></div></span>
+    </div>`).join("");
+  $("action-note").textContent = none.length
+    ? `${none.length} qualifying player${none.length === 1 ? " has" : "s have"} no ${A.label} yet, so they can't be priced: ${none.sort((a, b) => b.earned - a.earned).slice(0, 6).map(p => p.name).join(", ")}${none.length > 6 ? " and others" : ""}.`
+    : "";
+}
+
 function renderStamp() {
   $("season-label").textContent = `Premier League ${D.season}`;
   const built = new Date(D.built_at).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
@@ -448,10 +499,17 @@ function bind() {
   }));
   $("more").addEventListener("click", () => { showAll = !showAll; renderPlayers(); });
   $("salary").addEventListener("input", renderVersus);
+  document.querySelectorAll(".amin").forEach(el => el.textContent = D.rating_min_minutes);
+  const pick = (attr, set) => document.querySelectorAll(`[${attr}]`).forEach(b => b.addEventListener("click", () => {
+    set(b.getAttribute(attr));
+    document.querySelectorAll(`[${attr}]`).forEach(x => x.setAttribute("aria-pressed", x === b));
+    renderActions();
+  }));
+  pick("data-act", v => act = v); pick("data-adir", v => adir = v);
 }
 
 fetch("data.json").then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(data => {
-  prepare(data); prepareValue(); renderStamp(); bind(); renderPlayers(); renderChart(); bindChart(); renderValueList(); renderBench(); renderClubs(); renderVersus(); startTicker();
+  prepare(data); prepareValue(); renderStamp(); bind(); renderPlayers(); renderChart(); bindChart(); renderValueList(); renderActions(); renderBench(); renderClubs(); renderVersus(); startTicker();
 }).catch(() => {
   $("players").innerHTML = `<div class="empty">Couldn't load data.json. Run <code>python3 build.py</code> in this folder, then reload.</div>`;
 });
