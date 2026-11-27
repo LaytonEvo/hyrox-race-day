@@ -4,7 +4,7 @@
 Usage: python3 build.py [path/to/bootstrap-static.json]
 Without an argument it downloads the FPL data. Writes data.json beside this file.
 """
-import csv, re, json, sys, urllib.request, datetime, pathlib, statistics
+import csv, re, json, sys, urllib.request, datetime, pathlib, statistics, unicodedata
 
 HERE = pathlib.Path(__file__).resolve().parent
 FPL_URL = "https://fantasy.premierleague.com/api/bootstrap-static/"
@@ -15,6 +15,11 @@ LEFT_LEAGUE = re.compile(r"\bhas joined\b", re.I)  # FPL news for permanent move
 def left_league(e):
     """FPL keeps departed players in its list, marked unavailable with 'Has joined X ...' news."""
     return e["status"] == "u" and bool(LEFT_LEAGUE.search(e["news"]))
+
+
+def slugify(text):
+    text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode().lower()
+    return re.sub(r"[^a-z0-9]+", "-", text).strip("-")
 
 
 RATING_MIN_MINUTES = 270  # three full matches before a player counts towards the rating scale
@@ -48,7 +53,7 @@ def load_fpl(path=None):
         return json.load(r)
 
 
-def main(argv=None):
+def main(argv=None, render=False):
     argv = sys.argv[1:] if argv is None else argv
     fpl = load_fpl(argv[0] if argv else None)
     teams = {t["id"]: t for t in fpl["teams"]}
@@ -77,6 +82,7 @@ def main(argv=None):
                 "id": e["id"],
                 "name": e["web_name"],
                 "full_name": f'{e["first_name"]} {e["second_name"]}',
+                "display": (e.get("known_name") or f'{e["first_name"]} {e["second_name"]}').strip(),
                 "team": row["team"],
                 "pos": POSITIONS.get(e["element_type"], "?"),
                 "weekly": int(row["weekly_gbp"]),
@@ -103,6 +109,13 @@ def main(argv=None):
                 "news": e["news"],
             })
 
+    seen = {}
+    for p in players:  # stable, unique URL slugs for player pages
+        base = slugify(p["display"]) or str(p["id"])
+        slug = base if base not in seen else f'{base}-{p["team"].lower()}'
+        seen[slug] = True
+        p["slug"] = slug
+
     clubs = []
     for t in fpl["teams"]:
         squad = [e for e in fpl["elements"] if e["team"] == t["id"]]
@@ -127,6 +140,9 @@ def main(argv=None):
     tmp = HERE / "data.json.tmp"  # write then rename, so the server never serves a half-written file
     tmp.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     tmp.replace(HERE / "data.json")
+    if render:
+        import site_pages
+        site_pages.render(out)
     print(f"{len(players)} players written, GW{out['gameweek']}, {len(missing)} unmatched: {missing}, {len(departed)} left the league")
 
 

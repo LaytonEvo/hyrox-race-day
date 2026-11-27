@@ -40,6 +40,8 @@
 .h-ic { width: .82em; height: .82em; color: var(--accent); stroke-width: 2.6; margin-right: .22em; vertical-align: -0.06em; }
 .navlinks a, .seg button, .more, .label-ic { display: inline-flex; align-items: center; gap: 6px; }
 .navlinks a .ic { opacity: .85; }
+.plink { color: inherit; text-decoration: none; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.plink:hover strong, .plink:focus-visible strong { text-decoration: underline; }
 .badge { width: 42px; height: 42px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; }
 .badge .ic { width: 24px; height: 24px; vertical-align: 0; }
 .tile .label, .slip .label { display: inline-flex; align-items: center; gap: 6px; }
@@ -224,6 +226,8 @@ footer code { font-family: var(--mono); font-size: 12px; }
       <a href="#clubs"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Clubs</a>
       <a href="#team"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Team breakdown</a>
       <a href="#bench"><svg class="ic" aria-hidden="true"><use href="#i-bench"/></svg>Paid to watch</a>
+      <a href="/premier-league-wages/"><svg class="ic" aria-hidden="true"><use href="#i-note"/></svg>Wages table</a>
+      <a href="/game/"><svg class="ic" aria-hidden="true"><use href="#i-shuffle"/></svg>Higher or lower</a>
       <a href="#you"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>You vs them</a>
     </div>
   </div>
@@ -427,7 +431,7 @@ function renderValueList() {
   $("value-list").innerHTML = head.replace('<span class="cell">£ / min</span>', '<span class="cell opt">£ / min</span><span class="cell">Value</span>') + list.map((p, i) => `
     <div class="row">
       <span class="rank">${i + 1}</span>
-      <span class="who">${chip(p.team)}<span style="min-width:0"><strong>${esc(p.name)}</strong><small>${p.pos} · ${compact(p.weekly)} a week</small></span></span>
+      <span class="who">${chip(p.team)}<span style="min-width:0">${plink(p)}<small>${p.pos} · ${compact(p.weekly)} a week</small></span></span>
       <span class="cell opt">${n0.format(p.minutes)}</span>
       <span class="cell opt">${compact(p.earned)}</span>
       <span class="cell">${p.rating.toFixed(1)}</span>
@@ -491,6 +495,7 @@ function bindChart() {
   let t; addEventListener("resize", () => { clearTimeout(t); t = setTimeout(renderChart, 150); });
 }
 
+const plink = p => p.slug ? `<a class="plink" href="/players/${p.slug}/"><strong>${esc(p.name)}</strong></a>` : `<strong>${esc(p.name)}</strong>`;
 const ic = (n, c = "") => `<svg class="ic${c ? " " + c : ""}" aria-hidden="true"><use href="#i-${n}"/></svg>`;
 const UNITS = {
   gbp: { name: "Pounds (£)", price: 1, icon: "gbp" },
@@ -580,7 +585,7 @@ function renderActions() {
   $("actions-list").innerHTML = head + list.map((r, i) => `
     <div class="row">
       <span class="rank">${i + 1}</span>
-      <span class="who">${chip(r.p.team)}<span style="min-width:0"><strong>${esc(r.p.name)}</strong><small>${r.p.pos} · ${A.fmt(+r.per90.toFixed(2))} per 90</small></span></span>
+      <span class="who">${chip(r.p.team)}<span style="min-width:0">${plink(r.p)}<small>${r.p.pos} · ${A.fmt(+r.per90.toFixed(2))} per 90</small></span></span>
       <span class="cell opt">${compact(r.p.earned)}</span>
       <span class="cell opt">${n0.format(r.p.minutes)}</span>
       <span class="cell">${A.fmt(r.n)}</span>
@@ -633,7 +638,7 @@ function renderTeam() {
     const ga = keeper ? (p.saves || 0) : p.goals + p.assists;
     return `<div class="row">
       <span class="rank">${i + 1}</span>
-      <span class="who">${chip(p.team)}<span style="min-width:0"><strong>${esc(p.name)}</strong><small>${p.pos} · ${compact(p.weekly)}/wk</small></span></span>
+      <span class="who">${chip(p.team)}<span style="min-width:0">${plink(p)}<small>${p.pos} · ${compact(p.weekly)}/wk</small></span></span>
       <span class="cell opt">${compact(p.earned)}</span>
       <span class="cell opt">${n0.format(p.minutes)}</span>
       <span class="cell">${keeper ? p.saves || 0 : p.goals}</span>
@@ -666,7 +671,7 @@ function renderPlayers() {
   $("players-list").innerHTML = head + (shown.length ? shown.map((p, i) => `
     <div class="row">
       <span class="rank">${i + 1}</span>
-      <span class="who">${chip(p.team)}<span style="min-width:0"><strong>${esc(p.name)}</strong><small>${p.pos}${p.rating != null ? " · rated " + p.rating.toFixed(1) : ""} · ${p.pos === "GK" ? `${p.saves || 0} saves, ${p.cs || 0} clean sheets` : p.perGA ? compact(p.perGA) + " per goal/assist" : "no goals or assists"}</small></span></span>
+      <span class="who">${chip(p.team)}<span style="min-width:0">${plink(p)}<small>${p.pos}${p.rating != null ? " · rated " + p.rating.toFixed(1) : ""} · ${p.pos === "GK" ? `${p.saves || 0} saves, ${p.cs || 0} clean sheets` : p.perGA ? compact(p.perGA) + " per goal/assist" : "no goals or assists"}</small></span></span>
       <span class="cell opt">${compact(p.weekly)}</span>
       <span class="cell opt">${compact(p.earned)}</span>
       <span class="cell">${n0.format(p.minutes)}</span>
@@ -680,7 +685,7 @@ function renderBench() {
   const list = P.filter(p => p.minutes < 90 && posOK(p)).sort((a, b) => b.earned - a.earned).slice(0, 12);
   $("bench-list").innerHTML = list.length ? list.map(p => `
     <div class="slip">
-      <span class="who">${chip(p.team)}<strong>${esc(p.name)}</strong></span>
+      <span class="who">${chip(p.team)}${plink(p)}</span>
       <span class="label">${ic(p.minutes ? "clock" : "bench")}${p.minutes ? p.minutes + " minutes" : "Not kicked a ball"}</span>
       <span class="amt">${compact(p.earned)}</span>
       <p>${p.minutes ? `That's ${money(p.ppm)} for every minute played` : "Paid every week all the same"}${p.news ? ". " + esc(p.news) : ""}</p>
@@ -807,9 +812,11 @@ function renderHome() {
     ["clubs", "shield", "Clubs", "Which club pays the most per minute of football.", club && `Top: ${names[club.t] || club.t}, ${money(club.e / club.m)} a minute`],
     ["team", "users", "Team breakdown", "Pick a club: cost per goal, assist and minute.", "Every club, player by player"],
     ["bench", "bench", "Paid to watch", "The best-paid players who've barely played.", idle && `${idle.name}: ${compact(idle.earned)} for ${idle.minutes} minutes`],
+    ["/premier-league-wages/", "note", "Wages table", "Every player's salary, ranked, with a page for each player and club.", top && `Top earner: ${top.display || top.name}, ${compact(top.weekly)} a week`],
+    ["/game/", "shuffle", "Higher or lower", "Who earns more per minute? Keep the streak going.", "Play now"],
     ["you", "user", "You vs them", "Put your salary next to theirs.", top && `${top.name} earns ${compact(top.weekly)} a week`],
   ];
-  $("home-cards").innerHTML = cards.map(([h, i, t, d, teaser]) => `<a class="card" href="#${h}"><span class="badge">${ic(i)}</span><h3>${t}</h3><p>${d}</p>${teaser ? `<span class="teaser">${esc(teaser)}</span>` : ""}<span class="go">Open →</span></a>`).join("");
+  $("home-cards").innerHTML = cards.map(([h, i, t, d, teaser]) => `<a class="card" href="${h.startsWith("/") ? h : "#" + h}"><span class="badge">${ic(i)}</span><h3>${t}</h3><p>${d}</p>${teaser ? `<span class="teaser">${esc(teaser)}</span>` : ""}<span class="go">Open →</span></a>`).join("");
 }
 
 fetch("data.json").then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(data => {

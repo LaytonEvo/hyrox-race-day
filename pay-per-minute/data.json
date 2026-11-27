@@ -2,13 +2,14 @@
  "season": "2026/27",
  "season_start": "2026-08-21T17:30:00Z",
  "gameweek": 11,
- "built_at": "2026-11-25T18:54:09+00:00",
+ "built_at": "2026-11-27T14:35:21+00:00",
  "rating_min_minutes": 270,
  "players": [
   {
    "id": 411,
    "name": "Haaland",
    "full_name": "Erling Haaland",
+   "display": "Erling Haaland",
    "team": "MCI",
    "pos": "FWD",
    "weekly": 525000,
@@ -32,12 +33,14 @@
    "gc": 14,
    "photo": "223094",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "erling-haaland"
   },
   {
    "id": 429,
    "name": "Rashford",
    "full_name": "Marcus Rashford",
+   "display": "Marcus Rashford",
    "team": "MUN",
    "pos": "MID",
    "weekly": 325000,
@@ -61,12 +64,14 @@
    "gc": 3,
    "photo": "176297",
    "status": "i",
-   "news": "Hip injury - Unknown return date"
+   "news": "Hip injury - Unknown return date",
+   "slug": "marcus-rashford"
   },
   {
    "id": 426,
    "name": "B.Fernandes",
    "full_name": "Bruno Borges Fernandes",
+   "display": "Bruno Fernandes",
    "team": "MUN",
    "pos": "MID",
    "weekly": 300000,
@@ -89,13 +94,15 @@
    "pen_saves": 0,
    "gc": 20,
    "photo": "141746",
-   "status": "a",
-   "news": ""
+   "status": "d",
+   "news": "Illness - 75% chance of playing",
+   "slug": "bruno-fernandes"
   },
   {
    "id": 26,
    "name": "Havertz",
    "full_name": "Kai Havertz",
+   "display": "Kai Havertz",
    "team": "ARS",
    "pos": "FWD",
    "weekly": 280000,
@@ -119,12 +126,14 @@
    "gc": 7,
    "photo": "219847",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "kai-havertz"
   },
   {
    "id": 238,
    "name": "Grealish",
    "full_name": "Jack Grealish",
+   "display": "Jack Grealish",
    "team": "EVE",
    "pos": "MID",
    "weekly": 270000,
@@ -148,12 +157,14 @@
    "gc": 6,
    "photo": "114283",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "jack-grealish"
   },
   {
    "id": 142,
    "name": "James",
    "full_name": "Reece James",
+   "display": "Reece James",
    "team": "CHE",
    "pos": "DEF",
    "weekly": 250000,
@@ -177,12 +188,14 @@
    "gc": 7,
    "photo": "225796",
    "status": "i",
-   "news": "Knee injury - Unknown return date"
+   "news": "Knee injury - Unknown return date",
+   "slug": "reece-james"
   },
   {
    "id": 430,
    "name": "Mount",
    "full_name": "Mason Mount",
+   "display": "Mason Mount",
    "team": "MUN",
    "pos": "MID",
    "weekly": 250000,
@@ -206,12 +219,14 @@
    "gc": 5,
    "photo": "184341",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "mason-mount"
   },
   {
    "id": 427,
    "name": "Mbeumo",
    "full_name": "Bryan Mbeumo",
+   "display": "Bryan Mbeumo",
    "team": "MUN",
    "pos": "MID",
    "weekly": 250000,
@@ -235,12 +250,14 @@
    "gc": 21,
    "photo": "446008",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "bryan-mbeumo"
   },
   {
    "id": 15,
    "name": "Ødegaard",
    "full_name": "Martin Ødegaard",
+   "display": "Martin Ødegaard",
    "team": "ARS",
    "pos": "MID",
    "weekly": 240000,
@@ -264,12 +281,14 @@
    "gc": 7,
    "photo": "184029",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "martin-degaard"
   },
   {
    "id": 13,
    "name": "Rice",
    "full_name": "Declan Rice",
+   "display": "Declan Rice",
    "team": "ARS",
    "pos": "MID",
    "weekly": 240000,
@@ -293,12 +312,14 @@
    "gc": 7,
    "photo": "204480",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "declan-rice"
   },
   {
    "id": 398,
    "name": "Foden",
    "full_name": "Phil Foden",
+   "display": "Phil Foden",
    "team": "MCI",
    "pos": "MID",
    "weekly": 225000,
@@ -322,12 +343,14 @@
    "gc": 5,
    "photo": "209244",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "phil-foden"
   },
   {
    "id": 356,
    "name": "Virgil",
    "full_name": "Virgil van Dijk",
+   "display": "Virgil van Dijk",
    "team": "LIV",
    "pos": "DEF",
    "weekly": 220000,
@@ -351,12 +374,14 @@
    "gc": 10,
    "photo": "97032",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "virgil-van-dijk"
   },
   {
    "id": 25,
    "name": "Gyökeres",
    "full_name": "Viktor Gyökeres",
+   "display": "Viktor Gyökeres",
    "team": "ARS",
    "pos": "FWD",
    "weekly": 200000,
@@ -380,12 +405,14 @@
    "gc": 0,
    "photo": "224117",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "viktor-gyokeres"
   },
   {
    "id": 384,
    "name": "Donnarumma",
    "full_name": "Gianluigi Donnarumma",
+   "display": "Gianluigi Donnarumma",
    "team": "MCI",
    "pos": "GK",
    "weekly": 200000,
@@ -409,12 +436,14 @@
    "gc": 14,
    "photo": "204936",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "gianluigi-donnarumma"
   },
   {
    "id": 439,
    "name": "Šeško",
    "full_name": "Benjamin Sesko",
+   "display": "Benjamin Sesko",
    "team": "MUN",
    "pos": "FWD",
    "weekly": 200000,
@@ -438,12 +467,14 @@
    "gc": 3,
    "photo": "485711",
    "status": "i",
-   "news": "Shin injury - Unknown return date"
+   "news": "Shin injury - Unknown return date",
+   "slug": "benjamin-sesko"
   },
   {
    "id": 416,
    "name": "De Ligt",
    "full_name": "Matthijs de Ligt",
+   "display": "Matthijs de Ligt",
    "team": "MUN",
    "pos": "DEF",
    "weekly": 200000,
@@ -467,12 +498,14 @@
    "gc": 4,
    "photo": "209365",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "matthijs-de-ligt"
   },
   {
    "id": 12,
    "name": "Saka",
    "full_name": "Bukayo Saka",
+   "display": "Bukayo Saka",
    "team": "ARS",
    "pos": "MID",
    "weekly": 195000,
@@ -496,12 +529,14 @@
    "gc": 5,
    "photo": "223340",
    "status": "i",
-   "news": "Thigh injury - Expected back 20 Dec"
+   "news": "Thigh injury - Expected back 20 Dec",
+   "slug": "bukayo-saka"
   },
   {
    "id": 366,
    "name": "Wirtz",
    "full_name": "Florian Wirtz",
+   "display": "Florian Wirtz",
    "team": "LIV",
    "pos": "MID",
    "weekly": 195000,
@@ -525,12 +560,14 @@
    "gc": 8,
    "photo": "494595",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "florian-wirtz"
   },
   {
    "id": 6,
    "name": "Saliba",
    "full_name": "William Saliba",
+   "display": "William Saliba",
    "team": "ARS",
    "pos": "DEF",
    "weekly": 190000,
@@ -554,12 +591,14 @@
    "gc": 0,
    "photo": "462424",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "william-saliba"
   },
   {
    "id": 14,
    "name": "Eze",
    "full_name": "Eberechi Eze",
+   "display": "Eberechi Eze",
    "team": "ARS",
    "pos": "MID",
    "weekly": 180000,
@@ -583,12 +622,14 @@
    "gc": 2,
    "photo": "232413",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "eberechi-eze"
   },
   {
    "id": 428,
    "name": "Cunha",
    "full_name": "Matheus Santos Carneiro da Cunha",
+   "display": "Matheus Cunha",
    "team": "MUN",
    "pos": "MID",
    "weekly": 180000,
@@ -612,12 +653,14 @@
    "gc": 15,
    "photo": "430871",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "matheus-cunha"
   },
   {
    "id": 390,
    "name": "Rúben",
    "full_name": "Rúben dos Santos Gato Alves Dias",
+   "display": "Rúben Dias",
    "team": "MCI",
    "pos": "DEF",
    "weekly": 175000,
@@ -641,12 +684,14 @@
    "gc": 14,
    "photo": "171314",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "ruben-dias"
   },
   {
    "id": 515,
    "name": "Maddison",
    "full_name": "James Maddison",
+   "display": "James Maddison",
    "team": "TOT",
    "pos": "MID",
    "weekly": 170000,
@@ -670,12 +715,14 @@
    "gc": 3,
    "photo": "172780",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "james-maddison"
   },
   {
    "id": 4,
    "name": "Gabriel",
    "full_name": "Gabriel dos Santos Magalhães",
+   "display": "Gabriel Magalhães",
    "team": "ARS",
    "pos": "DEF",
    "weekly": 150000,
@@ -699,12 +746,14 @@
    "gc": 7,
    "photo": "226597",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "gabriel-magalhaes"
   },
   {
    "id": 159,
    "name": "Caicedo",
    "full_name": "Moisés Caicedo Corozo",
+   "display": "Moisés Caicedo",
    "team": "CHE",
    "pos": "MID",
    "weekly": 150000,
@@ -727,13 +776,15 @@
    "pen_saves": 0,
    "gc": 4,
    "photo": "486672",
-   "status": "d",
-   "news": "Back injury - 75% chance of playing"
+   "status": "a",
+   "news": "",
+   "slug": "moises-caicedo"
   },
   {
    "id": 226,
    "name": "Pickford",
    "full_name": "Jordan Pickford",
+   "display": "Jordan Pickford",
    "team": "EVE",
    "pos": "GK",
    "weekly": 150000,
@@ -757,12 +808,14 @@
    "gc": 14,
    "photo": "111234",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "jordan-pickford"
   },
   {
    "id": 372,
    "name": "Mac Allister",
    "full_name": "Alexis Mac Allister",
+   "display": "Alexis Mac Allister",
    "team": "LIV",
    "pos": "MID",
    "weekly": 150000,
@@ -786,12 +839,14 @@
    "gc": 8,
    "photo": "243016",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "alexis-mac-allister"
   },
   {
    "id": 350,
    "name": "A.Becker",
    "full_name": "Alisson Becker",
+   "display": "Alisson Becker",
    "team": "LIV",
    "pos": "GK",
    "weekly": 150000,
@@ -815,12 +870,14 @@
    "gc": 10,
    "photo": "116535",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "alisson-becker"
   },
   {
    "id": 370,
    "name": "Chiesa",
    "full_name": "Federico Chiesa",
+   "display": "Federico Chiesa",
    "team": "LIV",
    "pos": "MID",
    "weekly": 150000,
@@ -844,12 +901,14 @@
    "gc": 0,
    "photo": "223541",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "federico-chiesa"
   },
   {
    "id": 391,
    "name": "Gvardiol",
    "full_name": "Joško Gvardiol",
+   "display": "Joško Gvardiol",
    "team": "MCI",
    "pos": "DEF",
    "weekly": 150000,
@@ -873,12 +932,14 @@
    "gc": 11,
    "photo": "477424",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "josko-gvardiol"
   },
   {
    "id": 406,
    "name": "Kovačić",
    "full_name": "Mateo Kovačić",
+   "display": "Mateo Kovačić",
    "team": "MCI",
    "pos": "MID",
    "weekly": 150000,
@@ -902,12 +963,14 @@
    "gc": 1,
    "photo": "91651",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "mateo-kovacic"
   },
   {
    "id": 458,
    "name": "Joelinton",
    "full_name": "Joelinton Cássio Apolinário de Lira",
+   "display": "Joelinton",
    "team": "NEW",
    "pos": "MID",
    "weekly": 150000,
@@ -931,12 +994,14 @@
    "gc": 4,
    "photo": "180974",
    "status": "i",
-   "news": "Unspecified injury - Unknown return date"
+   "news": "Unspecified injury - Unknown return date",
+   "slug": "joelinton"
   },
   {
    "id": 480,
    "name": "Gibbs-White",
    "full_name": "Morgan Gibbs-White",
+   "display": "Morgan Gibbs-White",
    "team": "NFO",
    "pos": "MID",
    "weekly": 150000,
@@ -960,12 +1025,14 @@
    "gc": 14,
    "photo": "222531",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "morgan-gibbs-white"
   },
   {
    "id": 512,
    "name": "Kudus",
    "full_name": "Mohammed Kudus",
+   "display": "Mohammed Kudus",
    "team": "TOT",
    "pos": "MID",
    "weekly": 145000,
@@ -989,12 +1056,14 @@
    "gc": 5,
    "photo": "460842",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "mohammed-kudus"
   },
   {
    "id": 10,
    "name": "White",
    "full_name": "Benjamin White",
+   "display": "Benjamin White",
    "team": "ARS",
    "pos": "DEF",
    "weekly": 140000,
@@ -1018,12 +1087,14 @@
    "gc": 2,
    "photo": "198869",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "benjamin-white"
   },
   {
    "id": 16,
    "name": "Madueke",
    "full_name": "Noni Madueke",
+   "display": "Noni Madueke",
    "team": "ARS",
    "pos": "MID",
    "weekly": 140000,
@@ -1047,12 +1118,14 @@
    "gc": 3,
    "photo": "248857",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "noni-madueke"
   },
   {
    "id": 379,
    "name": "Isak",
    "full_name": "Alexander Isak",
+   "display": "Alexander Isak",
    "team": "LIV",
    "pos": "FWD",
    "weekly": 140000,
@@ -1076,12 +1149,14 @@
    "gc": 6,
    "photo": "219168",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "alexander-isak"
   },
   {
    "id": 526,
    "name": "Solanke",
    "full_name": "Dominic Solanke-Mitchell",
+   "display": "Dominic Solanke-Mitchell",
    "team": "TOT",
    "pos": "FWD",
    "weekly": 140000,
@@ -1105,12 +1180,14 @@
    "gc": 4,
    "photo": "154566",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "dominic-solanke-mitchell"
   },
   {
    "id": 440,
    "name": "Zirkzee",
    "full_name": "Joshua Zirkzee",
+   "display": "Joshua Zirkzee",
    "team": "MUN",
    "pos": "FWD",
    "weekly": 130000,
@@ -1134,12 +1211,14 @@
    "gc": 3,
    "photo": "458249",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "joshua-zirkzee"
   },
   {
    "id": 250,
    "name": "Leno",
    "full_name": "Bernd Leno",
+   "display": "Bernd Leno",
    "team": "FUL",
    "pos": "GK",
    "weekly": 130000,
@@ -1163,12 +1242,14 @@
    "gc": 13,
    "photo": "80201",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "bernd-leno"
   },
   {
    "id": 154,
    "name": "Palmer",
    "full_name": "Cole Palmer",
+   "display": "Cole Palmer",
    "team": "CHE",
    "pos": "MID",
    "weekly": 125000,
@@ -1192,12 +1273,14 @@
    "gc": 20,
    "photo": "244851",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "cole-palmer"
   },
   {
    "id": 79,
    "name": "Evanilson",
    "full_name": "Francisco Evanilson de Lima Barbosa",
+   "display": "Evanilson",
    "team": "BOU",
    "pos": "FWD",
    "weekly": 125000,
@@ -1221,12 +1304,14 @@
    "gc": 11,
    "photo": "444102",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "evanilson"
   },
   {
    "id": 222,
    "name": "Strand Larsen",
    "full_name": "Jørgen Strand Larsen",
+   "display": "Jørgen Strand Larsen",
    "team": "CRY",
    "pos": "FWD",
    "weekly": 125000,
@@ -1250,12 +1335,14 @@
    "gc": 14,
    "photo": "247412",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "jrgen-strand-larsen"
   },
   {
    "id": 368,
    "name": "Szoboszlai",
    "full_name": "Dominik Szoboszlai",
+   "display": "Dominik Szoboszlai",
    "team": "LIV",
    "pos": "MID",
    "weekly": 120000,
@@ -1279,12 +1366,14 @@
    "gc": 4,
    "photo": "424876",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "dominik-szoboszlai"
   },
   {
    "id": 367,
    "name": "Gakpo",
    "full_name": "Cody Gakpo",
+   "display": "Cody Gakpo",
    "team": "LIV",
    "pos": "MID",
    "weekly": 120000,
@@ -1308,12 +1397,14 @@
    "gc": 5,
    "photo": "243298",
    "status": "i",
-   "news": "Calf injury - Expected back 2 Dec"
+   "news": "Calf injury - Expected back 2 Dec",
+   "slug": "cody-gakpo"
   },
   {
    "id": 400,
    "name": "Doku",
    "full_name": "Jérémy Doku",
+   "display": "Jérémy Doku",
    "team": "MCI",
    "pos": "MID",
    "weekly": 120000,
@@ -1337,12 +1428,14 @@
    "gc": 8,
    "photo": "248875",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "jeremy-doku"
   },
   {
    "id": 433,
    "name": "Ugarte",
    "full_name": "Manuel Ugarte Ribeiro",
+   "display": "Manuel Ugarte Ribeiro",
    "team": "MUN",
    "pos": "MID",
    "weekly": 120000,
@@ -1366,12 +1459,14 @@
    "gc": 0,
    "photo": "232112",
    "status": "i",
-   "news": "Knee injury - Unknown return date"
+   "news": "Knee injury - Unknown return date",
+   "slug": "manuel-ugarte-ribeiro"
   },
   {
    "id": 419,
    "name": "Martinez",
    "full_name": "Lisandro Martínez",
+   "display": "Lisandro Martínez",
    "team": "MUN",
    "pos": "DEF",
    "weekly": 120000,
@@ -1395,12 +1490,14 @@
    "gc": 14,
    "photo": "221820",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "lisandro-martinez"
   },
   {
    "id": 420,
    "name": "Yoro",
    "full_name": "Leny Yoro",
+   "display": "Leny Yoro",
    "team": "MUN",
    "pos": "DEF",
    "weekly": 120000,
@@ -1424,12 +1521,14 @@
    "gc": 16,
    "photo": "550864",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "leny-yoro"
   },
   {
    "id": 431,
    "name": "Amad",
    "full_name": "Amad Diallo",
+   "display": "Amad Diallo",
    "team": "MUN",
    "pos": "MID",
    "weekly": 120000,
@@ -1453,12 +1552,14 @@
    "gc": 10,
    "photo": "493250",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "amad-diallo"
   },
   {
    "id": 230,
    "name": "Branthwaite",
    "full_name": "Jarrad Branthwaite",
+   "display": "Jarrad Branthwaite",
    "team": "EVE",
    "pos": "DEF",
    "weekly": 120000,
@@ -1482,12 +1583,14 @@
    "gc": 12,
    "photo": "480455",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "jarrad-branthwaite"
   },
   {
    "id": 265,
    "name": "Berge",
    "full_name": "Sander Berge",
+   "display": "Sander Berge",
    "team": "FUL",
    "pos": "MID",
    "weekly": 120000,
@@ -1511,12 +1614,14 @@
    "gc": 10,
    "photo": "207189",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "sander-berge"
   },
   {
    "id": 346,
    "name": "Calvert-Lewin",
    "full_name": "Dominic Calvert-Lewin",
+   "display": "Dominic Calvert-Lewin",
    "team": "LEE",
    "pos": "FWD",
    "weekly": 120000,
@@ -1540,12 +1645,14 @@
    "gc": 8,
    "photo": "177815",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "dominic-calvert-lewin"
   },
   {
    "id": 70,
    "name": "Kluivert",
    "full_name": "Justin Kluivert",
+   "display": "Justin Kluivert",
    "team": "BOU",
    "pos": "MID",
    "weekly": 110000,
@@ -1569,12 +1676,14 @@
    "gc": 3,
    "photo": "222683",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "justin-kluivert"
   },
   {
    "id": 106,
    "name": "Thiago",
    "full_name": "Igor Thiago Nascimento Rodrigues",
+   "display": "Igor Thiago",
    "team": "BRE",
    "pos": "FWD",
    "weekly": 110000,
@@ -1598,12 +1707,14 @@
    "gc": 11,
    "photo": "502500",
    "status": "s",
-   "news": "Suspended until 5 Dec"
+   "news": "Suspended until 5 Dec",
+   "slug": "igor-thiago"
   },
   {
    "id": 253,
    "name": "Andersen",
    "full_name": "Joachim Andersen",
+   "display": "Joachim Andersen",
    "team": "FUL",
    "pos": "DEF",
    "weekly": 110000,
@@ -1626,13 +1737,15 @@
    "pen_saves": 0,
    "gc": 5,
    "photo": "174874",
-   "status": "a",
-   "news": ""
+   "status": "i",
+   "news": "Unspecified injury - Unknown return date",
+   "slug": "joachim-andersen"
   },
   {
    "id": 261,
    "name": "Iwobi",
    "full_name": "Alex Iwobi",
+   "display": "Alex Iwobi",
    "team": "FUL",
    "pos": "MID",
    "weekly": 110000,
@@ -1656,12 +1769,14 @@
    "gc": 10,
    "photo": "153133",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "alex-iwobi"
   },
   {
    "id": 544,
    "name": "Xhaka",
    "full_name": "Granit Xhaka",
+   "display": "Granit Xhaka",
    "team": "SUN",
    "pos": "MID",
    "weekly": 110000,
@@ -1685,12 +1800,14 @@
    "gc": 17,
    "photo": "84450",
    "status": "i",
-   "news": "Calf injury - Unknown return date"
+   "news": "Calf injury - Unknown return date",
+   "slug": "granit-xhaka"
   },
   {
    "id": 214,
    "name": "Kamada",
    "full_name": "Daichi Kamada",
+   "display": "Daichi Kamada",
    "team": "CRY",
    "pos": "MID",
    "weekly": 105000,
@@ -1714,12 +1831,14 @@
    "gc": 25,
    "photo": "209400",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "daichi-kamada"
   },
   {
    "id": 471,
    "name": "Milenković",
    "full_name": "Nikola Milenković",
+   "display": "Nikola Milenković",
    "team": "NFO",
    "pos": "DEF",
    "weekly": 105000,
@@ -1743,12 +1862,14 @@
    "gc": 9,
    "photo": "227444",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "nikola-milenkovic"
   },
   {
    "id": 1,
    "name": "Raya",
    "full_name": "David Raya Martín",
+   "display": "David Raya Martín",
    "team": "ARS",
    "pos": "GK",
    "weekly": 100000,
@@ -1772,12 +1893,14 @@
    "gc": 7,
    "photo": "154561",
    "status": "d",
-   "news": "Shoulder injury - 50% chance of playing"
+   "news": "Shoulder injury - 75% chance of playing",
+   "slug": "david-raya-martin"
   },
   {
    "id": 8,
    "name": "Calafiori",
    "full_name": "Riccardo Calafiori",
+   "display": "Riccardo Calafiori",
    "team": "ARS",
    "pos": "DEF",
    "weekly": 100000,
@@ -1801,12 +1924,14 @@
    "gc": 7,
    "photo": "466075",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "riccardo-calafiori"
   },
   {
    "id": 156,
    "name": "Neto",
    "full_name": "Pedro Lomba Neto",
+   "display": "Pedro Neto",
    "team": "CHE",
    "pos": "MID",
    "weekly": 100000,
@@ -1830,12 +1955,14 @@
    "gc": 13,
    "photo": "247632",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "pedro-neto"
   },
   {
    "id": 229,
    "name": "Tarkowski",
    "full_name": "James Tarkowski",
+   "display": "James Tarkowski",
    "team": "EVE",
    "pos": "DEF",
    "weekly": 100000,
@@ -1859,12 +1986,14 @@
    "gc": 14,
    "photo": "17761",
    "status": "s",
-   "news": "Suspended until 13 Dec"
+   "news": "Suspended until 13 Dec",
+   "slug": "james-tarkowski"
   },
   {
    "id": 399,
    "name": "Cherki",
    "full_name": "Rayan Cherki",
+   "display": "Rayan Cherki",
    "team": "MCI",
    "pos": "MID",
    "weekly": 100000,
@@ -1888,12 +2017,14 @@
    "gc": 8,
    "photo": "466052",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "rayan-cherki"
   },
   {
    "id": 392,
    "name": "Aït-Nouri",
    "full_name": "Rayan Aït-Nouri",
+   "display": "Rayan Aït-Nouri",
    "team": "MCI",
    "pos": "DEF",
    "weekly": 100000,
@@ -1917,12 +2048,14 @@
    "gc": 0,
    "photo": "448514",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "rayan-ait-nouri"
   },
   {
    "id": 442,
    "name": "Pope",
    "full_name": "Nick Pope",
+   "display": "Nick Pope",
    "team": "NEW",
    "pos": "GK",
    "weekly": 100000,
@@ -1946,12 +2079,14 @@
    "gc": 0,
    "photo": "98747",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "nick-pope"
   },
   {
    "id": 450,
    "name": "Livramento",
    "full_name": "Tino Livramento",
+   "display": "Tino Livramento",
    "team": "NEW",
    "pos": "DEF",
    "weekly": 100000,
@@ -1975,12 +2110,14 @@
    "gc": 2,
    "photo": "441191",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "tino-livramento"
   },
   {
    "id": 521,
    "name": "Kulusevski",
    "full_name": "Dejan Kulusevski",
+   "display": "Dejan Kulusevski",
    "team": "TOT",
    "pos": "MID",
    "weekly": 100000,
@@ -2004,12 +2141,14 @@
    "gc": 1,
    "photo": "445044",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "dejan-kulusevski"
   },
   {
    "id": 503,
    "name": "Van de Ven",
    "full_name": "Micky van de Ven",
+   "display": "Micky van de Ven",
    "team": "TOT",
    "pos": "DEF",
    "weekly": 100000,
@@ -2033,12 +2172,14 @@
    "gc": 7,
    "photo": "491279",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "micky-van-de-ven"
   },
   {
    "id": 121,
    "name": "Mitoma",
    "full_name": "Mitoma Kaoru",
+   "display": "Mitoma Kaoru",
    "team": "BHA",
    "pos": "MID",
    "weekly": 100000,
@@ -2062,12 +2203,14 @@
    "gc": 0,
    "photo": "451340",
    "status": "i",
-   "news": "Hamstring injury - Expected back 2 Dec"
+   "news": "Hamstring injury - Expected back 2 Dec",
+   "slug": "mitoma-kaoru"
   },
   {
    "id": 198,
    "name": "Henderson",
    "full_name": "Dean Henderson",
+   "display": "Dean Henderson",
    "team": "CRY",
    "pos": "GK",
    "weekly": 100000,
@@ -2091,12 +2234,14 @@
    "gc": 16,
    "photo": "172649",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "dean-henderson"
   },
   {
    "id": 236,
    "name": "Dewsbury-Hall",
    "full_name": "Kiernan Dewsbury-Hall",
+   "display": "Kiernan Dewsbury-Hall",
    "team": "EVE",
    "pos": "MID",
    "weekly": 100000,
@@ -2120,12 +2265,14 @@
    "gc": 13,
    "photo": "215413",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "kiernan-dewsbury-hall"
   },
   {
    "id": 619,
    "name": "Palacios",
    "full_name": "Exequiel Palacios",
+   "display": "Exequiel Palacios",
    "team": "IPS",
    "pos": "MID",
    "weekly": 100000,
@@ -2149,12 +2296,14 @@
    "gc": 17,
    "photo": "218543",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "exequiel-palacios"
   },
   {
    "id": 385,
    "name": "Trafford",
    "full_name": "James Trafford",
+   "display": "James Trafford",
    "team": "LEE",
    "pos": "GK",
    "weekly": 100000,
@@ -2178,12 +2327,14 @@
    "gc": 9,
    "photo": "432720",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "james-trafford"
   },
   {
    "id": 533,
    "name": "Mukiele",
    "full_name": "Nordi Mukiele",
+   "display": "Nordi Mukiele",
    "team": "SUN",
    "pos": "DEF",
    "weekly": 100000,
@@ -2207,12 +2358,14 @@
    "gc": 12,
    "photo": "200834",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "nordi-mukiele"
   },
   {
    "id": 552,
    "name": "Brobbey",
    "full_name": "Brian Brobbey",
+   "display": "Brian Brobbey",
    "team": "SUN",
    "pos": "FWD",
    "weekly": 100000,
@@ -2236,12 +2389,14 @@
    "gc": 12,
    "photo": "441264",
    "status": "i",
-   "news": "Muscular injury - Unknown return date"
+   "news": "Muscular injury - Unknown return date",
+   "slug": "brian-brobbey"
   },
   {
    "id": 578,
    "name": "Mudryk",
    "full_name": "Mykhailo Mudryk",
+   "display": "Mykhailo Mudryk",
    "team": "TOT",
    "pos": "MID",
    "weekly": 97000,
@@ -2265,12 +2420,14 @@
    "gc": 0,
    "photo": "465920",
    "status": "i",
-   "news": "Ankle injury - Unknown return date"
+   "news": "Ankle injury - Unknown return date",
+   "slug": "mykhailo-mudryk"
   },
   {
    "id": 358,
    "name": "Kerkez",
    "full_name": "Milos Kerkez",
+   "display": "Milos Kerkez",
    "team": "LIV",
    "pos": "DEF",
    "weekly": 95000,
@@ -2294,12 +2451,14 @@
    "gc": 10,
    "photo": "544877",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "milos-kerkez"
   },
   {
    "id": 17,
    "name": "Merino",
    "full_name": "Mikel Merino Zazón",
+   "display": "Mikel Merino Zazón",
    "team": "ARS",
    "pos": "MID",
    "weekly": 90000,
@@ -2323,12 +2482,14 @@
    "gc": 0,
    "photo": "195384",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "mikel-merino-zazon"
   },
   {
    "id": 5,
    "name": "J.Timber",
    "full_name": "Jurriën Timber",
+   "display": "Jurriën Timber",
    "team": "ARS",
    "pos": "DEF",
    "weekly": 90000,
@@ -2352,12 +2513,14 @@
    "gc": 5,
    "photo": "445122",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "jurrien-timber"
   },
   {
    "id": 527,
    "name": "Richarlison",
    "full_name": "Richarlison de Andrade",
+   "display": "Richarlison",
    "team": "TOT",
    "pos": "FWD",
    "weekly": 90000,
@@ -2381,12 +2544,14 @@
    "gc": 3,
    "photo": "212319",
    "status": "u",
-   "news": "not included in squad."
+   "news": "not included in squad.",
+   "slug": "richarlison"
   },
   {
    "id": 68,
    "name": "Tavernier",
    "full_name": "Marcus Tavernier",
+   "display": "Marcus Tavernier",
    "team": "BOU",
    "pos": "MID",
    "weekly": 90000,
@@ -2410,12 +2575,14 @@
    "gc": 14,
    "photo": "201658",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "marcus-tavernier"
   },
   {
    "id": 96,
    "name": "Damsgaard",
    "full_name": "Mikkel Damsgaard",
+   "display": "Mikkel Damsgaard",
    "team": "BRE",
    "pos": "MID",
    "weekly": 90000,
@@ -2439,12 +2606,14 @@
    "gc": 1,
    "photo": "440089",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "mikkel-damsgaard"
   },
   {
    "id": 124,
    "name": "Groß",
    "full_name": "Pascal Groß",
+   "display": "Pascal Groß",
    "team": "BHA",
    "pos": "MID",
    "weekly": 90000,
@@ -2468,12 +2637,14 @@
    "gc": 9,
    "photo": "60307",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "pascal-gro"
   },
   {
    "id": 224,
    "name": "Nketiah",
    "full_name": "Eddie Nketiah",
+   "display": "Eddie Nketiah",
    "team": "CRY",
    "pos": "FWD",
    "weekly": 90000,
@@ -2497,12 +2668,14 @@
    "gc": 11,
    "photo": "205533",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "eddie-nketiah"
   },
   {
    "id": 239,
    "name": "Garner",
    "full_name": "James Garner",
+   "display": "James Garner",
    "team": "EVE",
    "pos": "MID",
    "weekly": 90000,
@@ -2526,12 +2699,14 @@
    "gc": 12,
    "photo": "232928",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "james-garner"
   },
   {
    "id": 233,
    "name": "Mykolenko",
    "full_name": "Vitalii Mykolenko",
+   "display": "Vitalii Mykolenko",
    "team": "EVE",
    "pos": "DEF",
    "weekly": 90000,
@@ -2555,12 +2730,14 @@
    "gc": 12,
    "photo": "224967",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "vitalii-mykolenko"
   },
   {
    "id": 262,
    "name": "Smith Rowe",
    "full_name": "Emile Smith Rowe",
+   "display": "Emile Smith Rowe",
    "team": "FUL",
    "pos": "MID",
    "weekly": 90000,
@@ -2584,12 +2761,14 @@
    "gc": 2,
    "photo": "209289",
    "status": "i",
-   "news": "Hip injury - Expected back 29 Nov"
+   "news": "Hip injury - Expected back 29 Nov",
+   "slug": "emile-smith-rowe"
   },
   {
    "id": 113,
    "name": "F.Kadıoğlu",
    "full_name": "Ferdi Kadıoğlu",
+   "display": "Ferdi Kadıoğlu",
    "team": "BHA",
    "pos": "DEF",
    "weekly": 88000,
@@ -2613,12 +2792,14 @@
    "gc": 7,
    "photo": "231416",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "ferdi-kadoglu"
   },
   {
    "id": 357,
    "name": "Frimpong",
    "full_name": "Jeremie Frimpong",
+   "display": "Jeremie Frimpong",
    "team": "LIV",
    "pos": "DEF",
    "weekly": 85000,
@@ -2642,12 +2823,14 @@
    "gc": 5,
    "photo": "216094",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "jeremie-frimpong"
   },
   {
    "id": 380,
    "name": "Ekitiké",
    "full_name": "Hugo Ekitiké",
+   "display": "Hugo Ekitiké",
    "team": "LIV",
    "pos": "FWD",
    "weekly": 85000,
@@ -2671,12 +2854,14 @@
    "gc": 0,
    "photo": "510663",
    "status": "i",
-   "news": "Achilles injury - Unknown return date"
+   "news": "Achilles injury - Unknown return date",
+   "slug": "hugo-ekitike"
   },
   {
    "id": 359,
    "name": "Gomez",
    "full_name": "Joe Gomez",
+   "display": "Joe Gomez",
    "team": "LIV",
    "pos": "DEF",
    "weekly": 85000,
@@ -2700,12 +2885,14 @@
    "gc": 1,
    "photo": "171287",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "joe-gomez"
   },
   {
    "id": 417,
    "name": "Dalot",
    "full_name": "Diogo Dalot Teixeira",
+   "display": "Diogo Dalot",
    "team": "MUN",
    "pos": "DEF",
    "weekly": 85000,
@@ -2729,12 +2916,14 @@
    "gc": 19,
    "photo": "216051",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "diogo-dalot"
   },
   {
    "id": 75,
    "name": "Christie",
    "full_name": "Ryan Christie",
+   "display": "Ryan Christie",
    "team": "BOU",
    "pos": "MID",
    "weekly": 85000,
@@ -2758,12 +2947,14 @@
    "gc": 7,
    "photo": "158499",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "ryan-christie"
   },
   {
    "id": 254,
    "name": "Robinson",
    "full_name": "Antonee Robinson",
+   "display": "Antonee Robinson",
    "team": "FUL",
    "pos": "DEF",
    "weekly": 85000,
@@ -2787,12 +2978,14 @@
    "gc": 10,
    "photo": "169528",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "antonee-robinson"
   },
   {
    "id": 483,
    "name": "Ndoye",
    "full_name": "Dan Ndoye",
+   "display": "Dan Ndoye",
    "team": "NFO",
    "pos": "MID",
    "weekly": 85000,
@@ -2816,12 +3009,14 @@
    "gc": 10,
    "photo": "456512",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "dan-ndoye"
   },
   {
    "id": 45,
    "name": "McGinn",
    "full_name": "John McGinn",
+   "display": "John McGinn",
    "team": "AVL",
    "pos": "MID",
    "weekly": 80000,
@@ -2845,12 +3040,14 @@
    "gc": 13,
    "photo": "122806",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "john-mcginn"
   },
   {
    "id": 48,
    "name": "Onana",
    "full_name": "Amadou Onana",
+   "display": "Amadou Onana",
    "team": "AVL",
    "pos": "MID",
    "weekly": 80000,
@@ -2874,12 +3071,14 @@
    "gc": 0,
    "photo": "449871",
    "status": "i",
-   "news": "Knee injury - Unknown return date"
+   "news": "Knee injury - Unknown return date",
+   "slug": "amadou-onana"
   },
   {
    "id": 165,
    "name": "João Pedro",
    "full_name": "João Pedro Junqueira de Jesus",
+   "display": "João Pedro",
    "team": "CHE",
    "pos": "FWD",
    "weekly": 80000,
@@ -2903,12 +3102,14 @@
    "gc": 10,
    "photo": "475168",
    "status": "i",
-   "news": "Thigh injury - Unknown return date"
+   "news": "Thigh injury - Unknown return date",
+   "slug": "joao-pedro"
   },
   {
    "id": 460,
    "name": "Willock",
    "full_name": "Joe Willock",
+   "display": "Joe Willock",
    "team": "NEW",
    "pos": "MID",
    "weekly": 80000,
@@ -2932,12 +3133,14 @@
    "gc": 12,
    "photo": "200089",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "joe-willock"
   },
   {
    "id": 453,
    "name": "Barnes",
    "full_name": "Harvey Barnes",
+   "display": "Harvey Barnes",
    "team": "NEW",
    "pos": "MID",
    "weekly": 80000,
@@ -2961,12 +3164,14 @@
    "gc": 18,
    "photo": "201666",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "harvey-barnes"
   },
   {
    "id": 499,
    "name": "Pedro Porro",
    "full_name": "Pedro Porro Sauceda",
+   "display": "Pedro Porro Sauceda",
    "team": "TOT",
    "pos": "DEF",
    "weekly": 80000,
@@ -2990,12 +3195,14 @@
    "gc": 2,
    "photo": "441164",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "pedro-porro-sauceda"
   },
   {
    "id": 73,
    "name": "Adams",
    "full_name": "Tyler Adams",
+   "display": "Tyler Adams",
    "team": "BOU",
    "pos": "MID",
    "weekly": 80000,
@@ -3019,12 +3226,14 @@
    "gc": 13,
    "photo": "200785",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "tyler-adams"
   },
   {
    "id": 82,
    "name": "Kelleher",
    "full_name": "Caoimhín Kelleher",
+   "display": "Caoimhín Kelleher",
    "team": "BRE",
    "pos": "GK",
    "weekly": 80000,
@@ -3048,12 +3257,14 @@
    "gc": 11,
    "photo": "200720",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "caoimhin-kelleher"
   },
   {
    "id": 231,
    "name": "Keane",
    "full_name": "Michael Keane",
+   "display": "Michael Keane",
    "team": "EVE",
    "pos": "DEF",
    "weekly": 80000,
@@ -3077,12 +3288,14 @@
    "gc": 3,
    "photo": "106611",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "michael-keane"
   },
   {
    "id": 336,
    "name": "Okafor",
    "full_name": "Noah Okafor",
+   "display": "Noah Okafor",
    "team": "LEE",
    "pos": "MID",
    "weekly": 80000,
@@ -3106,12 +3319,14 @@
    "gc": 5,
    "photo": "435997",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "noah-okafor"
   },
   {
    "id": 338,
    "name": "Ampadu",
    "full_name": "Ethan Ampadu",
+   "display": "Ethan Ampadu",
    "team": "LEE",
    "pos": "MID",
    "weekly": 80000,
@@ -3135,12 +3350,14 @@
    "gc": 9,
    "photo": "199598",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "ethan-ampadu"
   },
   {
    "id": 47,
    "name": "Kamara",
    "full_name": "Boubacar Kamara",
+   "display": "Boubacar Kamara",
    "team": "AVL",
    "pos": "MID",
    "weekly": 75000,
@@ -3164,12 +3381,14 @@
    "gc": 15,
    "photo": "226944",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "boubacar-kamara"
   },
   {
    "id": 41,
    "name": "Buendía",
    "full_name": "Emiliano Buendía Stati",
+   "display": "Emiliano Buendía Stati",
    "team": "AVL",
    "pos": "MID",
    "weekly": 75000,
@@ -3193,12 +3412,14 @@
    "gc": 9,
    "photo": "195546",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "emiliano-buendia-stati"
   },
   {
    "id": 145,
    "name": "Fofana",
    "full_name": "Wesley Fofana",
+   "display": "Wesley Fofana",
    "team": "CHE",
    "pos": "DEF",
    "weekly": 75000,
@@ -3222,12 +3443,14 @@
    "gc": 12,
    "photo": "444463",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "wesley-fofana"
   },
   {
    "id": 161,
    "name": "Lavia",
    "full_name": "Roméo Lavia",
+   "display": "Roméo Lavia",
    "team": "CHE",
    "pos": "MID",
    "weekly": 75000,
@@ -3251,12 +3474,14 @@
    "gc": 13,
    "photo": "514356",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "romeo-lavia"
   },
   {
    "id": 371,
    "name": "Gravenberch",
    "full_name": "Ryan Gravenberch",
+   "display": "Ryan Gravenberch",
    "team": "LIV",
    "pos": "MID",
    "weekly": 75000,
@@ -3279,13 +3504,15 @@
    "pen_saves": 0,
    "gc": 5,
    "photo": "441266",
-   "status": "i",
-   "news": "Foot injury - Unknown return date"
+   "status": "d",
+   "news": "Foot injury - 25% chance of playing",
+   "slug": "ryan-gravenberch"
   },
   {
    "id": 449,
    "name": "Hall",
    "full_name": "Lewis Hall",
+   "display": "Lewis Hall",
    "team": "NEW",
    "pos": "DEF",
    "weekly": 75000,
@@ -3309,12 +3536,14 @@
    "gc": 18,
    "photo": "487838",
    "status": "d",
-   "news": "Unspecified injury - 75% chance of playing"
+   "news": "Unspecified injury - 75% chance of playing",
+   "slug": "lewis-hall"
   },
   {
    "id": 482,
    "name": "Hudson-Odoi",
    "full_name": "Callum Hudson-Odoi",
+   "display": "Callum Hudson-Odoi",
    "team": "NFO",
    "pos": "MID",
    "weekly": 75000,
@@ -3338,12 +3567,14 @@
    "gc": 0,
    "photo": "209046",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "callum-hudson-odoi"
   },
   {
    "id": 490,
    "name": "Wood",
    "full_name": "Chris Wood",
+   "display": "Chris Wood",
    "team": "NFO",
    "pos": "FWD",
    "weekly": 75000,
@@ -3367,12 +3598,14 @@
    "gc": 2,
    "photo": "60689",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "chris-wood"
   },
   {
    "id": 208,
    "name": "Sarr",
    "full_name": "Ismaïla Sarr",
+   "display": "Ismaïla Sarr",
    "team": "CRY",
    "pos": "MID",
    "weekly": 75000,
@@ -3396,12 +3629,14 @@
    "gc": 0,
    "photo": "232185",
    "status": "i",
-   "news": "Groin injury - Expected back 29 Nov"
+   "news": "Groin injury - Expected back 29 Nov",
+   "slug": "ismaila-sarr"
   },
   {
    "id": 556,
    "name": "Targett",
    "full_name": "Matt Targett",
+   "display": "Matt Targett",
    "team": "HUL",
    "pos": "DEF",
    "weekly": 75000,
@@ -3425,12 +3660,14 @@
    "gc": 0,
    "photo": "169359",
    "status": "i",
-   "news": "Ankle injury - Unknown return date"
+   "news": "Ankle injury - Unknown return date",
+   "slug": "matt-targett"
   },
   {
    "id": 472,
    "name": "Murillo",
    "full_name": "Murillo Costa dos Santos",
+   "display": "Murillo",
    "team": "NFO",
    "pos": "DEF",
    "weekly": 75000,
@@ -3454,12 +3691,14 @@
    "gc": 15,
    "photo": "575476",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "murillo"
   },
   {
    "id": 542,
    "name": "E.Le Fée",
    "full_name": "Enzo Le Fée",
+   "display": "Enzo Le Fée",
    "team": "SUN",
    "pos": "MID",
    "weekly": 75000,
@@ -3483,12 +3722,14 @@
    "gc": 15,
    "photo": "484420",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "enzo-le-fee"
   },
   {
    "id": 33,
    "name": "Mings",
    "full_name": "Tyrone Mings",
+   "display": "Tyrone Mings",
    "team": "AVL",
    "pos": "DEF",
    "weekly": 70000,
@@ -3512,12 +3753,14 @@
    "gc": 6,
    "photo": "149484",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "tyrone-mings"
   },
   {
    "id": 447,
    "name": "Botman",
    "full_name": "Sven Botman",
+   "display": "Sven Botman",
    "team": "NEW",
    "pos": "DEF",
    "weekly": 70000,
@@ -3541,12 +3784,14 @@
    "gc": 14,
    "photo": "220237",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "sven-botman"
   },
   {
    "id": 516,
    "name": "Bentancur",
    "full_name": "Rodrigo Bentancur",
+   "display": "Rodrigo Bentancur",
    "team": "TOT",
    "pos": "MID",
    "weekly": 70000,
@@ -3570,12 +3815,14 @@
    "gc": 8,
    "photo": "202993",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "rodrigo-bentancur"
   },
   {
    "id": 57,
    "name": "Petrović",
    "full_name": "Đorđe Petrović",
+   "display": "Đorđe Petrović",
    "team": "BOU",
    "pos": "GK",
    "weekly": 70000,
@@ -3599,12 +3846,14 @@
    "gc": 14,
    "photo": "457569",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "ore-petrovic"
   },
   {
    "id": 258,
    "name": "Castagne",
    "full_name": "Timothy Castagne",
+   "display": "Timothy Castagne",
    "team": "FUL",
    "pos": "DEF",
    "weekly": 70000,
@@ -3628,12 +3877,14 @@
    "gc": 8,
    "photo": "166477",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "timothy-castagne"
   },
   {
    "id": 469,
    "name": "N.Williams",
    "full_name": "Neco Williams",
+   "display": "Neco Williams",
    "team": "NFO",
    "pos": "DEF",
    "weekly": 65000,
@@ -3657,12 +3908,14 @@
    "gc": 15,
    "photo": "215136",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "neco-williams"
   },
   {
    "id": 46,
    "name": "Barkley",
    "full_name": "Ross Barkley",
+   "display": "Ross Barkley",
    "team": "AVL",
    "pos": "MID",
    "weekly": 60000,
@@ -3686,12 +3939,14 @@
    "gc": 10,
    "photo": "88894",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "ross-barkley"
   },
   {
    "id": 448,
    "name": "Burn",
    "full_name": "Dan Burn",
+   "display": "Dan Burn",
    "team": "NEW",
    "pos": "DEF",
    "weekly": 60000,
@@ -3715,12 +3970,14 @@
    "gc": 4,
    "photo": "78916",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "dan-burn"
   },
   {
    "id": 446,
    "name": "Schär",
    "full_name": "Fabian Schär",
+   "display": "Fabian Schär",
    "team": "NEW",
    "pos": "DEF",
    "weekly": 60000,
@@ -3744,12 +4001,14 @@
    "gc": 3,
    "photo": "119471",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "fabian-schar"
   },
   {
    "id": 257,
    "name": "Bassey",
    "full_name": "Calvin Bassey",
+   "display": "Calvin Bassey",
    "team": "FUL",
    "pos": "DEF",
    "weekly": 60000,
@@ -3773,12 +4032,14 @@
    "gc": 13,
    "photo": "232892",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "calvin-bassey"
   },
   {
    "id": 591,
    "name": "Enciso",
    "full_name": "Julio Enciso",
+   "display": "Julio Enciso",
    "team": "IPS",
    "pos": "MID",
    "weekly": 60000,
@@ -3802,12 +4063,14 @@
    "gc": 22,
    "photo": "474120",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "julio-enciso"
   },
   {
    "id": 493,
    "name": "Kalimuendo",
    "full_name": "Arnaud Kalimuendo",
+   "display": "Arnaud Kalimuendo",
    "team": "NFO",
    "pos": "FWD",
    "weekly": 60000,
@@ -3831,12 +4094,14 @@
    "gc": 2,
    "photo": "465680",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "arnaud-kalimuendo"
   },
   {
    "id": 98,
    "name": "Janelt",
    "full_name": "Vitaly Janelt",
+   "display": "Vitaly Janelt",
    "team": "BRE",
    "pos": "MID",
    "weekly": 50000,
@@ -3860,12 +4125,14 @@
    "gc": 10,
    "photo": "204580",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "vitaly-janelt"
   },
   {
    "id": 492,
    "name": "Awoniyi",
    "full_name": "Taiwo Awoniyi",
+   "display": "Taiwo Awoniyi",
    "team": "COV",
    "pos": "FWD",
    "weekly": 50000,
@@ -3888,13 +4155,15 @@
    "pen_saves": 0,
    "gc": 15,
    "photo": "210156",
-   "status": "d",
-   "news": "Ankle injury - 75% chance of playing"
+   "status": "i",
+   "news": "Ankle injury - Unknown return date",
+   "slug": "taiwo-awoniyi"
   },
   {
    "id": 202,
    "name": "Richards",
    "full_name": "Chris Richards",
+   "display": "Chris Richards",
    "team": "CRY",
    "pos": "DEF",
    "weekly": 50000,
@@ -3918,12 +4187,14 @@
    "gc": 27,
    "photo": "427623",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "chris-richards"
   },
   {
    "id": 335,
    "name": "Stach",
    "full_name": "Anton Stach",
+   "display": "Anton Stach",
    "team": "LEE",
    "pos": "MID",
    "weekly": 50000,
@@ -3947,12 +4218,14 @@
    "gc": 6,
    "photo": "466525",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "anton-stach"
   },
   {
    "id": 543,
    "name": "Diarra",
    "full_name": "Habib Diarra",
+   "display": "Habib Diarra",
    "team": "SUN",
    "pos": "MID",
    "weekly": 50000,
@@ -3976,12 +4249,14 @@
    "gc": 1,
    "photo": "547027",
    "status": "i",
-   "news": "Muscular injury - Unknown return date"
+   "news": "Muscular injury - Unknown return date",
+   "slug": "habib-diarra"
   },
   {
    "id": 249,
    "name": "Barry",
    "full_name": "Thierno Barry",
+   "display": "Thierno Barry",
    "team": "EVE",
    "pos": "FWD",
    "weekly": 45000,
@@ -4005,12 +4280,14 @@
    "gc": 13,
    "photo": "586309",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "thierno-barry"
   },
   {
    "id": 331,
    "name": "Gudmundsson",
    "full_name": "Gabriel Gudmundsson",
+   "display": "Gabriel Gudmundsson",
    "team": "LEE",
    "pos": "DEF",
    "weekly": 45000,
@@ -4034,12 +4311,14 @@
    "gc": 6,
    "photo": "243526",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "gabriel-gudmundsson"
   },
   {
    "id": 110,
    "name": "Rushworth",
    "full_name": "Carl Rushworth",
+   "display": "Carl Rushworth",
    "team": "COV",
    "pos": "GK",
    "weekly": 40000,
@@ -4063,12 +4342,14 @@
    "gc": 21,
    "photo": "472739",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "carl-rushworth"
   },
   {
    "id": 104,
    "name": "Onyeka",
    "full_name": "Frank Onyeka",
+   "display": "Frank Onyeka",
    "team": "COV",
    "pos": "MID",
    "weekly": 40000,
@@ -4092,12 +4373,14 @@
    "gc": 9,
    "photo": "428580",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "frank-onyeka"
   },
   {
    "id": 315,
    "name": "Fatawu",
    "full_name": "Abdul Fatawu",
+   "display": "Abdul Fatawu",
    "team": "IPS",
    "pos": "MID",
    "weekly": 40000,
@@ -4121,12 +4404,14 @@
    "gc": 13,
    "photo": "531442",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "abdul-fatawu"
   },
   {
    "id": 332,
    "name": "Justin",
    "full_name": "James Justin",
+   "display": "James Justin",
    "team": "LEE",
    "pos": "DEF",
    "weekly": 40000,
@@ -4150,12 +4435,14 @@
    "gc": 8,
    "photo": "220627",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "james-justin"
   },
   {
    "id": 545,
    "name": "Sadiki",
    "full_name": "Noah Sadiki",
+   "display": "Noah Sadiki",
    "team": "SUN",
    "pos": "MID",
    "weekly": 40000,
@@ -4179,12 +4466,14 @@
    "gc": 16,
    "photo": "577669",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "noah-sadiki"
   },
   {
    "id": 184,
    "name": "Grimes",
    "full_name": "Matt Grimes",
+   "display": "Matt Grimes",
    "team": "COV",
    "pos": "MID",
    "weekly": 35000,
@@ -4208,12 +4497,14 @@
    "gc": 16,
    "photo": "168144",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "matt-grimes"
   },
   {
    "id": 195,
    "name": "Simms",
    "full_name": "Ellis Simms",
+   "display": "Ellis Simms",
    "team": "COV",
    "pos": "FWD",
    "weekly": 35000,
@@ -4237,12 +4528,14 @@
    "gc": 3,
    "photo": "218997",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "ellis-simms"
   },
   {
    "id": 282,
    "name": "Giles",
    "full_name": "Ryan Giles",
+   "display": "Ryan Giles",
    "team": "HUL",
    "pos": "DEF",
    "weekly": 35000,
@@ -4266,12 +4559,14 @@
    "gc": 8,
    "photo": "232351",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "ryan-giles"
   },
   {
    "id": 292,
    "name": "Ömür",
    "full_name": "Abdülkadir Ömür",
+   "display": "Abdülkadir Ömür",
    "team": "HUL",
    "pos": "MID",
    "weekly": 35000,
@@ -4295,12 +4590,14 @@
    "gc": 0,
    "photo": "208481",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "abdulkadir-omur"
   },
   {
    "id": 300,
    "name": "Walton",
    "full_name": "Christian Walton",
+   "display": "Christian Walton",
    "team": "IPS",
    "pos": "GK",
    "weekly": 35000,
@@ -4324,12 +4621,14 @@
    "gc": 12,
    "photo": "108813",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "christian-walton"
   },
   {
    "id": 305,
    "name": "Davis",
    "full_name": "Leif Davis",
+   "display": "Leif Davis",
    "team": "IPS",
    "pos": "DEF",
    "weekly": 35000,
@@ -4352,13 +4651,15 @@
    "pen_saves": 0,
    "gc": 22,
    "photo": "455084",
-   "status": "d",
-   "news": "Calf injury - 75% chance of playing"
+   "status": "a",
+   "news": "",
+   "slug": "leif-davis"
   },
   {
    "id": 304,
    "name": "O'Shea",
    "full_name": "Dara O'Shea",
+   "display": "Dara O'Shea",
    "team": "IPS",
    "pos": "DEF",
    "weekly": 35000,
@@ -4382,12 +4683,14 @@
    "gc": 22,
    "photo": "216616",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "dara-o-shea"
   },
   {
    "id": 529,
    "name": "Roefs",
    "full_name": "Robin Roefs",
+   "display": "Robin Roefs",
    "team": "SUN",
    "pos": "GK",
    "weekly": 35000,
@@ -4411,12 +4714,14 @@
    "gc": 17,
    "photo": "498016",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "robin-roefs"
   },
   {
    "id": 295,
    "name": "McBurnie",
    "full_name": "Oli McBurnie",
+   "display": "Oli McBurnie",
    "team": "HUL",
    "pos": "FWD",
    "weekly": 30000,
@@ -4440,12 +4745,14 @@
    "gc": 11,
    "photo": "169432",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "oli-mcburnie"
   },
   {
    "id": 274,
    "name": "Butland",
    "full_name": "Jack Butland",
+   "display": "Jack Butland",
    "team": "HUL",
    "pos": "GK",
    "weekly": 30000,
@@ -4469,12 +4776,14 @@
    "gc": 0,
    "photo": "105666",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "jack-butland"
   },
   {
    "id": 309,
    "name": "Núñez",
    "full_name": "Marcelino Núñez",
+   "display": "Marcelino Núñez",
    "team": "IPS",
    "pos": "MID",
    "weekly": 30000,
@@ -4498,12 +4807,14 @@
    "gc": 4,
    "photo": "501390",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "marcelino-nunez"
   },
   {
    "id": 345,
    "name": "Tanaka",
    "full_name": "Tanaka Ao",
+   "display": "Tanaka Ao",
    "team": "LEE",
    "pos": "MID",
    "weekly": 30000,
@@ -4527,12 +4838,14 @@
    "gc": 6,
    "photo": "248056",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "tanaka-ao"
   },
   {
    "id": 127,
    "name": "Gomez",
    "full_name": "Diego Gómez Amarilla",
+   "display": "Diego Gómez",
    "team": "BHA",
    "pos": "MID",
    "weekly": 25000,
@@ -4556,12 +4869,14 @@
    "gc": 7,
    "photo": "514254",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "diego-gomez"
   },
   {
    "id": 194,
    "name": "Thomas-Asante",
    "full_name": "Brandon Thomas-Asante",
+   "display": "Brandon Thomas-Asante",
    "team": "COV",
    "pos": "FWD",
    "weekly": 25000,
@@ -4585,12 +4900,14 @@
    "gc": 10,
    "photo": "230730",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "brandon-thomas-asante"
   },
   {
    "id": 242,
    "name": "George",
    "full_name": "Tyrique George",
+   "display": "Tyrique George",
    "team": "EVE",
    "pos": "MID",
    "weekly": 25000,
@@ -4614,12 +4931,14 @@
    "gc": 10,
    "photo": "550615",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "tyrique-george"
   },
   {
    "id": 193,
    "name": "Wright",
    "full_name": "Haji Wright",
+   "display": "Haji Wright",
    "team": "COV",
    "pos": "FWD",
    "weekly": 21000,
@@ -4643,12 +4962,14 @@
    "gc": 0,
    "photo": "176412",
    "status": "i",
-   "news": "Lack of match fitness - Unknown return date"
+   "news": "Lack of match fitness - Unknown return date",
+   "slug": "haji-wright"
   },
   {
    "id": 129,
    "name": "Ayari",
    "full_name": "Yasin Ayari",
+   "display": "Yasin Ayari",
    "team": "BHA",
    "pos": "MID",
    "weekly": 20000,
@@ -4672,12 +4993,14 @@
    "gc": 3,
    "photo": "509416",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "yasin-ayari"
   },
   {
    "id": 290,
    "name": "Slater",
    "full_name": "Regan Slater",
+   "display": "Regan Slater",
    "team": "HUL",
    "pos": "MID",
    "weekly": 12500,
@@ -4701,7 +5024,8 @@
    "gc": 11,
    "photo": "243413",
    "status": "a",
-   "news": ""
+   "news": "",
+   "slug": "regan-slater"
   }
  ],
  "clubs": [
