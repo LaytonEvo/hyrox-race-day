@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Higher or Lower · Pay Per Minute</title>
+<meta name="description" content="Is this Premier League footballer paid more or less per minute played than the last one? Keep guessing until you get one wrong.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Same tokens and type as the main Pay Per Minute page. */
+:root {
+  --paper: #F4F6F9;
+  --sheet: #FFFFFF;
+  --ink: #14213D;
+  --muted: #5A647A;
+  --line: #D8DDE6;
+  --accent: #D62F28;
+  --accent-soft: #FBE7E5;
+  --good: #1F7A4D;
+  --good-soft: #E3F1E9;
+  --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0E1320; --sheet: #161D2E; --ink: #E7EBF3; --muted: #9AA4B9;
+    --line: #2A3349; --good-soft: #17302A; --accent: #FF5B4F; --accent-soft: #3A1E22; --good: #3FAE7A;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0E1320; --sheet: #161D2E; --ink: #E7EBF3; --muted: #9AA4B9;
+  --line: #2A3349; --good-soft: #17302A; --accent: #FF5B4F; --accent-soft: #3A1E22; --good: #3FAE7A;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+.ic { width: 1.15em; height: 1.15em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.2em; flex: none; }
+html, body { margin: 0; }
+body {
+  background: var(--paper); color: var(--ink); font: 15px/1.5 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 max(32px, env(safe-area-inset-bottom, 0px));
+}
+.wrap { max-width: 1040px; margin: 0 auto; display: grid; gap: 24px; }
+h1, h2 { font-family: var(--display); font-weight: 900; text-transform: uppercase; letter-spacing: .01em; line-height: .95; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+.label { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 600; }
+.lede { color: var(--muted); max-width: 62ch; }
+button { font: inherit; }
+button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Top navigation (as on the main page) */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--ink); }
+.topnav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ink); color: var(--paper);
+  margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))) calc(-1 * max(16px, env(safe-area-inset-right, 0px)));
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.topnav-in { max-width: 1040px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 4px 18px; min-height: 52px; }
+.brand { font: 900 20px/1 var(--display); text-transform: uppercase; color: var(--paper); text-decoration: none; letter-spacing: .02em; white-space: nowrap; }
+.brand span { color: var(--accent); }
+.navback { display: inline-flex; align-items: center; gap: 6px; color: var(--paper); opacity: .72; text-decoration: none; font-size: 14px; font-weight: 500; padding: 6px 10px; border-radius: 4px; white-space: nowrap; }
+.navback:hover { opacity: 1; }
+
+/* Heading + scoreboard */
+header.hero { padding-top: 28px; display: grid; gap: 12px; }
+.hero h1 { font-size: clamp(44px, 9vw, 96px); }
+.hero h1 span { color: var(--accent); }
+.bar-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 12px 20px; border-top: 2px solid var(--ink); padding-top: 14px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: var(--sheet); }
+.seg button { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; border: 0; background: none; color: var(--muted); padding: 8px 12px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.seg button:focus-visible { outline-offset: -3px; }
+.mode { display: grid; gap: 4px; }
+.scores { display: flex; gap: 10px; }
+.tally { background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; padding: 6px 14px; display: grid; min-width: 84px; }
+.tally b { font: 600 24px/1.2 var(--mono); font-variant-numeric: tabular-nums; }
+.tally.pop b { animation: pop .35s ease-out; }
+@keyframes pop { 40% { transform: scale(1.25); color: var(--good); } }
+
+/* The two cards */
+.arena { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: stretch; gap: 16px; }
+.card {
+  background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; padding: 18px 20px 20px;
+  display: grid; gap: 14px; align-content: start; min-width: 0; position: relative; overflow: hidden;
+  border-top: 6px solid var(--club, var(--line));
+}
+.card.right.right-ok { border-color: var(--good); border-top-color: var(--club, var(--good)); box-shadow: 0 0 0 1px var(--good); }
+.card.right.right-bad { border-color: var(--accent); border-top-color: var(--club, var(--accent)); box-shadow: 0 0 0 1px var(--accent); }
+.card.enter { animation: enter .35s ease-out; }
+@keyframes enter { from { opacity: 0; transform: translateY(10px); } }
+.who { display: flex; gap: 10px; align-items: center; min-width: 0; }
+.chip { flex: none; width: 34px; height: 22px; border-radius: 3px; font: 600 10px/22px var(--mono); text-align: center; color: #fff; letter-spacing: .03em; }
+.who small { color: var(--muted); font-size: 13px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pname { font: 900 clamp(34px, 5vw, 52px)/.95 var(--display); text-transform: uppercase; margin: 0; overflow-wrap: anywhere; }
+.full { color: var(--muted); font-size: 13px; margin-top: 4px; }
+.stats { display: flex; flex-wrap: wrap; gap: 4px 14px; color: var(--muted); font-size: 13px; }
+.stats b { color: var(--ink); font-family: var(--mono); font-weight: 600; font-variant-numeric: tabular-nums; }
+.val { border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 2px; }
+.big { font: 600 clamp(32px, 5.4vw, 48px)/1.1 var(--mono); font-variant-numeric: tabular-nums; color: var(--accent); }
+.big.hidden-val { color: var(--muted); letter-spacing: .1em; }
+.val small { color: var(--muted); font-size: 13px; }
+.verdict { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 14px; min-height: 1.5em; }
+.verdict.ok { color: var(--good); } .verdict.bad { color: var(--accent); }
+.choices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.choice {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
+  font: 900 24px/1 var(--display); text-transform: uppercase; letter-spacing: .04em;
+  border: 2px solid var(--ink); border-radius: 6px; padding: 14px 10px; min-height: 56px;
+  background: var(--ink); color: var(--paper); transition: transform .1s, background-color .15s, color .15s;
+}
+.choice.lower { background: var(--sheet); color: var(--ink); }
+.choice:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); color: #fff; }
+.choice:active:not(:disabled) { transform: translateY(1px); }
+.choice:disabled { opacity: .45; cursor: default; }
+.choice .ic { width: 1em; height: 1em; stroke-width: 2.4; }
+.prompt { font-size: 14px; color: var(--muted); }
+.prompt b { color: var(--ink); }
+.vs { align-self: center; width: 52px; height: 52px; border-radius: 50%; background: var(--ink); color: var(--paper); display: grid; place-items: center; font: 900 20px/1 var(--display); text-transform: uppercase; }
+
+/* Game over */
+.over { background: var(--sheet); border: 1px solid var(--line); border-left: 6px solid var(--accent); border-radius: 6px; padding: 20px; display: grid; gap: 14px; }
+.over h2 { font-size: clamp(32px, 5vw, 48px); }
+.over h2:focus { outline: none; }
+.over h2:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.over .final { font: 600 18px/1.4 var(--body); }
+.over .final b { font-family: var(--mono); color: var(--accent); }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); padding: 11px 16px; border-radius: 4px; cursor: pointer; }
+.btn.ghost { background: var(--sheet); color: var(--ink); border-color: var(--line); }
+.btn.ghost:hover { border-color: var(--ink); }
+.copybox { width: 100%; font: 13px/1.4 var(--mono); color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 4px; padding: 8px 10px; resize: none; }
+.copybox:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.status { color: var(--muted); font-size: 13px; min-height: 1.4em; }
+.error { color: var(--accent); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; max-width: 70ch; padding-top: 8px; }
+footer a { color: inherit; }
+
+@media (max-width: 720px) {
+  .wrap { gap: 14px; }
+  header.hero { padding-top: 16px; gap: 8px; }
+  .hero h1 { font-size: 44px; }
+  .lede { font-size: 14px; line-height: 1.4; }
+  .bar-top { padding-top: 10px; flex-wrap: nowrap; align-items: center; gap: 8px; }
+  .mode .label { display: none; }
+  .seg button { font-size: 12px; padding: 7px 8px; gap: 4px; }
+  .scores { gap: 6px; }
+  .tally { min-width: 0; padding: 2px 10px; }
+  .tally .label { font-size: 10px; }
+  .tally b { font-size: 18px; }
+  .arena { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .vs { justify-self: center; margin: -13px 0; position: relative; z-index: 1; width: 40px; height: 40px; font-size: 16px; border: 3px solid var(--paper); }
+  .card { padding: 12px 14px 14px; gap: 8px; border-top-width: 5px; }
+  .pname { font-size: 32px; }
+  .full { display: none; }
+  .val { padding-top: 8px; }
+  .big { font-size: 28px; }
+  .choice { min-height: 50px; padding: 10px; font-size: 22px; }
+  .prompt { font-size: 13px; line-height: 1.4; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-house" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9v12h14V9"/><path d="M10 21v-6h4v6"/></symbol><symbol id="i-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 17V7M8 11l4-4 4 4"/></symbol><symbol id="i-down" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M8 13l4 4 4-4"/></symbol><symbol id="i-tick" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16.5 9.5"/></symbol><symbol id="i-cross" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15.4 6.4L3 16"/><path d="M3 21v-5h5"/><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8"/><path d="M21 3v5h-5"/></symbol><symbol id="i-receipt" viewBox="0 0 24 24"><path d="M5 3h14v18l-2.5-1.8L14 21l-2-1.8L10 21l-2.5-1.8L5 21z"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></symbol><symbol id="i-note" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 10v4M18 10v4"/></symbol></svg>
+
+<nav class="topnav" aria-label="Site">
+  <div class="topnav-in">
+    <a class="brand" href="/">Pay per <span>minute</span></a>
+    <a class="navback" href="/"><svg class="ic" aria-hidden="true"><use href="#i-house"/></svg>All players</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="label" id="season-label">Premier League · mini game</p>
+    <h1>Higher or <span>lower</span></h1>
+    <p class="lede" id="lede">Is the next player paid more or less for every minute they've played? One wrong guess and the run is over.</p>
+    <div class="bar-top">
+      <div class="mode">
+        <span class="label" id="mode-label">Play with</span>
+        <div class="seg" role="group" aria-labelledby="mode-label">
+          <button type="button" data-mode="ppm" aria-pressed="true"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>£ per minute</button>
+          <button type="button" data-mode="weekly" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-note"/></svg>Weekly wage</button>
+        </div>
+      </div>
+      <div class="scores">
+        <div class="tally" id="score-box"><span class="label">Score</span><b id="score">0</b></div>
+        <div class="tally"><span class="label">Best</span><b id="best">0</b></div>
+      </div>
+    </div>
+  </header>
+
+  <p class="status" id="loading">Loading players…</p>
+
+  <section class="arena" id="arena" aria-label="Higher or lower" hidden>
+    <article class="card left" id="left" aria-labelledby="left-name"></article>
+    <div class="vs" aria-hidden="true">vs</div>
+    <article class="card right" id="right" aria-labelledby="right-name"></article>
+  </section>
+
+  <section class="over" id="over" aria-labelledby="over-h" hidden>
+    <h2 id="over-h" tabindex="-1">Full time</h2>
+    <p class="final" id="final"></p>
+    <div class="actions">
+      <button class="btn" type="button" id="again"><svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg>Play again</button>
+      <button class="btn ghost" type="button" id="copy"><svg class="ic" aria-hidden="true"><use href="#i-receipt"/></svg>Copy result</button>
+    </div>
+    <textarea class="copybox" id="copybox" rows="2" readonly aria-label="Your result, ready to copy" hidden></textarea>
+    <p class="status" id="copy-status" role="status"></p>
+  </section>
+
+  <p class="sr" id="live" aria-live="polite"></p>
+
+  <footer>
+    <p><strong>Wages are reported estimates.</strong> Clubs don't publish salaries; figures are gross basic weekly wages as publicly reported, rounded, excluding bonuses and image rights.</p>
+    <p>Pay so far = weekly wage ÷ 7 × days since the season started. £ per minute = pay so far ÷ league minutes played. Only players with 270+ league minutes appear. <a href="/">See every player</a>.</p>
+  </footer>
+</main>
+
+<script>
+const CLUB_COLOURS = {
+  ARS:"#DB0007", AVL:"#670E36", BOU:"#B50E12", BRE:"#C8102E", BHA:"#0057B8", CHE:"#034694",
+  COV:"#3BA6E1", CRY:"#1B458F", EVE:"#003399", FUL:"#1A1A1A", HUL:"#E67E00", IPS:"#0044A9",
+  LEE:"#1D428A", LIV:"#C8102E", MCI:"#5B9FD6", MUN:"#DA291C", NEW:"#241F20", NFO:"#DD0000",
+  TOT:"#132257", SUN:"#EB172B"
+};
+const MIN_MINUTES = 270, TIE_GAP = 0.05;
+const fmt0 = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP", maximumFractionDigits: 0 });
+const fmt2 = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP", minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const n0 = new Intl.NumberFormat("en-GB");
+const money = v => v >= 100 ? fmt0.format(v) : fmt2.format(v);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+const $ = id => document.getElementById(id);
+const POS = { GK: "Goalkeeper", DEF: "Defender", MID: "Midfielder", FWD: "Forward" };
+const MODES = {
+  ppm:    { key: "ppm",    noun: "per minute played", ask: "pay per minute played", fmt: money },
+  weekly: { key: "weekly", noun: "a week",            ask: "weekly wage",           fmt: v => fmt0.format(v) }
+};
+const reduceMotion = () => window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* storage unavailable */ } }
+};
+
+let pool = [], clubs = {}, mode = "ppm", cur = null, next = null, score = 0, busy = false, over = false, recent = [], prevBest = 0;
+const bestKey = () => "ppm-hol-best-" + mode;
+const getBest = () => parseInt(store.get(bestKey()), 10) || 0;
+
+function prepare(data) {
+  const days = Math.max(0, (new Date(data.built_at) - new Date(data.season_start)) / 864e5);
+  (data.clubs || []).forEach(c => { clubs[c.short] = c.name; });
+  pool = data.players.filter(p => p.minutes >= MIN_MINUTES && p.weekly > 0).map(p => {
+    const earned = p.weekly / 7 * days;
+    return { ...p, earned, ppm: earned / p.minutes };
+  });
+  if (data.season) $("season-label").textContent = `Premier League ${data.season} · mini game`;
+}
+
+const val = p => p[MODES[mode].key];
+
+function pickChallenger() {
+  const base = val(cur);
+  const fresh = p => p !== cur && !recent.includes(p.id);
+  const apart = p => Math.abs(val(p) - base) / base > TIE_GAP;
+  let options = pool.filter(p => fresh(p) && apart(p));
+  if (!options.length) { recent = []; options = pool.filter(p => p !== cur && apart(p)); }
+  if (!options.length) return null;
+  return options[Math.floor(Math.random() * options.length)];
+}
+
+function remember(p) { recent.push(p.id); if (recent.length > Math.min(40, pool.length - 5)) recent.shift(); }
+
+function cardHTML(p, side) {
+  const m = MODES[mode];
+  const colour = CLUB_COLOURS[p.team] || "#555";
+  const full = "";
+  const stat = (n, word) => `<span><b>${n0.format(n)}</b> ${word}${n === 1 ? "" : "s"}</span>`;
+  const stats = `<div class="stats">${stat(p.minutes, "min")}${p.pos === "GK" ? stat(p.saves || 0, "save") + stat(p.cs || 0, "clean sheet") : stat(p.goals, "goal") + stat(p.assists, "assist")}</div>`;
+  const head = `<div class="who"><span class="chip" style="background:${colour}">${esc(p.team)}</span><small>${esc(clubs[p.team] || p.team)} · ${POS[p.pos] || esc(p.pos)}</small></div>
+    <div><h2 class="pname" id="${side}-name">${esc(p.display || p.name)}</h2>${full}</div>${stats}`;
+  if (side === "left") {
+    return `${head}<div class="val"><span class="label">Paid ${m.noun}</span><span class="big num">${m.fmt(val(p))}</span><small>${mode === "ppm" ? `${fmt0.format(p.weekly)} a week` : `${money(p.ppm)} per minute played`}</small></div>`;
+  }
+  return `${head}<div class="val"><span class="label">Paid ${m.noun}</span><span class="big num hidden-val" id="reveal"><span aria-hidden="true">???</span><span class="sr">Hidden</span></span><span class="verdict" id="verdict"></span></div>
+    <p class="prompt" id="prompt">Is <b>${esc(p.name)}</b>'s ${m.ask} higher or lower than <b>${esc(cur.name)}</b>'s?</p>
+    <div class="choices" role="group" aria-label="Your guess">
+      <button class="choice higher" type="button" data-guess="higher" aria-describedby="prompt"><svg class="ic" aria-hidden="true"><use href="#i-up"/></svg>Higher</button>
+      <button class="choice lower" type="button" data-guess="lower" aria-describedby="prompt"><svg class="ic" aria-hidden="true"><use href="#i-down"/></svg>Lower</button>
+    </div>`;
+}
+
+function render(animate) {
+  const L = $("left"), R = $("right");
+  L.style.setProperty("--club", CLUB_COLOURS[cur.team] || "#555");
+  R.style.setProperty("--club", CLUB_COLOURS[next.team] || "#555");
+  L.dataset.id = cur.id; R.dataset.id = next.id;
+  L.innerHTML = cardHTML(cur, "left");
+  R.innerHTML = cardHTML(next, "right");
+  R.classList.remove("right-ok", "right-bad");
+  if (animate && !reduceMotion()) { [L, R].forEach(el => { el.classList.remove("enter"); void el.offsetWidth; el.classList.add("enter"); }); }
+  R.querySelectorAll(".choice").forEach(b => b.addEventListener("click", () => guess(b.dataset.guess)));
+}
+
+function setScore(s, pop) {
+  score = s;
+  $("score").textContent = s;
+  if (s > getBest()) store.set(bestKey(), String(s));
+  $("best").textContent = Math.max(getBest(), s);
+  const box = $("score-box");
+  if (pop && !reduceMotion()) { box.classList.remove("pop"); void box.offsetWidth; box.classList.add("pop"); }
+}
+
+function countUp(el, target, fmt, done) {
+  if (reduceMotion()) { el.textContent = fmt(target); done(); return; }
+  const dur = 750, t0 = performance.now();
+  const step = t => {
+    const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+    el.textContent = fmt(target * e);
+    if (k < 1) requestAnimationFrame(step); else { el.textContent = fmt(target); done(); }
+  };
+  requestAnimationFrame(step);
+}
+
+function guess(dir) {
+  if (busy || over || !next) return;
+  busy = true;
+  const R = $("right");
+  R.querySelectorAll(".choice").forEach(b => { b.disabled = true; });
+  const a = val(cur), b = val(next);
+  const right = dir === "higher" ? b > a : b < a;
+  const el = $("reveal");
+  el.classList.remove("hidden-val");
+  countUp(el, b, MODES[mode].fmt, () => {
+    const v = $("verdict");
+    const word = b > a ? "Higher" : "Lower";
+    v.className = "verdict " + (right ? "ok" : "bad");
+    v.innerHTML = `<svg class="ic" aria-hidden="true"><use href="#i-${right ? "tick" : "cross"}"/></svg>${right ? "Correct" : "Wrong"}, it's ${word.toLowerCase()}`;
+    R.classList.add(right ? "right-ok" : "right-bad");
+    $("live").textContent = `${right ? "Correct" : "Wrong"}. ${next.name} is paid ${MODES[mode].fmt(b)} ${MODES[mode].noun}, ${word.toLowerCase()} than ${cur.name}.`;
+    if (right) {
+      setScore(score + 1, true);
+      setTimeout(advance, reduceMotion() ? 700 : 1000);
+    } else {
+      setTimeout(endRun, reduceMotion() ? 500 : 800);
+    }
+  });
+}
+
+function advance() {
+  const a = document.activeElement;
+  const refocus = !a || a === document.body || $("right").contains(a);
+  cur = next; remember(cur);
+  next = pickChallenger();
+  busy = false;
+  if (!next) { endRun(true); return; }
+  render(true);
+  if (refocus) $("right").querySelector(".choice.higher").focus({ preventScroll: true });
+}
+
+function resultText() {
+  const url = location.origin + "/game/";
+  const extra = mode === "weekly" ? " (weekly wage mode)" : "";
+  return `I scored ${score} on Pay Per Minute Higher or Lower${extra} 🔥 ${url}`;
+}
+
+function endRun(clean) {
+  over = true; busy = false;
+  const best = getBest(), isPB = score > prevBest;
+  const lines = clean
+    ? `You ran out of players. <b>${score}</b> in a row, unbeatable.`
+    : score === 0 ? `<b>0</b> this time. Best so far: <b>${best}</b>.`
+    : `You got <b>${score}</b> in a row${isPB ? ", a new personal best" : `. Best so far: <b>${best}</b>`}.`;
+  $("final").innerHTML = lines;
+  $("copybox").hidden = true; $("copy-status").textContent = "";
+  $("over").hidden = false;
+  $("over-h").focus({ preventScroll: true });
+  $("over").scrollIntoView({ behavior: reduceMotion() ? "auto" : "smooth", block: "nearest" });
+}
+
+function start() {
+  over = false; busy = false; recent = [];
+  prevBest = getBest();
+  $("over").hidden = true;
+  setScore(0, false);
+  cur = pool[Math.floor(Math.random() * pool.length)];
+  remember(cur);
+  next = pickChallenger();
+  render(false);
+}
+
+function fallbackCopy(text, msg) {
+  const box = $("copybox");
+  box.value = text; box.hidden = false;
+  box.focus(); box.select();
+  let ok = false;
+  try { ok = document.execCommand && document.execCommand("copy"); } catch (e) { ok = false; }
+  $("copy-status").textContent = ok ? "Copied. Paste it anywhere." : (msg || "Couldn't copy automatically. The text is selected: copy it with Ctrl+C, Cmd+C or a long press.");
+}
+
+$("copy").addEventListener("click", () => {
+  const text = resultText();
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(
+      () => { $("copybox").hidden = true; $("copy-status").textContent = "Copied. Paste it anywhere."; },
+      () => fallbackCopy(text)
+    );
+  } else fallbackCopy(text);
+});
+$("again").addEventListener("click", () => { start(); const b = $("right").querySelector(".choice.higher"); if (b) b.focus({ preventScroll: true }); window.scrollTo({ top: 0, behavior: reduceMotion() ? "auto" : "smooth" }); });
+
+document.querySelectorAll("[data-mode]").forEach(btn => btn.addEventListener("click", () => {
+  if (btn.dataset.mode === mode || busy) return;
+  mode = btn.dataset.mode;
+  document.querySelectorAll("[data-mode]").forEach(b => b.setAttribute("aria-pressed", String(b === btn)));
+  $("lede").textContent = mode === "ppm"
+    ? "Is the next player paid more or less for every minute they've played? One wrong guess and the run is over."
+    : "Is the next player on a bigger or smaller weekly wage? One wrong guess and the run is over.";
+  store.set("ppm-hol-mode", mode);
+  if (pool.length) start();
+  $("live").textContent = `Now playing with ${btn.textContent.trim()}. New run started.`;
+}));
+
+document.addEventListener("keydown", e => {
+  if (e.altKey || e.ctrlKey || e.metaKey || over || busy || !next) return;
+  const tag = (e.target.tagName || "").toLowerCase();
+  if (tag === "input" || tag === "textarea" || tag === "select") return;
+  const k = e.key.toLowerCase();
+  if (k === "h" || k === "arrowup") { e.preventDefault(); guess("higher"); }
+  else if (k === "l" || k === "arrowdown") { e.preventDefault(); guess("lower"); }
+});
+
+const saved = store.get("ppm-hol-mode");
+if (saved && MODES[saved] && saved !== mode) {
+  mode = saved;
+  document.querySelectorAll("[data-mode]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.mode === mode)));
+  $("lede").textContent = "Is the next player on a bigger or smaller weekly wage? One wrong guess and the run is over.";
+}
+$("best").textContent = getBest();
+
+fetch("/data.json").then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(data => {
+  prepare(data);
+  if (pool.length < 2) throw new Error("not enough players");
+  $("loading").hidden = true;
+  $("arena").hidden = false;
+  start();
+}).catch(err => {
+  $("loading").className = "status error";
+  $("loading").textContent = "Couldn't load the player data. Refresh to try again.";
+  console.warn(err);
+});
+</script>
+</body>
+</html>
