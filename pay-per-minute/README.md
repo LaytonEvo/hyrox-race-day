@@ -22,6 +22,7 @@ How much every Premier League footballer is paid per minute they actually play.
 - Team of the week (4-3-3, per gameweek): match rating = gameweek BPS vs same-position players with 60+ minutes; Value XI = best value, Overpaid XI = worst, Paid to watch XI = best-paid tracked players with 0 minutes
 - Managers: managers.csv (team, manager, annual salary, start/end dates for mid-season changes, source). Points and records come from the FPL fixtures feed, counted only during each manager's spell; £ per point = paid so far ÷ points
 - North v South: North = North + Midlands clubs (Severn–Wash line), South = London, south coast, Ipswich; plus region table and 7 derbies
+- Games: /game/ (Higher or lower), /what-costs-more/ (football cost v real-world price), /daily/ (five-round daily challenge, same for everyone each UK day; picks are ranked by a hash of the date so data refreshes don't change the puzzle; results and streaks stay in the player's browser)
 - Crawlable pages: site_pages.py renders /players/, /clubs/, /premier-league-wages/, /team-of-the-week/ (+ /gameweek-N/), /north-south-divide/, /premier-league-manager-salaries/, sitemap.xml
 - Clubs are ranked only once at least 4 of their players have a wage in `wages.csv`.
 
