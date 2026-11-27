@@ -195,7 +195,7 @@ NAV = [("/", "house", "Home"), ("/#players", "list", "Players"), ("/#value", "sc
        ("/north-south-divide/", "compass", "North v South"),
        ("/team-of-the-week/", "trophy", "Team of the week"),
        ("/#team", "users", "Team breakdown"),
-       ("/#bench", "bench", "Paid to watch"), ("/game/", "shuffle", "Higher or lower"), ("/#you", "user", "You vs them")]
+       ("/#bench", "bench", "Paid to watch"), ("/game/", "shuffle", "Higher or lower"), ("/what-costs-more/", "house", "What costs more?"), ("/#you", "user", "You vs them")]
 
 
 def ic(name, cls=""):
@@ -785,6 +785,8 @@ def render(data=None):
     shutil.copyfile(HERE / "data.json", OUT / "data.json.tmp"); (OUT / "data.json.tmp").replace(OUT / "data.json")
     if (HERE / "game.html").exists():
         write(OUT / "game" / "index.html", (HERE / "game.html").read_text(encoding="utf-8"))
+    if (HERE / "costs-more.html").exists():
+        write(OUT / "what-costs-more" / "index.html", (HERE / "costs-more.html").read_text(encoding="utf-8"))
 
     urls = ["/", "/premier-league-wages/"]
     write(OUT / "premier-league-wages" / "index.html", render_hub(assets, data, ranks))
@@ -801,6 +803,8 @@ def render(data=None):
             shutil.rmtree(old, ignore_errors=True)
     if (OUT / "game" / "index.html").exists():
         urls.append("/game/")
+    if (OUT / "what-costs-more" / "index.html").exists():
+        urls.append("/what-costs-more/")
     if data.get("managers"):
         write(OUT / "premier-league-manager-salaries" / "index.html", render_managers(assets, data))
         urls.append("/premier-league-manager-salaries/")

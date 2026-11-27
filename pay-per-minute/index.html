@@ -281,6 +281,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
       <a href="#bench"><svg class="ic" aria-hidden="true"><use href="#i-bench"/></svg>Paid to watch</a>
       <a href="/premier-league-wages/"><svg class="ic" aria-hidden="true"><use href="#i-note"/></svg>Wages table</a>
       <a href="/game/"><svg class="ic" aria-hidden="true"><use href="#i-shuffle"/></svg>Higher or lower</a>
+      <a href="/what-costs-more/"><svg class="ic" aria-hidden="true"><use href="#i-house"/></svg>What costs more?</a>
       <a href="#you"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>You vs them</a>
     </div>
   </div>
@@ -1079,6 +1080,7 @@ function renderHome() {
     ["bench", "bench", "Paid to watch", "The best-paid players who've barely played.", idle && `${idle.name}: ${compact(idle.earned)} for ${idle.minutes} minutes`],
     ["/premier-league-wages/", "note", "Wages table", "Every player's salary, ranked, with a page for each player and club.", top && `Top earner: ${top.display || top.name}, ${compact(top.weekly)} a week`],
     ["/game/", "shuffle", "Higher or lower", "Who earns more per minute? Keep the streak going.", "Play now"],
+    ["/what-costs-more/", "house", "What costs more?", "A Haaland goal or a house in Chelsea? Pick the dearer one.", "Play now"],
     ["you", "user", "You vs them", "Put your salary next to theirs.", top && `${top.name} earns ${compact(top.weekly)} a week`],
   ];
   $("home-cards").innerHTML = cards.map(([h, i, t, d, teaser]) => `<a class="card" href="${h.startsWith("/") ? h : "#" + h}"><span class="badge">${ic(i)}</span><h3>${t}</h3><p>${d}</p>${teaser ? `<span class="teaser">${esc(teaser)}</span>` : ""}<span class="go">Open →</span></a>`).join("");
