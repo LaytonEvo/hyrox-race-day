@@ -4745,7 +4745,7 @@
  "season": "2026/27",
  "season_start": "2026-08-21T17:30:00Z",
  "gameweek": 11,
- "built_at": "2026-11-27T14:46:31+00:00",
+ "built_at": "2026-11-27T14:49:10+00:00",
  "rating_min_minutes": 270,
  "players": [
   {
@@ -6636,7 +6636,7 @@
    "gc": 7,
    "photo": "154561",
    "status": "d",
-   "news": "Shoulder injury - 50% chance of playing",
+   "news": "Shoulder injury - 75% chance of playing",
    "slug": "david-raya-martin"
   },
   {
@@ -8247,8 +8247,8 @@
    "pen_saves": 0,
    "gc": 5,
    "photo": "441266",
-   "status": "i",
-   "news": "Foot injury - Unknown return date",
+   "status": "d",
+   "news": "Foot injury - 25% chance of playing",
    "slug": "ryan-gravenberch"
   },
   {
@@ -9394,8 +9394,8 @@
    "pen_saves": 0,
    "gc": 22,
    "photo": "455084",
-   "status": "d",
-   "news": "Calf injury - 75% chance of playing",
+   "status": "a",
+   "news": "",
    "slug": "leif-davis"
   },
   {
