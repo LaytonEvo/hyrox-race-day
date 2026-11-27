@@ -248,7 +248,7 @@ header.hero { padding-top: 40px; display: grid; gap: 20px; }
 .derby header p { color: var(--muted); font-size: 13px; }
 .derby .cmp { font-size: 13px; }
 .derby .cmp th, .derby .cmp td { padding: 8px 12px; }
-@media (max-width: 720px) { .sides { gap: 8px; } .side { padding: 12px; } .derbies { grid-template-columns: minmax(0, 1fr); } .cmp th, .cmp td { padding: 9px 8px; } }
+@media (max-width: 720px) { .cmp .opt { display: none; } #managers-table .chip, #sacked-table .chip { display: none; } .sides { gap: 8px; } .side { padding: 12px; } .derbies { grid-template-columns: minmax(0, 1fr); } .cmp th, .cmp td { padding: 9px 8px; } }
 
 footer { color: var(--muted); font-size: 13px; display: grid; gap: 8px; max-width: 70ch; }
 footer code { font-family: var(--mono); font-size: 12px; }
@@ -264,7 +264,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-house" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9v12h14V9"/><path d="M10 21v-6h4v6"/></symbol><symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h12M9 12h12M9 18h12"/><circle cx="4.5" cy="6" r="1.2"/><circle cx="4.5" cy="12" r="1.2"/><circle cx="4.5" cy="18" r="1.2"/></symbol><symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v17M7 20h10M4 7h16"/><path d="M7 7l-3 7a3 2 0 0 0 6 0z"/><path d="M17 7l-3 7a3 2 0 0 0 6 0z"/></symbol><symbol id="i-receipt" viewBox="0 0 24 24"><path d="M5 3h14v18l-2.5-1.8L14 21l-2-1.8L10 21l-2.5-1.8L5 21z"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.8 3.4 8 8 9 4.6-1 8-4.2 8-9V6z"/><path d="M12 7v10M8 11h8"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18.5 14.5c1.8.9 3 2.9 3 5.5"/></symbol><symbol id="i-bench" viewBox="0 0 24 24"><path d="M3 10h18M3 14h18"/><path d="M5 14v6M19 14v6M6 10V6M18 10V6M4 6h16"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></symbol><symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="9" cy="7" rx="6" ry="3"/><path d="M3 7v4c0 1.7 2.7 3 6 3s6-1.3 6-3V7"/><path d="M15 10.2c3.4.3 6 1.6 6 3.3 0 1.9-2.7 3.5-6 3.5s-6-1.6-6-3.5"/><path d="M9 13.5V17c0 1.9 2.7 3.5 6 3.5s6-1.6 6-3.5v-3.5"/></symbol><symbol id="i-shuffle" viewBox="0 0 24 24"><path d="M3 7h3c4.5 0 6.5 10 11 10h4M3 17h3c1.6 0 2.8-1.4 3.9-3.2M14.2 9.6C15.3 8 16.5 7 18 7h3"/><path d="M18 4l3 3-3 3M18 14l3 3-3 3"/></symbol><symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M11 3l1.8 5.2L18 10l-5.2 1.8L11 17l-1.8-5.2L4 10l5.2-1.8z"/><path d="M19 14l.8 2.2L22 17l-2.2.8L19 20l-.8-2.2L16 17l2.2-.8z"/></symbol><symbol id="i-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 8.2l3.6 2.6-1.4 4.2H9.8l-1.4-4.2z"/><path d="M12 8.2V2.5M15.6 10.8l5.4-1.7M14.2 15l3.3 4.6M9.8 15l-3.3 4.6M8.4 10.8 3 9.1"/></symbol><symbol id="i-pass" viewBox="0 0 24 24"><path d="M3 19c3.5-7 9-11.5 17-13"/><path d="M14.5 3.5 20 6l-2.5 5.4"/><circle cx="4.5" cy="19" r="1.5"/></symbol><symbol id="i-oops" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></symbol><symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></symbol><symbol id="i-boot" viewBox="0 0 24 24"><path d="M5 4h5l1 6c3.5 0 9 1.5 9 5.5V17H5z"/><path d="M5 17h15M8 20v-3M12 20v-3M16 20v-3"/></symbol><symbol id="i-recover" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.6-4.4L3 9"/><path d="M3 4v5h5"/><path d="M4 13a8 8 0 0 0 14.6 4.4L21 15"/><path d="M21 20v-5h-5"/></symbol><symbol id="i-wall" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 9.7h18M3 14.3h18M9 5v4.7M15 5v4.7M12 9.7v4.6M7 14.3V19M17 14.3V19"/></symbol><symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 21.5c3.9 0 7-2.8 7-6.8 0-4.9-4.6-6.6-5-11.2-3 1.9-5 4.9-4.8 8.2-1.2-.6-2-1.8-2.2-3.2C5.4 10.2 5 12.6 5 14.7c0 4 3.1 6.8 7 6.8z"/></symbol><symbol id="i-down" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M8 13l4 4 4-4"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol><symbol id="i-note" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 10v4M18 10v4"/></symbol><symbol id="i-tick" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16.5 9.5"/></symbol><symbol id="i-cross" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></symbol><symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V5.5A1.5 1.5 0 0 0 17.5 4H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v9.5a1.5 1.5 0 0 1-1.5 1.5H5a2 2 0 0 1-2-2V6"/><path d="M16.5 14h.01"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15.4 6.4L3 16"/><path d="M3 21v-5h5"/><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8"/><path d="M21 3v5h-5"/></symbol><symbol id="i-gbp" viewBox="0 0 24 24"><path d="M17 20H7c1.8-1.4 3-3.2 3-6V8.5A4.5 4.5 0 0 1 17.5 6"/><path d="M6 13h8"/></symbol><symbol id="i-sandwich" viewBox="0 0 24 24"><path d="M3 17.5 12 5l9 12.5z"/><path d="M5.4 14.2h13.2"/></symbol><symbol id="i-pint" viewBox="0 0 24 24"><path d="M6 3h12l-1.6 18H7.6z"/><path d="M6.5 8.5h11"/></symbol><symbol id="i-roll" viewBox="0 0 24 24"><rect x="2.5" y="8" width="19" height="8" rx="4"/><path d="M8 8.3 7 15.7M12 8l-1 8M16 8.3l-1 7.4"/></symbol><symbol id="i-choc" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M5 9h14M5 15h14M12 3v18"/></symbol><symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4z"/><path d="M15 7v2M15 11v2M15 15v2"/></symbol><symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8.5 3 3 6l2 4.2 2-1V21h10V9.2l2 1L21 6l-5.5-3c0 1.7-1.6 3-3.5 3S8.5 4.7 8.5 3z"/></symbol><symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></symbol><symbol id="i-glove" viewBox="0 0 24 24"><path d="M7 12V5.5a1.5 1.5 0 0 1 3 0V10M10 9.5V4a1.5 1.5 0 0 1 3 0v5.5M13 9.5V5a1.5 1.5 0 0 1 3 0v5.5M16 10.5V8a1.5 1.5 0 0 1 3 0v6.5a6.5 6.5 0 0 1-6.5 6.5h-.8a6.5 6.5 0 0 1-5.3-2.8l-2.8-4a1.6 1.6 0 0 1 2.6-1.9L7 14"/></symbol><symbol id="i-sheet" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 12.5l2 2 4-4.5"/></symbol><symbol id="i-spot" viewBox="0 0 24 24"><path d="M3 5h18v14H3z"/><path d="M8 19v-6h8v6"/><circle cx="12" cy="9" r="1.2"/></symbol><symbol id="i-net" viewBox="0 0 24 24"><path d="M3 20V5h18v15"/><path d="M3 10h18M3 15h18M8 5v15M13 5v15M18 5v15"/></symbol><symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M15.5 8.5 13.4 13.4 8.5 15.5 10.6 10.6z"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2"/></symbol><symbol id="i-swords" viewBox="0 0 24 24"><path d="M14.5 17.5 3 6V3h3l11.5 11.5"/><path d="M13 19l6-6M16 16l4 4M19 21l2-2"/><path d="M14.5 6.5 18 3h3v3l-3.5 3.5"/><path d="M5 14l4 4M7 17l-3 3M3 19l2 2"/></symbol><symbol id="i-trophy" viewBox="0 0 24 24"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 21h8M9 18h6"/></symbol></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-house" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9v12h14V9"/><path d="M10 21v-6h4v6"/></symbol><symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h12M9 12h12M9 18h12"/><circle cx="4.5" cy="6" r="1.2"/><circle cx="4.5" cy="12" r="1.2"/><circle cx="4.5" cy="18" r="1.2"/></symbol><symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v17M7 20h10M4 7h16"/><path d="M7 7l-3 7a3 2 0 0 0 6 0z"/><path d="M17 7l-3 7a3 2 0 0 0 6 0z"/></symbol><symbol id="i-receipt" viewBox="0 0 24 24"><path d="M5 3h14v18l-2.5-1.8L14 21l-2-1.8L10 21l-2.5-1.8L5 21z"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.8 3.4 8 8 9 4.6-1 8-4.2 8-9V6z"/><path d="M12 7v10M8 11h8"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18.5 14.5c1.8.9 3 2.9 3 5.5"/></symbol><symbol id="i-bench" viewBox="0 0 24 24"><path d="M3 10h18M3 14h18"/><path d="M5 14v6M19 14v6M6 10V6M18 10V6M4 6h16"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></symbol><symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="9" cy="7" rx="6" ry="3"/><path d="M3 7v4c0 1.7 2.7 3 6 3s6-1.3 6-3V7"/><path d="M15 10.2c3.4.3 6 1.6 6 3.3 0 1.9-2.7 3.5-6 3.5s-6-1.6-6-3.5"/><path d="M9 13.5V17c0 1.9 2.7 3.5 6 3.5s6-1.6 6-3.5v-3.5"/></symbol><symbol id="i-shuffle" viewBox="0 0 24 24"><path d="M3 7h3c4.5 0 6.5 10 11 10h4M3 17h3c1.6 0 2.8-1.4 3.9-3.2M14.2 9.6C15.3 8 16.5 7 18 7h3"/><path d="M18 4l3 3-3 3M18 14l3 3-3 3"/></symbol><symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M11 3l1.8 5.2L18 10l-5.2 1.8L11 17l-1.8-5.2L4 10l5.2-1.8z"/><path d="M19 14l.8 2.2L22 17l-2.2.8L19 20l-.8-2.2L16 17l2.2-.8z"/></symbol><symbol id="i-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 8.2l3.6 2.6-1.4 4.2H9.8l-1.4-4.2z"/><path d="M12 8.2V2.5M15.6 10.8l5.4-1.7M14.2 15l3.3 4.6M9.8 15l-3.3 4.6M8.4 10.8 3 9.1"/></symbol><symbol id="i-pass" viewBox="0 0 24 24"><path d="M3 19c3.5-7 9-11.5 17-13"/><path d="M14.5 3.5 20 6l-2.5 5.4"/><circle cx="4.5" cy="19" r="1.5"/></symbol><symbol id="i-oops" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></symbol><symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></symbol><symbol id="i-boot" viewBox="0 0 24 24"><path d="M5 4h5l1 6c3.5 0 9 1.5 9 5.5V17H5z"/><path d="M5 17h15M8 20v-3M12 20v-3M16 20v-3"/></symbol><symbol id="i-recover" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.6-4.4L3 9"/><path d="M3 4v5h5"/><path d="M4 13a8 8 0 0 0 14.6 4.4L21 15"/><path d="M21 20v-5h-5"/></symbol><symbol id="i-wall" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 9.7h18M3 14.3h18M9 5v4.7M15 5v4.7M12 9.7v4.6M7 14.3V19M17 14.3V19"/></symbol><symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 21.5c3.9 0 7-2.8 7-6.8 0-4.9-4.6-6.6-5-11.2-3 1.9-5 4.9-4.8 8.2-1.2-.6-2-1.8-2.2-3.2C5.4 10.2 5 12.6 5 14.7c0 4 3.1 6.8 7 6.8z"/></symbol><symbol id="i-down" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M8 13l4 4 4-4"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol><symbol id="i-note" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 10v4M18 10v4"/></symbol><symbol id="i-tick" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16.5 9.5"/></symbol><symbol id="i-cross" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></symbol><symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V5.5A1.5 1.5 0 0 0 17.5 4H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v9.5a1.5 1.5 0 0 1-1.5 1.5H5a2 2 0 0 1-2-2V6"/><path d="M16.5 14h.01"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15.4 6.4L3 16"/><path d="M3 21v-5h5"/><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8"/><path d="M21 3v5h-5"/></symbol><symbol id="i-gbp" viewBox="0 0 24 24"><path d="M17 20H7c1.8-1.4 3-3.2 3-6V8.5A4.5 4.5 0 0 1 17.5 6"/><path d="M6 13h8"/></symbol><symbol id="i-sandwich" viewBox="0 0 24 24"><path d="M3 17.5 12 5l9 12.5z"/><path d="M5.4 14.2h13.2"/></symbol><symbol id="i-pint" viewBox="0 0 24 24"><path d="M6 3h12l-1.6 18H7.6z"/><path d="M6.5 8.5h11"/></symbol><symbol id="i-roll" viewBox="0 0 24 24"><rect x="2.5" y="8" width="19" height="8" rx="4"/><path d="M8 8.3 7 15.7M12 8l-1 8M16 8.3l-1 7.4"/></symbol><symbol id="i-choc" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M5 9h14M5 15h14M12 3v18"/></symbol><symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4z"/><path d="M15 7v2M15 11v2M15 15v2"/></symbol><symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8.5 3 3 6l2 4.2 2-1V21h10V9.2l2 1L21 6l-5.5-3c0 1.7-1.6 3-3.5 3S8.5 4.7 8.5 3z"/></symbol><symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></symbol><symbol id="i-glove" viewBox="0 0 24 24"><path d="M7 12V5.5a1.5 1.5 0 0 1 3 0V10M10 9.5V4a1.5 1.5 0 0 1 3 0v5.5M13 9.5V5a1.5 1.5 0 0 1 3 0v5.5M16 10.5V8a1.5 1.5 0 0 1 3 0v6.5a6.5 6.5 0 0 1-6.5 6.5h-.8a6.5 6.5 0 0 1-5.3-2.8l-2.8-4a1.6 1.6 0 0 1 2.6-1.9L7 14"/></symbol><symbol id="i-sheet" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 12.5l2 2 4-4.5"/></symbol><symbol id="i-spot" viewBox="0 0 24 24"><path d="M3 5h18v14H3z"/><path d="M8 19v-6h8v6"/><circle cx="12" cy="9" r="1.2"/></symbol><symbol id="i-net" viewBox="0 0 24 24"><path d="M3 20V5h18v15"/><path d="M3 10h18M3 15h18M8 5v15M13 5v15M18 5v15"/></symbol><symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M15.5 8.5 13.4 13.4 8.5 15.5 10.6 10.6z"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2"/></symbol><symbol id="i-swords" viewBox="0 0 24 24"><path d="M14.5 17.5 3 6V3h3l11.5 11.5"/><path d="M13 19l6-6M16 16l4 4M19 21l2-2"/><path d="M14.5 6.5 18 3h3v3l-3.5 3.5"/><path d="M5 14l4 4M7 17l-3 3M3 19l2 2"/></symbol><symbol id="i-whistle" viewBox="0 0 24 24"><path d="M3 10.5h9.5l2-3.5h6.5v4.5a7 7 0 1 1-14 0"/><circle cx="12.5" cy="14.5" r="2"/><path d="M3 10.5V8"/></symbol><symbol id="i-trophy" viewBox="0 0 24 24"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 21h8M9 18h6"/></symbol></svg>
 <nav class="topnav" aria-label="Pages">
   <div class="topnav-in">
     <a class="brand" href="#home">Pay per <span>minute</span></a>
@@ -274,6 +274,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
       <a href="#value"><svg class="ic" aria-hidden="true"><use href="#i-scale"/></svg>Best value</a>
       <a href="#actions"><svg class="ic" aria-hidden="true"><use href="#i-receipt"/></svg>Price per action</a>
       <a href="#clubs"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Clubs</a>
+      <a href="#managers"><svg class="ic" aria-hidden="true"><use href="#i-whistle"/></svg>Managers</a>
       <a href="#divide"><svg class="ic" aria-hidden="true"><use href="#i-compass"/></svg>North v South</a>
       <a href="#xi"><svg class="ic" aria-hidden="true"><use href="#i-trophy"/></svg>Team of the week</a>
       <a href="#team"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Team breakdown</a>
@@ -395,6 +396,24 @@ footer code { font-family: var(--mono); font-size: 12px; }
     <div class="ledger" id="clubs-list"></div>
   </section>
 
+  <section class="section page-top" data-page="managers" aria-labelledby="managers-h" hidden>
+    <div class="section-head">
+      <h2 id="managers-h"><svg class="ic h-ic" aria-hidden="true"><use href="#i-whistle"/></svg>Managers</h2>
+      <div class="seg" role="group" aria-label="Sort managers">
+        <button type="button" data-msort="dear" aria-pressed="true"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg>Dearest per point</button>
+        <button type="button" data-msort="cheap" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-down"/></svg>Cheapest per point</button>
+        <button type="button" data-msort="paid" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-note"/></svg>Highest paid</button>
+      </div>
+    </div>
+    <p class="lede">What each Premier League manager has been paid this season, divided by the league points won while in charge. Salaries are reported annual figures; results come from the FPL fixtures feed.</p>
+    <div class="toolbar"><label class="field"><span class="label">Measure in</span><select class="unit-pick" id="unit-m"></select></label></div>
+    <p class="fact" id="managers-fact"></p>
+    <div class="cmp-wrap"><table class="cmp" id="managers-table"></table></div>
+    <h3 class="fact" style="font-size:clamp(22px,3vw,28px)"><svg class="ic" aria-hidden="true"><use href="#i-cross"/></svg>Sacked this season</h3>
+    <div class="cmp-wrap"><table class="cmp" id="sacked-table"></table></div>
+    <p class="lede" id="managers-note"></p>
+  </section>
+
   <section class="section page-top" data-page="divide" aria-labelledby="divide-h" hidden>
     <div class="section-head">
       <h2 id="divide-h"><svg class="ic h-ic" aria-hidden="true"><use href="#i-compass"/></svg>North v South</h2>
@@ -470,7 +489,7 @@ const fmt0 = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP"
 const fmt2 = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP", minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const n0 = new Intl.NumberFormat("en-GB");
 const money = v => v >= 100 ? fmt0.format(v) : fmt2.format(v);
-const compact = v => v >= 1e6 ? "£" + (v / 1e6).toFixed(2) + "m" : v >= 1e3 ? "£" + Math.round(v / 1e3) + "k" : fmt0.format(v);
+const compact = v => v >= 1e6 ? "£" + (+(v / 1e6).toFixed(2)) + "m" : v >= 1e3 ? "£" + Math.round(v / 1e3) + "k" : fmt0.format(v);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
 const chip = t => `<span class="chip" style="background:${CLUB_COLOURS[t] || "#555"}">${esc(t)}</span>`;
 
@@ -679,6 +698,43 @@ function renderActions() {
   $("action-note").textContent = none.length
     ? `${none.length} qualifying player${none.length === 1 ? " has" : "s have"} no ${A.label} yet, so they can't be priced: ${none.sort((a, b) => b.earned - a.earned).slice(0, 6).map(p => p.name).join(", ")}${none.length > 6 ? " and others" : ""}.`
     : "";
+}
+
+let msort = "dear";
+function renderManagers() {
+  const M = D.managers || [];
+  if (!M.length) { $("managers-fact").textContent = "Manager data will appear after the next refresh."; return; }
+  const names = Object.fromEntries(D.clubs.map(c => [c.short, c.name]));
+  const topPlayer = t => P.filter(p => p.team === t).sort((a, b) => b.weekly - a.weekly)[0];
+  const per = (m, n) => m.earned != null && n ? m.earned / n : null;
+  const cur = M.filter(m => m.current);
+  const ranked = [...cur].sort((a, b) => {
+    if (msort === "paid") return (b.annual || 0) - (a.annual || 0);
+    const pa = per(a, a.pts), pb = per(b, b.pts);
+    if (pa == null) return 1; if (pb == null) return -1;
+    return msort === "dear" ? pb - pa : pa - pb;
+  });
+  const withPts = cur.filter(m => per(m, m.pts) != null).sort((a, b) => per(b, b.pts) - per(a, a.pts));
+  if (withPts.length) {
+    const d = withPts[0], c = withPts[withPts.length - 1];
+    $("managers-fact").innerHTML = `${esc(d.name)} has cost <em>${unit === "gbp" ? "" : ic(UNITS[unit].icon)}${esc(cost(per(d, d.pts)))}</em> per point won. ${esc(c.name)}: ${esc(cost(per(c, c.pts)))}.`;
+  }
+  const rec = m => `${m.w}-${m.d}-${m.l}`;
+  const vsTop = m => { const t = topPlayer(m.team); if (!t || !m.annual) return "–"; const r = m.annual / (t.weekly * 52);
+    return `${r >= 1 ? r.toFixed(1) + "×" : Math.round(r * 100) + "% of"} ${t.slug ? `<a href="/players/${t.slug}/">${esc(t.name)}</a>` : esc(t.name)}`; };
+  $("managers-table").innerHTML = `<thead><tr><th>Manager</th><th class="n">Salary</th><th class="n opt">Paid so far</th><th class="n opt">W-D-L</th><th class="n">Pts</th><th class="n">${costHead("per point")}</th><th class="n opt">vs top player</th></tr></thead><tbody>`
+    + ranked.map(m => `<tr><td><span class="who">${chip(m.team)}<span style="min-width:0"><strong>${esc(m.name)}</strong><small>${esc(names[m.team] || m.team)}${m.start ? ` · since ${new Date(m.start).toLocaleDateString("en-GB", { day: "numeric", month: "short" })}` : ""}</small></span></span></td>
+      <td class="n">${m.annual ? compact(m.annual) + "/yr" : "Not reported"}</td><td class="n opt">${m.earned != null ? compact(m.earned) : "–"}</td>
+      <td class="n opt">${rec(m)}</td><td class="n">${m.pts}</td><td class="n" style="color:var(--accent);font-weight:600">${per(m, m.pts) != null ? esc(costNum(per(m, m.pts))) : m.annual ? "No points" : "–"}</td>
+      <td class="n opt">${vsTop(m)}</td></tr>`).join("") + "</tbody>";
+  const gone = M.filter(m => !m.current);
+  $("sacked-table").innerHTML = gone.length ? `<thead><tr><th>Manager</th><th class="n">Left</th><th class="n">Paid while in charge</th><th class="n opt">W-D-L</th><th class="n">Pts</th><th class="n">${costHead("per point")}</th></tr></thead><tbody>`
+    + gone.map(m => `<tr><td><span class="who">${chip(m.team)}<strong>${esc(m.name)}</strong></span></td><td class="n">${new Date(m.end).toLocaleDateString("en-GB", { day: "numeric", month: "short" })}</td>
+      <td class="n">${m.earned != null ? compact(m.earned) : "–"}</td><td class="n opt">${rec(m)}</td><td class="n">${m.pts}</td><td class="n">${per(m, m.pts) != null ? esc(costNum(per(m, m.pts))) : "–"}</td></tr>`).join("") + "</tbody>"
+    : `<tbody><tr><td>No managers have left yet this season.</td></tr></tbody>`;
+  const missing = M.filter(m => m.current && !m.annual).map(m => m.name);
+  $("managers-note").textContent = "Paid so far counts from the season's first deadline (or the appointment date) and excludes compensation and pay-offs."
+    + (missing.length ? ` No salary has been reported yet for ${missing.join(" or ")}.` : "");
 }
 
 const REGION = { LIV: "North", EVE: "North", MCI: "North", MUN: "North", NEW: "North", SUN: "North", LEE: "North", HUL: "North",
@@ -955,6 +1011,9 @@ function bind() {
     renderActions();
   }));
   pick("data-act", v => act = v); pick("data-adir", v => adir = v);
+  document.querySelectorAll("[data-msort]").forEach(b => b.addEventListener("click", () => {
+    msort = b.dataset.msort; document.querySelectorAll("[data-msort]").forEach(x => x.setAttribute("aria-pressed", x === b)); renderManagers();
+  }));
   const G = D.gameweeks || [];
   $("xi-gw").innerHTML = [...G].reverse().map(g => `<option value="${g.gw}">Gameweek ${g.gw}</option>`).join("");
   $("xi-gw").addEventListener("change", e => { xiGw = +e.target.value; renderXI(); });
@@ -974,7 +1033,7 @@ function bind() {
   });
   document.querySelectorAll(".unit-pick").forEach(sel => {
     sel.innerHTML = Object.entries(UNITS).map(([k, u]) => `<option value="${k}">${u.name}</option>`).join("");
-    sel.addEventListener("change", () => { unit = sel.value; document.querySelectorAll(".unit-pick").forEach(o => o.value = unit); renderActions(); renderTeam(); });
+    sel.addEventListener("change", () => { unit = sel.value; document.querySelectorAll(".unit-pick").forEach(o => o.value = unit); renderActions(); renderTeam(); renderManagers(); });
   });
   const clubsByPpm = [...new Set(P.map(p => p.team))].map(t => {
     const sq = P.filter(p => p.team === t); return [t, sq.reduce((s, p) => s + p.earned, 0) / Math.max(1, sq.reduce((s, p) => s + p.minutes, 0))];
@@ -985,13 +1044,13 @@ function bind() {
   $("team-pick").addEventListener("change", e => { teamPick = e.target.value; renderTeam(); });
 }
 
-const PAGES = ["home", "players", "value", "actions", "clubs", "divide", "xi", "team", "bench", "you"];
+const PAGES = ["home", "players", "value", "actions", "clubs", "managers", "divide", "xi", "team", "bench", "you"];
 function currentPage() { const h = location.hash.slice(1); return PAGES.includes(h) ? h : "home"; }
 function route(scroll = true) {
   const page = currentPage();
   document.querySelectorAll("[data-page]").forEach(el => { el.hidden = el.dataset.page !== page; });
   document.querySelectorAll(".navlinks a").forEach(a => { if (a.getAttribute("href") === "#" + page) { a.setAttribute("aria-current", "page"); a.scrollIntoView({ block: "nearest", inline: "nearest" }); } else a.removeAttribute("aria-current"); });
-  const titles = { home: "", players: "Players", value: "Best value", actions: "Price per action", clubs: "Clubs", divide: "North v South", xi: "Team of the week", team: "Team breakdown", bench: "Paid to watch", you: "You vs them" };
+  const titles = { home: "", players: "Players", value: "Best value", actions: "Price per action", clubs: "Clubs", managers: "Managers", divide: "North v South", xi: "Team of the week", team: "Team breakdown", bench: "Paid to watch", you: "You vs them" };
   document.title = titles[page] ? `${titles[page]} · Pay Per Minute` : "Pay Per Minute";
   if (page === "value" && V.length) renderChart();
   if (scroll) scrollTo(0, 0);
@@ -1013,6 +1072,7 @@ function renderHome() {
     ["value", "scale", "Best value", "Rating against cost per minute. Who's a bargain?", best && `Best value: ${best.name}, ${best.value}/100`],
     ["actions", "receipt", "Price per action", "Pay per goal, assist, tackle and more, in pounds or meal deals.", goal && `Dearest goals: ${goal.name}, ${compact(goal.earned / goal.goals)} each`],
     ["clubs", "shield", "Clubs", "Which club pays the most per minute of football.", club && `Top: ${names[club.t] || club.t}, ${money(club.e / club.m)} a minute`],
+    ["managers", "whistle", "Managers", "Every manager's salary, divided by the points they've won.", (D.managers || []).length ? `${([...D.managers].filter(m => m.current && m.annual).sort((a, b) => b.annual - a.annual)[0] || {}).name || ""} tops the pay list` : ""],
     ["divide", "compass", "North v South", "Who pays more per minute, and who gets better value? Plus every big derby, head to head.", "The north–south divide, in wages"],
     ["xi", "trophy", "Team of the week", "Value XI, Overpaid XI and Paid to watch XI for every gameweek.", (D.gameweeks || []).length ? `Gameweek ${D.gameweeks[D.gameweeks.length - 1].gw} teams are in` : ""],
     ["team", "users", "Team breakdown", "Pick a club: cost per goal, assist and minute.", "Every club, player by player"],
@@ -1025,7 +1085,7 @@ function renderHome() {
 }
 
 fetch("data.json").then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(data => {
-  prepare(data); prepareValue(); renderStamp(); bind(); renderPlayers(); renderChart(); bindChart(); renderValueList(); renderActions(); renderTeam(); renderXI(); renderDivide(); renderBench(); renderClubs(); renderVersus(); startTicker();
+  prepare(data); prepareValue(); renderStamp(); bind(); renderPlayers(); renderChart(); bindChart(); renderValueList(); renderActions(); renderTeam(); renderXI(); renderDivide(); renderManagers(); renderBench(); renderClubs(); renderVersus(); startTicker();
   showHeroFact(); $("hero-next").addEventListener("click", showHeroFact);
   renderHome(); route(false);
 }).catch(() => {

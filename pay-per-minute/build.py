@@ -9,6 +9,7 @@ import csv, re, json, sys, urllib.request, datetime, pathlib, statistics, unicod
 HERE = pathlib.Path(__file__).resolve().parent
 FPL_URL = "https://fantasy.premierleague.com/api/bootstrap-static/"
 LIVE_URL = "https://fantasy.premierleague.com/api/event/{}/live/"
+FIXTURES_URL = "https://fantasy.premierleague.com/api/fixtures/"
 XI_MIN_MINUTES = 60  # a player needs this many minutes in a gameweek to be picked on merit
 FORMATION = [("GK", 1), ("DEF", 4), ("MID", 3), ("FWD", 3)]
 POSITIONS = {1: "GK", 2: "DEF", 3: "MID", 4: "FWD"}
@@ -120,6 +121,51 @@ def gameweek_teams(fpl, players, gws):
     return out
 
 
+def manager_records(fpl, season_start, built_at):
+    """Join managers.csv with results from the FPL fixtures feed: games, points and pay during each manager's spell."""
+    path = HERE / "managers.csv"
+    if not path.exists():
+        return []
+    try:
+        req = urllib.request.Request(FIXTURES_URL, headers={"User-Agent": "pay-per-minute/1.0"})
+        with urllib.request.urlopen(req, timeout=60) as r:
+            fixtures = [f for f in json.load(r) if f.get("finished") and f.get("kickoff_time")]
+    except Exception as exc:
+        print(f"Fixtures unavailable: {exc}")
+        fixtures = []
+    short = {t["id"]: t["short_name"] for t in fpl["teams"]}
+    start0 = datetime.datetime.fromisoformat(season_start.replace("Z", "+00:00"))
+    now = datetime.datetime.fromisoformat(built_at)
+    day = lambda d: datetime.datetime.fromisoformat(d + "T00:00:00+00:00")
+    out = []
+    with open(path, newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            start = max(start0, day(row["start"])) if row["start"] else start0
+            end = day(row["end"]) if row["end"] else now
+            rec = {"team": row["team"], "name": row["manager"], "slug": slugify(row["manager"]),
+                   "annual": int(row["annual_gbp"]) if row["annual_gbp"] else None, "source": row["source"],
+                   "start": row["start"] or None, "end": row["end"] or None, "current": not row["end"],
+                   "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0}
+            for fx in fixtures:
+                ko = datetime.datetime.fromisoformat(fx["kickoff_time"].replace("Z", "+00:00"))
+                if not (start <= ko <= end):
+                    continue
+                if short.get(fx["team_h"]) == row["team"]:
+                    us, them = fx["team_h_score"], fx["team_a_score"]
+                elif short.get(fx["team_a"]) == row["team"]:
+                    us, them = fx["team_a_score"], fx["team_h_score"]
+                else:
+                    continue
+                rec["gf"] += us; rec["ga"] += them
+                rec["w" if us > them else "d" if us == them else "l"] += 1
+            rec["games"] = rec["w"] + rec["d"] + rec["l"]
+            rec["pts"] = rec["w"] * 3 + rec["d"]
+            rec["days"] = max(0.0, (min(end, now) - start).total_seconds() / 86400)
+            rec["earned"] = rec["annual"] / 365 * rec["days"] if rec["annual"] else None
+            out.append(rec)
+    return out
+
+
 def main(argv=None, render=False):
     argv = sys.argv[1:] if argv is None else argv
     fpl = load_fpl(argv[0] if argv else None)
@@ -194,13 +240,16 @@ def main(argv=None, render=False):
         })
 
     gameweeks = gameweek_teams(fpl, players, [ev["id"] for ev in finished])
+    built_at = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
+    managers = manager_records(fpl, season_start, built_at)
 
     out = {
         "gameweeks": gameweeks,
         "season": season,
         "season_start": season_start,
         "gameweek": finished[-1]["id"] if finished else 0,
-        "built_at": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
+        "built_at": built_at,
+        "managers": managers,
         "rating_min_minutes": RATING_MIN_MINUTES,
         "players": sorted(players, key=lambda p: -p["weekly"]),
         "clubs": clubs,

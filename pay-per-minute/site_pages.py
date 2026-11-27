@@ -66,7 +66,7 @@ def gbp(v):
 
 def compact(v):
     if v >= 1e6:
-        return f"£{v / 1e6:.2f}m"
+        return f"£{v / 1e6:.2f}".rstrip("0").rstrip(".") + "m"
     if v >= 1e3:
         return f"£{int(v / 1e3 + 0.5):,}k"  # round half up, like the app
     return f"£{v:,.0f}"
@@ -191,7 +191,8 @@ PAGE_CSS = """
 
 NAV = [("/", "house", "Home"), ("/#players", "list", "Players"), ("/#value", "scale", "Best value"),
        ("/#actions", "receipt", "Price per action"), ("/#clubs", "shield", "Clubs"),
-       ("/premier-league-wages/", "note", "Wages table"), ("/north-south-divide/", "compass", "North v South"),
+       ("/premier-league-wages/", "note", "Wages table"), ("/premier-league-manager-salaries/", "whistle", "Managers"),
+       ("/north-south-divide/", "compass", "North v South"),
        ("/team-of-the-week/", "trophy", "Team of the week"),
        ("/#team", "users", "Team breakdown"),
        ("/#bench", "bench", "Paid to watch"), ("/game/", "shuffle", "Higher or lower"), ("/#you", "user", "You vs them")]
@@ -567,6 +568,78 @@ def render_xi(assets, data, g, latest):
                 jsonld=[faq_ld(qas), crumbs_ld(crumbs)])
 
 
+# ---------- managers ----------
+
+def render_managers(assets, data):
+    M, season, players = data.get("managers") or [], data["season"], data["players"]
+    cur = [m for m in M if m["current"]]
+    paid = sorted([m for m in cur if m["annual"]], key=lambda m: -m["annual"])
+    per_pt = lambda m: m["earned"] / m["pts"] if m["earned"] and m["pts"] else None
+    by_pt = sorted([m for m in cur if per_pt(m)], key=lambda m: -per_pt(m))
+    top, dear, cheap = paid[0], by_pt[0], by_pt[-1]
+    answer = (f"<strong>{e(top['name'])}</strong> is the highest-paid Premier League manager in {season}, on a reported "
+              f"<strong>{compact(top['annual'])} a year</strong> at {e(CLUB_NAMES[top['team']])}. Per league point won, "
+              f"{e(dear['name'])} has been the dearest at <strong>{compact(per_pt(dear))}</strong> a point, and "
+              f"{e(cheap['name'])} the cheapest at {compact(per_pt(cheap))}.")
+
+    def top_player(team):
+        squad = [p for p in players if p["team"] == team]
+        return max(squad, key=lambda p: p["weekly"]) if squad else None
+
+    rows = ""
+    for i, m in enumerate(sorted(cur, key=lambda m: -(m["annual"] or 0))):
+        tp = top_player(m["team"])
+        vs = "–"
+        if tp and m["annual"]:
+            r = m["annual"] / (tp["weekly"] * 52)
+            vs = (f"{r:.1f}× " if r >= 1 else f"{round(r * 100)}% of ") + short_link(tp)
+        since = f" · since {datetime.date.fromisoformat(m['start']).strftime('%-d %b')}" if m.get("start") else ""
+        rows += (f"<tr><td class='n opt'>{i + 1}</td><td><span class='who-cell'>{chip(m['team'])}<span><strong>{e(m['name'])}</strong>"
+                 f"<br><small style='color:var(--muted)'><a href='/clubs/{slugify(CLUB_NAMES[m['team']])}/' style='font-weight:400;color:var(--muted)'>{e(CLUB_NAMES[m['team']])}</a>{since}</small></span></span></td>"
+                 f"<td class='n'>{compact(m['annual']) + '/yr' if m['annual'] else 'Not reported'}</td><td class='n opt'>{compact(m['earned']) if m['earned'] else '–'}</td>"
+                 f"<td class='n opt'>{m['w']}-{m['d']}-{m['l']}</td><td class='n'>{m['pts']}</td>"
+                 f"<td class='n ppm'>{compact(per_pt(m)) if per_pt(m) else ('No points' if m['annual'] else '–')}</td><td class='c opt'>{vs}</td></tr>")
+    table = ("<div class='tscroll'><table class='wtable'><thead><tr><th class='opt'>#</th><th>Manager</th><th class='n'>Salary</th>"
+             "<th class='n opt'>Paid so far</th><th class='n opt'>W-D-L</th><th class='n'>Pts</th><th class='n'>£ per point</th><th class='c opt'>vs top player</th></tr></thead><tbody>"
+             + rows + "</tbody></table></div>")
+    gone = [m for m in M if not m["current"]]
+    gone_html = ""
+    if gone:
+        gone_html = ("<section><h2>" + ic("cross", "h-ic") + "Sacked this season</h2><div class='tscroll'><table class='wtable'><thead><tr><th>Manager</th>"
+                     "<th class='n'>Left</th><th class='n'>Paid in charge</th><th class='n opt'>W-D-L</th><th class='n'>£ per point</th></tr></thead><tbody>"
+                     + "".join(f"<tr><td><span class='who-cell'>{chip(m['team'])}<strong>{e(m['name'])}</strong></span></td>"
+                               f"<td class='n'>{datetime.date.fromisoformat(m['end']).strftime('%-d %b')}</td><td class='n'>{compact(m['earned']) if m['earned'] else '–'}</td>"
+                               f"<td class='n opt'>{m['w']}-{m['d']}-{m['l']}</td><td class='n ppm'>{compact(per_pt(m)) if per_pt(m) else '–'}</td></tr>" for m in gone)
+                     + "</tbody></table></div><p class='source'>Pay counts only the time in charge this season and excludes compensation.</p></section>")
+    avg = sum(m["annual"] for m in paid) / len(paid)
+    low = paid[-1]
+    lows = [m["name"] for m in paid if m["annual"] == low["annual"]]
+    qas = [("Who is the highest-paid Premier League manager?",
+            f"{e(top['name'])} of {e(CLUB_NAMES[top['team']])}, on a reported {compact(top['annual'])} a year. Source: {e(top['source'])}."),
+           ("How much do Premier League managers earn?",
+            f"About {compact(avg)} a year on average across the {len(paid)} managers with a reported salary, from {compact(low['annual'])} up to {compact(top['annual'])}."),
+           ("Who is the lowest-paid Premier League manager?",
+            f"{', '.join(e(n) for n in lows)}, each on a reported {compact(low['annual'])} a year."),
+           ("Which Premier League manager costs the most per point?",
+            f"{e(dear['name'])}: {compact(dear['earned'])} paid so far this season for {dear['pts']} points, or {compact(per_pt(dear))} a point.")]
+    missing = [m["name"] for m in cur if not m["annual"]]
+    crumbs = [("Home", "/"), ("Premier League manager salaries", "/premier-league-manager-salaries/")]
+    body = (crumbs_html(crumbs)
+            + f'<header class="ph"><div class="meta"><span>Premier League</span><span>{e(season)}</span><span>After gameweek {data["gameweek"]}</span></div>'
+            + f"<h1>Premier League manager salaries</h1><p class='answer'>{answer}</p></header>"
+            + "<section><h2>" + ic("whistle", "h-ic") + "Every manager, by salary</h2>" + table
+            + (f"<p class='source'>No salary has been reported yet for {e(' or '.join(missing))}.</p>" if missing else "") + "</section>"
+            + gone_html + faq_html(qas)
+            + "<p class='source'>Salaries are reported annual figures and may include bonuses where the source says so (main source: Football Whispers, 2026-27). "
+              "Paid so far runs from the season's first deadline or the appointment date. Results come from the Fantasy Premier League fixtures feed.</p>"
+            + f'<a class="cta" href="/#managers">{ic("whistle")}Measure it in meal deals in the app</a>')
+    title = f"Premier League manager salaries {season}: every boss's wage and cost per point | Pay Per Minute"
+    desc = (f"Every Premier League manager's reported salary for {season}, ranked. {top['name']} is the highest paid on {compact(top['annual'])} a year. "
+            f"Plus what each manager has cost per point won.")
+    return page(assets, path="/premier-league-manager-salaries/", title=title, description=desc, body=body,
+                current="/premier-league-manager-salaries/", jsonld=[faq_ld(qas), crumbs_ld(crumbs)])
+
+
 # ---------- north v south ----------
 
 REGION = {"LIV": "North", "EVE": "North", "MCI": "North", "MUN": "North", "NEW": "North", "SUN": "North", "LEE": "North", "HUL": "North",
@@ -728,6 +801,9 @@ def render(data=None):
             shutil.rmtree(old, ignore_errors=True)
     if (OUT / "game" / "index.html").exists():
         urls.append("/game/")
+    if data.get("managers"):
+        write(OUT / "premier-league-manager-salaries" / "index.html", render_managers(assets, data))
+        urls.append("/premier-league-manager-salaries/")
     write(OUT / "north-south-divide" / "index.html", render_divide(assets, data))
     urls.append("/north-south-divide/")
     gws = data.get("gameweeks") or []
