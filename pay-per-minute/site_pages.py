@@ -195,7 +195,7 @@ NAV = [("/", "house", "Home"), ("/#players", "list", "Players"), ("/#value", "sc
        ("/north-south-divide/", "compass", "North v South"),
        ("/team-of-the-week/", "trophy", "Team of the week"),
        ("/#team", "users", "Team breakdown"),
-       ("/#bench", "bench", "Paid to watch"), ("/game/", "shuffle", "Higher or lower"), ("/what-costs-more/", "house", "What costs more?"), ("/daily/", "calendar", "Daily challenge"), ("/#you", "user", "You vs them")]
+       ("/#bench", "bench", "Paid to watch"), ("/game/", "shuffle", "Higher or lower"), ("/what-costs-more/", "house", "What costs more?"), ("/daily/", "calendar", "Daily challenge"), ("/guess-the-wage/", "note", "Guess the wage"), ("/#you", "user", "You vs them")]
 
 
 def ic(name, cls=""):
@@ -785,6 +785,8 @@ def render(data=None):
     shutil.copyfile(HERE / "data.json", OUT / "data.json.tmp"); (OUT / "data.json.tmp").replace(OUT / "data.json")
     if (HERE / "game.html").exists():
         write(OUT / "game" / "index.html", (HERE / "game.html").read_text(encoding="utf-8"))
+    if (HERE / "guess.html").exists():
+        write(OUT / "guess-the-wage" / "index.html", (HERE / "guess.html").read_text(encoding="utf-8"))
     if (HERE / "daily.html").exists():
         write(OUT / "daily" / "index.html", (HERE / "daily.html").read_text(encoding="utf-8"))
     if (HERE / "costs-more.html").exists():
@@ -809,6 +811,8 @@ def render(data=None):
         urls.append("/what-costs-more/")
     if (OUT / "daily" / "index.html").exists():
         urls.append("/daily/")
+    if (OUT / "guess-the-wage" / "index.html").exists():
+        urls.append("/guess-the-wage/")
     if data.get("managers"):
         write(OUT / "premier-league-manager-salaries" / "index.html", render_managers(assets, data))
         urls.append("/premier-league-manager-salaries/")

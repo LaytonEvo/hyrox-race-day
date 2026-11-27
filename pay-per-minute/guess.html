@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guess the wage · Pay Per Minute</title>
+<meta name="description" content="How much does he earn a week? Guess five Premier League players' wages from their stats and see how close you get.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Same tokens and type as the main Pay Per Minute page. */
+:root {
+  --paper: #F4F6F9;
+  --sheet: #FFFFFF;
+  --ink: #14213D;
+  --muted: #5A647A;
+  --line: #D8DDE6;
+  --accent: #D62F28;
+  --accent-soft: #FBE7E5;
+  --good: #1F7A4D;
+  --good-soft: #E3F1E9;
+  --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0E1320; --sheet: #161D2E; --ink: #E7EBF3; --muted: #9AA4B9;
+    --line: #2A3349; --good-soft: #17302A; --accent: #FF5B4F; --accent-soft: #3A1E22; --good: #3FAE7A;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0E1320; --sheet: #161D2E; --ink: #E7EBF3; --muted: #9AA4B9;
+  --line: #2A3349; --good-soft: #17302A; --accent: #FF5B4F; --accent-soft: #3A1E22; --good: #3FAE7A;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+.ic { width: 1.15em; height: 1.15em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.2em; flex: none; }
+html, body { margin: 0; }
+body {
+  background: var(--paper); color: var(--ink); font: 15px/1.5 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 max(32px, env(safe-area-inset-bottom, 0px));
+}
+.wrap { max-width: 1040px; margin: 0 auto; display: grid; gap: 24px; }
+h1, h2 { font-family: var(--display); font-weight: 900; text-transform: uppercase; letter-spacing: .01em; line-height: .95; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+.label { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 600; }
+.lede { color: var(--muted); max-width: 62ch; }
+button { font: inherit; }
+button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Top navigation (as on the main page) */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--ink); }
+.topnav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ink); color: var(--paper);
+  margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))) calc(-1 * max(16px, env(safe-area-inset-right, 0px)));
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.topnav-in { max-width: 1040px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 4px 18px; min-height: 52px; }
+.brand { font: 900 20px/1 var(--display); text-transform: uppercase; color: var(--paper); text-decoration: none; letter-spacing: .02em; white-space: nowrap; }
+.brand span { color: var(--accent); }
+.navback { display: inline-flex; align-items: center; gap: 6px; color: var(--paper); opacity: .72; text-decoration: none; font-size: 14px; font-weight: 500; padding: 6px 10px; border-radius: 4px; white-space: nowrap; }
+.navback:hover { opacity: 1; }
+
+/* Heading + scoreboard */
+header.hero { padding-top: 28px; display: grid; gap: 12px; }
+.hero h1 { font-size: clamp(44px, 9vw, 96px); }
+.hero h1 span { color: var(--accent); }
+.bar-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 12px 20px; border-top: 2px solid var(--ink); padding-top: 14px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: var(--sheet); }
+.seg button { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; border: 0; background: none; color: var(--muted); padding: 8px 12px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.seg button:focus-visible { outline-offset: -3px; }
+.mode { display: grid; gap: 4px; }
+.scores { display: flex; gap: 10px; }
+.tally { background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; padding: 6px 14px; display: grid; min-width: 84px; }
+.tally b { font: 600 24px/1.2 var(--mono); font-variant-numeric: tabular-nums; }
+.tally.pop b { animation: pop .35s ease-out; }
+@keyframes pop { 40% { transform: scale(1.25); color: var(--good); } }
+
+/* The two cards */
+.arena { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: stretch; gap: 16px; }
+.card {
+  background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; padding: 18px 20px 20px;
+  display: grid; gap: 14px; align-content: start; min-width: 0; position: relative; overflow: hidden;
+  border-top: 6px solid var(--club, var(--line));
+}
+.card.right.right-ok { border-color: var(--good); border-top-color: var(--club, var(--good)); box-shadow: 0 0 0 1px var(--good); }
+.card.right.right-bad { border-color: var(--accent); border-top-color: var(--club, var(--accent)); box-shadow: 0 0 0 1px var(--accent); }
+.card.enter { animation: enter .35s ease-out; }
+@keyframes enter { from { opacity: 0; transform: translateY(10px); } }
+.who { display: flex; gap: 10px; align-items: center; min-width: 0; }
+.chip { flex: none; width: 34px; height: 22px; border-radius: 3px; font: 600 10px/22px var(--mono); text-align: center; color: #fff; letter-spacing: .03em; }
+.who small { color: var(--muted); font-size: 13px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pname { font: 900 clamp(34px, 5vw, 52px)/.95 var(--display); text-transform: uppercase; margin: 0; overflow-wrap: anywhere; }
+.full { color: var(--muted); font-size: 13px; margin-top: 4px; }
+.stats { display: flex; flex-wrap: wrap; gap: 4px 14px; color: var(--muted); font-size: 13px; }
+.stats b { color: var(--ink); font-family: var(--mono); font-weight: 600; font-variant-numeric: tabular-nums; }
+.val { border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 2px; }
+.big { font: 600 clamp(32px, 5.4vw, 48px)/1.1 var(--mono); font-variant-numeric: tabular-nums; color: var(--accent); }
+.big.hidden-val { color: var(--muted); letter-spacing: .1em; }
+.val small { color: var(--muted); font-size: 13px; }
+.verdict { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 14px; min-height: 1.5em; }
+.verdict.ok { color: var(--good); } .verdict.bad { color: var(--accent); }
+.choices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.choice {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
+  font: 900 24px/1 var(--display); text-transform: uppercase; letter-spacing: .04em;
+  border: 2px solid var(--ink); border-radius: 6px; padding: 14px 10px; min-height: 56px;
+  background: var(--ink); color: var(--paper); transition: transform .1s, background-color .15s, color .15s;
+}
+.choice.lower { background: var(--sheet); color: var(--ink); }
+.choice:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); color: #fff; }
+.choice:active:not(:disabled) { transform: translateY(1px); }
+.choice:disabled { opacity: .45; cursor: default; }
+.choice .ic { width: 1em; height: 1em; stroke-width: 2.4; }
+.prompt { font-size: 14px; color: var(--muted); }
+.prompt b { color: var(--ink); }
+.vs { align-self: center; width: 52px; height: 52px; border-radius: 50%; background: var(--ink); color: var(--paper); display: grid; place-items: center; font: 900 20px/1 var(--display); text-transform: uppercase; }
+
+/* Game over */
+.over { background: var(--sheet); border: 1px solid var(--line); border-left: 6px solid var(--accent); border-radius: 6px; padding: 20px; display: grid; gap: 14px; }
+.over h2 { font-size: clamp(32px, 5vw, 48px); }
+.over h2:focus { outline: none; }
+.over h2:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.over .final { font: 600 18px/1.4 var(--body); }
+.over .final b { font-family: var(--mono); color: var(--accent); }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); padding: 11px 16px; border-radius: 4px; cursor: pointer; }
+.btn.ghost { background: var(--sheet); color: var(--ink); border-color: var(--line); }
+.btn.ghost:hover { border-color: var(--ink); }
+.copybox { width: 100%; font: 13px/1.4 var(--mono); color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 4px; padding: 8px 10px; resize: none; }
+.copybox:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.status { color: var(--muted); font-size: 13px; min-height: 1.4em; }
+.error { color: var(--accent); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; max-width: 70ch; padding-top: 8px; }
+footer a { color: inherit; }
+
+@media (max-width: 720px) {
+  .wrap { gap: 14px; }
+  header.hero { padding-top: 16px; gap: 8px; }
+  .hero h1 { font-size: 44px; }
+  .lede { font-size: 14px; line-height: 1.4; }
+  .bar-top { padding-top: 10px; flex-wrap: nowrap; align-items: center; gap: 8px; }
+  .mode .label { display: none; }
+  .seg button { font-size: 12px; padding: 7px 8px; gap: 4px; }
+  .scores { gap: 6px; }
+  .tally { min-width: 0; padding: 2px 10px; }
+  .tally .label { font-size: 10px; }
+  .tally b { font-size: 18px; }
+  .arena { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .vs { justify-self: center; margin: -13px 0; position: relative; z-index: 1; width: 40px; height: 40px; font-size: 16px; border: 3px solid var(--paper); }
+  .card { padding: 12px 14px 14px; gap: 8px; border-top-width: 5px; }
+  .pname { font-size: 32px; }
+  .full { display: none; }
+  .val { padding-top: 8px; }
+  .big { font-size: 28px; }
+  .choice { min-height: 50px; padding: 10px; font-size: 22px; }
+  .prompt { font-size: 13px; line-height: 1.4; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* What costs more? */
+.arena2 { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 16px; align-items: stretch; }
+.pick { all: unset; box-sizing: border-box; cursor: pointer; background: var(--sheet); border: 1px solid var(--line); border-radius: 8px;
+  padding: 18px 20px; display: grid; gap: 10px; align-content: start; min-width: 0; position: relative; border-top: 6px solid var(--tint, var(--ink));
+  transition: transform .12s, border-color .15s, box-shadow .15s; }
+.pick:hover:not([aria-disabled="true"]) { transform: translateY(-2px); border-color: var(--ink); box-shadow: 0 4px 14px rgba(0,0,0,.08); }
+.pick:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.pick[aria-disabled="true"] { cursor: default; }
+.pick .kind { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 600; }
+.pick .badge { width: 54px; height: 54px; border-radius: 12px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); }
+.pick.real .badge { background: var(--good-soft); color: var(--good); }
+.pick .badge .ic { width: 30px; height: 30px; stroke-width: 1.8; vertical-align: 0; }
+.pick h2 { font-size: clamp(28px, 4.4vw, 44px); overflow-wrap: anywhere; }
+.pick .sub { color: var(--muted); font-size: 14px; }
+.pick .price { font: 600 clamp(26px, 4.6vw, 40px)/1.1 var(--mono); font-variant-numeric: tabular-nums; color: var(--muted); letter-spacing: .02em; }
+.pick .price.shown { color: var(--ink); letter-spacing: 0; }
+.pick.won { border-color: var(--good); box-shadow: 0 0 0 2px var(--good); }
+.pick.lost { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+.pick .tag { position: absolute; top: 12px; right: 12px; display: inline-flex; align-items: center; gap: 4px; font-weight: 600; font-size: 13px;
+  padding: 4px 8px; border-radius: 999px; }
+.pick .tag.more { background: var(--ink); color: var(--paper); }
+.result { font: 600 16px/1.4 var(--body); min-height: 1.4em; display: flex; align-items: center; gap: 8px; }
+.result.ok { color: var(--good); } .result.bad { color: var(--accent); }
+.result .ic { width: 1.2em; height: 1.2em; }
+.ask { font: 900 clamp(24px, 3.6vw, 34px)/1 var(--display); text-transform: uppercase; text-align: center; }
+.nextbtn { justify-self: center; }
+@media (max-width: 720px) {
+  .arena2 { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .pick { padding: 12px 14px; gap: 6px; grid-template-columns: auto minmax(0, 1fr); align-items: center; column-gap: 12px; }
+  .pick .badge { width: 44px; height: 44px; grid-row: span 2; }
+  .pick .badge .ic { width: 24px; height: 24px; }
+  .pick h2 { font-size: 26px; }
+  .pick .kind, .pick .sub, .pick .price { grid-column: 1 / -1; }
+  .pick .price { font-size: 26px; }
+  .ask { font-size: 22px; }
+}
+
+.gcard { background: var(--sheet); border: 1px solid var(--line); border-top: 6px solid var(--tint, var(--ink)); border-radius: 8px; padding: 18px 20px; display: grid; gap: 12px; }
+.gcard .who { display: flex; gap: 10px; align-items: center; color: var(--muted); font-size: 13px; }
+.gcard h2 { font-size: clamp(34px, 6vw, 60px); overflow-wrap: anywhere; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; }
+.facts div { background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; display: grid; gap: 2px; }
+.facts b { font: 600 20px/1.2 var(--mono); font-variant-numeric: tabular-nums; }
+.facts small { color: var(--muted); font-size: 12px; }
+.guessbox { display: grid; gap: 10px; }
+.guessval { text-align: center; font: 600 clamp(34px, 7vw, 56px)/1.1 var(--mono); font-variant-numeric: tabular-nums; }
+.guessval small { display: block; font: 500 13px var(--body); color: var(--muted); }
+.slider-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; }
+.slider-row input[type=range] { width: 100%; accent-color: var(--accent); height: 32px; }
+.nudge { font: 600 20px/1 var(--mono); width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--sheet); color: var(--ink); cursor: pointer; }
+.nudge:focus-visible, .slider-row input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ticks { display: flex; justify-content: space-between; color: var(--muted); font: 12px var(--mono); padding: 0 54px; }
+.lock { justify-self: center; font-size: 17px; padding: 13px 26px; }
+.reveal { display: grid; gap: 10px; }
+.track { position: relative; height: 54px; margin: 0 6px; }
+.track .line { position: absolute; left: 0; right: 0; top: 26px; height: 4px; border-radius: 2px; background: var(--line); }
+.track .span { position: absolute; top: 26px; height: 4px; background: var(--accent); border-radius: 2px; }
+.track .mk { position: absolute; top: 0; transform: translateX(-50%); display: grid; justify-items: center; gap: 2px; font: 600 12px var(--mono); white-space: nowrap; }
+.track .mk i { width: 14px; height: 14px; border-radius: 50%; border: 3px solid var(--sheet); box-shadow: 0 0 0 1px var(--line); margin-top: 16px; }
+.track .mk.you i { background: var(--muted); } .track .mk.real i { background: var(--good); }
+.track .mk.you { color: var(--muted); } .track .mk.real { color: var(--good); }
+.track .mk span { position: absolute; top: -2px; left: 50%; transform: translateX(-50%); }
+.track .mk span.l { left: 7px; transform: none; } .track .mk span.r { left: auto; right: 7px; transform: none; }
+.reveal { overflow-x: clip; }
+.points { text-align: center; font: 900 clamp(28px, 4vw, 40px)/1 var(--display); text-transform: uppercase; }
+.points em { font-style: normal; color: var(--accent); }
+.roundinfo { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.roundbar { display: flex; gap: 6px; }
+.roundbar span { width: 28px; height: 8px; border-radius: 4px; background: var(--line); }
+.roundbar span.now { background: var(--ink); } .roundbar span.g { background: var(--good); } .roundbar span.y { background: #D9A400; } .roundbar span.o { background: #E07A1F; } .roundbar span.r { background: var(--accent); }
+.recap { display: grid; gap: 6px; }
+.recap p { display: flex; gap: 10px; justify-content: space-between; font-size: 14px; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+.recap p b { font-family: var(--mono); }
+.grid-share { font-size: 32px; letter-spacing: 4px; text-align: center; }
+@media (max-width: 720px) { .gcard { padding: 14px; gap: 10px; } .facts b { font-size: 17px; } .ticks { padding: 0 54px; font-size: 11px; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-house" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9v12h14V9"/><path d="M10 21v-6h4v6"/></symbol><symbol id="i-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 8.2l3.6 2.6-1.4 4.2H9.8l-1.4-4.2z"/><path d="M12 8.2V2.5M15.6 10.8l5.4-1.7M14.2 15l3.3 4.6M9.8 15l-3.3 4.6M8.4 10.8 3 9.1"/></symbol><symbol id="i-pass" viewBox="0 0 24 24"><path d="M3 19c3.5-7 9-11.5 17-13"/><path d="M14.5 3.5 20 6l-2.5 5.4"/><circle cx="4.5" cy="19" r="1.5"/></symbol><symbol id="i-glove" viewBox="0 0 24 24"><path d="M7 12V5.5a1.5 1.5 0 0 1 3 0V10M10 9.5V4a1.5 1.5 0 0 1 3 0v5.5M13 9.5V5a1.5 1.5 0 0 1 3 0v5.5M16 10.5V8a1.5 1.5 0 0 1 3 0v6.5a6.5 6.5 0 0 1-6.5 6.5h-.8a6.5 6.5 0 0 1-5.3-2.8l-2.8-4a1.6 1.6 0 0 1 2.6-1.9L7 14"/></symbol><symbol id="i-sheet" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 12.5l2 2 4-4.5"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol><symbol id="i-whistle" viewBox="0 0 24 24"><path d="M3 10.5h9.5l2-3.5h6.5v4.5a7 7 0 1 1-14 0"/><circle cx="12.5" cy="14.5" r="2"/><path d="M3 10.5V8"/></symbol><symbol id="i-boot" viewBox="0 0 24 24"><path d="M5 4h5l1 6c3.5 0 9 1.5 9 5.5V17H5z"/><path d="M5 17h15M8 20v-3M12 20v-3M16 20v-3"/></symbol><symbol id="i-oops" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></symbol><symbol id="i-car" viewBox="0 0 24 24"><path d="M5 16V11l2-5h10l2 5v5"/><path d="M3 16h18v3H3z"/><circle cx="7.5" cy="19" r="1.5"/><circle cx="16.5" cy="19" r="1.5"/><path d="M5 11h14"/></symbol><symbol id="i-watch" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/><path d="M12 9v3l2 1.5"/><path d="M9 6.5 9.5 2h5l.5 4.5M9 17.5l.5 4.5h5l.5-4.5"/></symbol><symbol id="i-grad" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c2 2 10 2 12 0v-5M22 9v6"/></symbol><symbol id="i-phone" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></symbol><symbol id="i-plane" viewBox="0 0 24 24"><path d="M2 13.5 22 6l-3 13-6-4-3 4v-5.5z"/><path d="M10 13.5 22 6"/></symbol><symbol id="i-ring" viewBox="0 0 24 24"><circle cx="12" cy="15" r="6"/><path d="M9 3h6l2 3-5 3-5-3z"/></symbol><symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4z"/><path d="M15 7v2M15 11v2M15 15v2"/></symbol><symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></symbol><symbol id="i-pint" viewBox="0 0 24 24"><path d="M6 3h12l-1.6 18H7.6z"/><path d="M6.5 8.5h11"/></symbol><symbol id="i-sandwich" viewBox="0 0 24 24"><path d="M3 17.5 12 5l9 12.5z"/><path d="M5.4 14.2h13.2"/></symbol><symbol id="i-game" viewBox="0 0 24 24"><path d="M6 8h12a4 4 0 0 1 4 4v1a4 4 0 0 1-7 2.6L14 14h-4l-1 1.6A4 4 0 0 1 2 13v-1a4 4 0 0 1 4-4z"/><path d="M7 11v3M5.5 12.5h3M16 12h.01M18 13.5h.01"/></symbol><symbol id="i-tent" viewBox="0 0 24 24"><path d="M3 20 12 4l9 16z"/><path d="M12 4v16M9 20l3-5 3 5"/></symbol><symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8.5 3 3 6l2 4.2 2-1V21h10V9.2l2 1L21 6l-5.5-3c0 1.7-1.6 3-3.5 3S8.5 4.7 8.5 3z"/></symbol><symbol id="i-tick" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16.5 9.5"/></symbol><symbol id="i-cross" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15.4 6.4L3 16"/><path d="M3 21v-5h5"/><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8"/><path d="M21 3v5h-5"/></symbol><symbol id="i-receipt" viewBox="0 0 24 24"><path d="M5 3h14v18l-2.5-1.8L14 21l-2-1.8L10 21l-2.5-1.8L5 21z"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol><symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol></svg>
+<nav class="topnav" aria-label="Site">
+  <div class="topnav-in">
+    <a class="brand" href="/">Pay per <span>minute</span></a>
+    <a class="navback" href="/daily/">Daily challenge →</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="label" id="season-label">Premier League · mini game</p>
+    <h1>Guess the <span>wage</span></h1>
+    <p class="lede">Five players. Read the stats, slide to your guess for their weekly wage, and lock it in. The closer you are, the more points, up to 100 a round.</p>
+  </header>
+
+  <p class="status" id="loading">Loading players…</p>
+
+  <section id="play" aria-label="Guess the wage" hidden>
+    <div class="roundinfo"><div class="roundbar" id="roundbar" aria-hidden="true"></div><span class="label" id="roundlabel"></span>
+      <div class="tally"><span class="label">Points</span><b id="total">0</b></div></div>
+    <article class="gcard" id="gcard" style="margin-top:12px"></article>
+    <div class="guessbox" id="guessbox" style="margin-top:16px">
+      <label for="slider" class="label" style="text-align:center">Your guess: weekly wage before tax</label>
+      <div class="guessval" id="guessval" aria-live="polite"></div>
+      <div class="slider-row">
+        <button class="nudge" type="button" id="minus" aria-label="Guess lower">−</button>
+        <input type="range" id="slider" min="0" max="1000" step="1" value="500" aria-describedby="guessval">
+        <button class="nudge" type="button" id="plus" aria-label="Guess higher">+</button>
+      </div>
+      <div class="ticks" aria-hidden="true"><span>£5k</span><span>£25k</span><span>£100k</span><span>£600k</span></div>
+      <button class="btn lock" type="button" id="lock">Lock in my guess</button>
+    </div>
+    <div class="reveal" id="reveal" hidden style="margin-top:16px">
+      <p class="points" id="points"></p>
+      <div class="track" id="track" aria-hidden="true"></div>
+      <p class="result" id="result" role="status" style="justify-content:center;text-align:center"></p>
+      <button class="btn nextbtn" type="button" id="next">Next player <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+    </div>
+  </section>
+
+  <section class="over" id="over" aria-labelledby="over-h" hidden>
+    <h2 id="over-h" tabindex="-1">Full time</h2>
+    <p class="final" id="final"></p>
+    <p class="grid-share" id="grid" aria-hidden="true"></p>
+    <div class="actions">
+      <button class="btn" type="button" id="again"><svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg>Play again</button>
+      <button class="btn ghost" type="button" id="copy"><svg class="ic" aria-hidden="true"><use href="#i-receipt"/></svg>Copy result</button>
+    </div>
+    <textarea class="copybox" id="copybox" rows="3" readonly aria-label="Your result, ready to copy" hidden></textarea>
+    <p class="status" id="copy-status" role="status"></p>
+    <div class="recap" id="recap"></div>
+  </section>
+
+  <footer>
+    <p><strong>Scoring.</strong> 100 points for an exact guess, about 90 if you're within 10%, and nothing once you're three times out either way.</p>
+    <p>Wages are reported estimates; clubs don't publish salaries. <a href="/">See every player</a> · <a href="/daily/">Daily challenge</a> · <a href="/game/">Higher or lower</a> · <a href="/what-costs-more/">What costs more?</a></p>
+  </footer>
+</main>
+
+<script>
+const CLUB_COLOURS = { ARS:"#DB0007", AVL:"#670E36", BOU:"#B50E12", BRE:"#C8102E", BHA:"#0057B8", CHE:"#034694", COV:"#3BA6E1", CRY:"#1B458F",
+  EVE:"#003399", FUL:"#1A1A1A", HUL:"#E67E00", IPS:"#0044A9", LEE:"#1D428A", LIV:"#C8102E", MCI:"#5B9FD6", MUN:"#DA291C", NEW:"#241F20",
+  NFO:"#DD0000", TOT:"#132257", SUN:"#EB172B" };
+const POS = { GK: "Goalkeeper", DEF: "Defender", MID: "Midfielder", FWD: "Forward" };
+const LO = 5000, HI = 600000, ROUNDS = 5;
+const fmt0 = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP", maximumFractionDigits: 0 });
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+const $ = id => document.getElementById(id);
+const reduceMotion = () => window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
+
+// Slider position (0-1000) <-> wage, on a log scale, snapped to sensible steps.
+const toWage = t => { const w = Math.exp(Math.log(LO) + t / 1000 * (Math.log(HI) - Math.log(LO))); const step = w < 20000 ? 500 : w < 100000 ? 1000 : 5000; return Math.round(w / step) * step; };
+const toPos = w => Math.round((Math.log(w) - Math.log(LO)) / (Math.log(HI) - Math.log(LO)) * 1000);
+const pct = w => Math.max(0, Math.min(100, (Math.log(w) - Math.log(LO)) / (Math.log(HI) - Math.log(LO)) * 100));
+const score = (g, a) => Math.round(100 * Math.max(0, 1 - Math.abs(Math.log(g / a)) / Math.log(3)));
+const square = s => s >= 80 ? "🟩" : s >= 50 ? "🟨" : s >= 20 ? "🟧" : "🟥";
+const cls = s => s >= 80 ? "g" : s >= 50 ? "y" : s >= 20 ? "o" : "r";
+
+let pool = [], picks = [], idx = 0, results = [], days = 0;
+
+function fact(v, l) { return `<div><b>${v}</b><small>${l}</small></div>`; }
+
+function showPlayer() {
+  const p = picks[idx];
+  $("gcard").style.setProperty("--tint", CLUB_COLOURS[p.team] || "#555");
+  const facts = [fact(p.minutes.toLocaleString("en-GB"), "league minutes")];
+  if (p.pos === "GK") facts.push(fact(p.saves || 0, "saves"), fact(p.cs || 0, "clean sheets"));
+  else facts.push(fact(p.goals, "goals"), fact(p.assists, "assists"));
+  facts.push(fact(p.rating != null ? p.rating.toFixed(1) : "–", "match rating"));
+  $("gcard").innerHTML = `<div class="who"><span class="chip" style="background:${CLUB_COLOURS[p.team] || "#555"}">${esc(p.team)}</span><span>${esc(p.club)} · ${POS[p.pos]}</span></div>
+    <h2>${esc(p.display || p.name)}</h2><div class="facts">${facts.join("")}</div>`;
+  $("roundlabel").textContent = `Player ${idx + 1} of ${ROUNDS}`;
+  $("roundbar").innerHTML = picks.map((_, i) => `<span class="${i < results.length ? cls(results[i].pts) : i === idx ? "now" : ""}"></span>`).join("");
+  $("slider").value = 500; updateGuess();
+  $("guessbox").hidden = false; $("reveal").hidden = true;
+}
+
+function updateGuess() {
+  const w = toWage(+$("slider").value);
+  $("guessval").innerHTML = `${fmt0.format(w)}<small>a week · ${fmt0.format(w * 52)} a year</small>`;
+  $("slider").setAttribute("aria-valuetext", `${fmt0.format(w)} a week`);
+}
+
+function lock() {
+  const p = picks[idx], g = toWage(+$("slider").value), a = p.weekly, pts = score(g, a);
+  results.push({ p, g, pts });
+  $("total").textContent = results.reduce((t, r) => t + r.pts, 0);
+  $("guessbox").hidden = true; $("reveal").hidden = false;
+  const lo = Math.min(pct(g), pct(a)), hi = Math.max(pct(g), pct(a));
+  const side = v => v < 18 ? "l" : v > 82 ? "r" : "";
+  $("track").innerHTML = `<span class="line"></span><span class="span" style="left:${lo}%;width:${hi - lo}%"></span>
+    <span class="mk you" style="left:${pct(g)}%"><i></i><span class="${side(pct(g))}" style="top:34px">You ${esc(fmt0.format(g))}</span></span>
+    <span class="mk real" style="left:${pct(a)}%"><span class="${side(pct(a))}" style="top:-4px">Actual ${esc(fmt0.format(a))}</span><i></i></span>`;
+  const off = g / a;
+  $("points").innerHTML = `<em>+${pts}</em> points`;
+  $("result").textContent = `${p.display || p.name} earns a reported ${fmt0.format(a)} a week. You were ${Math.abs(off - 1) < 0.005 ? "spot on" : off > 1 ? `${Math.round((off - 1) * 100)}% too high` : `${Math.round((1 - off) * 100)}% too low`}.`;
+  $("roundbar").innerHTML = picks.map((_, i) => `<span class="${i < results.length ? cls(results[i].pts) : ""}"></span>`).join("");
+  $("next").innerHTML = idx === ROUNDS - 1 ? `See your score <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg>` : `Next player <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg>`;
+  $("next").focus({ preventScroll: true });
+}
+
+function finish() {
+  const total = results.reduce((t, r) => t + r.pts, 0), best = Math.max(total, +store.get("ppm-gtw-best") || 0);
+  store.set("ppm-gtw-best", best);
+  const verdict = total >= 400 ? "You should work in a club's finance department." : total >= 300 ? "Agent material." : total >= 200 ? "Solid guesswork." : total >= 100 ? "Football wages are wild." : "Better stick to the transfer rumours.";
+  $("final").innerHTML = `You scored <b>${total}/${ROUNDS * 100}</b>. ${verdict} Best so far: <b>${best}</b>.`;
+  $("grid").textContent = results.map(r => square(r.pts)).join("");
+  $("recap").innerHTML = results.map(r => `<p><span>${esc(r.p.display || r.p.name)}: you said ${fmt0.format(r.g)}, actually ${fmt0.format(r.p.weekly)}</span><b>+${r.pts}</b></p>`).join("");
+  $("copybox").hidden = true; $("copy-status").textContent = "";
+  $("play").hidden = true; $("over").hidden = false; $("over-h").focus({ preventScroll: true });
+}
+
+function start() {
+  const bag = [...pool]; picks = [];
+  while (picks.length < ROUNDS && bag.length) picks.push(bag.splice(Math.floor(Math.random() * bag.length), 1)[0]);
+  idx = 0; results = []; $("total").textContent = 0;
+  $("over").hidden = true; $("play").hidden = false; showPlayer();
+}
+
+$("slider").addEventListener("input", updateGuess);
+$("minus").addEventListener("click", () => { $("slider").value = Math.max(0, +$("slider").value - 10); updateGuess(); });
+$("plus").addEventListener("click", () => { $("slider").value = Math.min(1000, +$("slider").value + 10); updateGuess(); });
+$("lock").addEventListener("click", lock);
+$("next").addEventListener("click", () => { idx++; if (idx >= ROUNDS) finish(); else { showPlayer(); $("slider").focus({ preventScroll: true }); } });
+$("again").addEventListener("click", () => { start(); window.scrollTo({ top: 0, behavior: reduceMotion() ? "auto" : "smooth" }); });
+$("copy").addEventListener("click", () => {
+  const total = results.reduce((t, r) => t + r.pts, 0);
+  const text = `Guess the wage: ${total}/${ROUNDS * 100}\n${results.map(r => square(r.pts)).join("")}\n${location.origin}/guess-the-wage/`;
+  const fallback = () => { const box = $("copybox"); box.value = text; box.hidden = false; box.focus(); box.select(); $("copy-status").textContent = "Copy the selected text with Ctrl+C, Cmd+C or a long press."; };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => { $("copy-status").textContent = "Copied. Paste it anywhere."; }, fallback);
+  else fallback();
+});
+
+fetch("/data.json").then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(data => {
+  const names = Object.fromEntries((data.clubs || []).map(c => [c.short, c.name]));
+  pool = data.players.filter(p => p.minutes >= 90 && p.weekly >= LO && p.weekly <= HI).map(p => ({ ...p, club: names[p.team] || p.team }));
+  if (data.season) $("season-label").textContent = `Premier League ${data.season} · mini game`;
+  $("loading").hidden = true;
+  start();
+}).catch(err => { $("loading").className = "status error"; $("loading").textContent = "Couldn't load the players. Refresh to try again."; console.warn(err); });
+</script>
+</body>
+</html>

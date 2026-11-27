@@ -282,6 +282,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
       <a href="/premier-league-wages/"><svg class="ic" aria-hidden="true"><use href="#i-note"/></svg>Wages table</a>
       <a href="/game/"><svg class="ic" aria-hidden="true"><use href="#i-shuffle"/></svg>Higher or lower</a>
       <a href="/daily/"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg>Daily challenge</a>
+      <a href="/guess-the-wage/"><svg class="ic" aria-hidden="true"><use href="#i-note"/></svg>Guess the wage</a>
       <a href="/what-costs-more/"><svg class="ic" aria-hidden="true"><use href="#i-house"/></svg>What costs more?</a>
       <a href="#you"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>You vs them</a>
     </div>
@@ -1081,6 +1082,7 @@ function renderHome() {
     ["bench", "bench", "Paid to watch", "The best-paid players who've barely played.", idle && `${idle.name}: ${compact(idle.earned)} for ${idle.minutes} minutes`],
     ["/premier-league-wages/", "note", "Wages table", "Every player's salary, ranked, with a page for each player and club.", top && `Top earner: ${top.display || top.name}, ${compact(top.weekly)} a week`],
     ["/daily/", "calendar", "Daily challenge", "Five rounds, same for everyone, new every day. Share your score.", "Today's puzzle is live"],
+    ["/guess-the-wage/", "note", "Guess the wage", "Read the stats, slide to a weekly wage, score up to 100 a player.", "Play now"],
     ["/game/", "shuffle", "Higher or lower", "Who earns more per minute? Keep the streak going.", "Play now"],
     ["/what-costs-more/", "house", "What costs more?", "A Haaland goal or a house in Chelsea? Pick the dearer one.", "Play now"],
     ["you", "user", "You vs them", "Put your salary next to theirs.", top && `${top.name} earns ${compact(top.weekly)} a week`],
