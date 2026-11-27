@@ -163,6 +163,10 @@ PAGE_CSS = """
 .wtable tr:last-child td { border-bottom: 0; }
 .wtable .n { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .wtable th.n { text-align: right; }
+.wtable .c { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.wtable th.c { text-align: right; font-family: var(--body); }
+.wtable .win { color: var(--good); font-weight: 600; }
+.wtable .win .ic { width: 1em; height: 1em; }
 .wtable .hl td { background: var(--accent-soft); }
 .wtable a { color: var(--ink); font-weight: 600; text-decoration: none; }
 .wtable a:hover { text-decoration: underline; }
@@ -187,7 +191,8 @@ PAGE_CSS = """
 
 NAV = [("/", "house", "Home"), ("/#players", "list", "Players"), ("/#value", "scale", "Best value"),
        ("/#actions", "receipt", "Price per action"), ("/#clubs", "shield", "Clubs"),
-       ("/premier-league-wages/", "note", "Wages table"), ("/team-of-the-week/", "trophy", "Team of the week"),
+       ("/premier-league-wages/", "note", "Wages table"), ("/north-south-divide/", "compass", "North v South"),
+       ("/team-of-the-week/", "trophy", "Team of the week"),
        ("/#team", "users", "Team breakdown"),
        ("/#bench", "bench", "Paid to watch"), ("/game/", "shuffle", "Higher or lower"), ("/#you", "user", "You vs them")]
 
@@ -562,6 +567,124 @@ def render_xi(assets, data, g, latest):
                 jsonld=[faq_ld(qas), crumbs_ld(crumbs)])
 
 
+# ---------- north v south ----------
+
+REGION = {"LIV": "North", "EVE": "North", "MCI": "North", "MUN": "North", "NEW": "North", "SUN": "North", "LEE": "North", "HUL": "North",
+          "AVL": "Midlands", "NFO": "Midlands", "COV": "Midlands", "ARS": "London", "CHE": "London", "TOT": "London", "CRY": "London",
+          "FUL": "London", "BRE": "London", "BOU": "South coast", "BHA": "South coast", "IPS": "East Anglia"}
+DERBIES = [("Manchester derby", "MCI", "MUN"), ("Merseyside derby", "LIV", "EVE"), ("North London derby", "ARS", "TOT"),
+           ("Tyne–Wear derby", "NEW", "SUN"), ("West London derby", "CHE", "FUL"), ("M23 derby", "BHA", "CRY"), ("Yorkshire derby", "LEE", "HUL")]
+
+
+def side(team):
+    return "North" if REGION.get(team) in ("North", "Midlands") else "South"
+
+
+def poss(name):
+    return f"{name}'" if name.endswith("s") else f"{name}'s"
+
+
+def group(players, avail):
+    earned = sum(p["earned"] for p in players)
+    minutes = sum(p["minutes"] for p in players)
+    goals = sum(p["goals"] for p in players)
+    ga = sum(p["goals"] + p["assists"] for p in players)
+    valued = [p for p in players if p.get("value") is not None]
+    return {"n": len(players), "weekly": sum(p["weekly"] for p in players),
+            "ppm": earned / minutes if minutes else None, "per_goal": earned / goals if goals else None,
+            "per_ga": earned / ga if ga else None,
+            "idle": sum(p["earned"] * max(0, 1 - p["minutes"] / avail) for p in players) if avail else 0,
+            "value": sum(p["value"] for p in valued) / len(valued) if valued else None,
+            "best": max(valued, key=lambda p: p["value"], default=None), "worst": min(valued, key=lambda p: p["value"], default=None),
+            "top": max(players, key=lambda p: p["weekly"], default=None)}
+
+
+def short_link(p):
+    return f'<a href="/players/{p["slug"]}/">{e(p["name"])}</a>'
+
+
+def cmp_table(heads, stats, rows):
+    out = "<tr><th></th>" + "".join(f"<th class='c'>{e(h)}</th>" for h in heads) + "</tr>"
+    body = ""
+    for label, fmt, better, key in rows:
+        win = -1
+        if better and all(key(st) is not None for st in stats):
+            vals = [key(st) for st in stats]
+            if len(set(vals)) > 1:
+                win = vals.index(min(vals) if better == "low" else max(vals))
+        body += f"<tr><td>{e(label)}</td>" + "".join(
+            f"<td class='c{' win' if i == win else ''}'>{ic('tick') + ' ' if i == win else ''}{fmt(st)}</td>" for i, st in enumerate(stats)) + "</tr>"
+    return f"<div class='tscroll'><table class='wtable'><thead>{out}</thead><tbody>{body}</tbody></table></div>"
+
+
+CMP = [
+    ("Tracked players", lambda s: str(s["n"]), None, None),
+    ("Weekly wages", lambda s: compact(s["weekly"]), None, None),
+    ("Average weekly wage", lambda s: compact(s["weekly"] / s["n"]) if s["n"] else "–", None, None),
+    ("Pay per minute played", lambda s: money(s["ppm"]) if s["ppm"] else "–", "low", lambda s: s["ppm"]),
+    ("Cost per goal", lambda s: compact(s["per_goal"]) if s["per_goal"] else "–", "low", lambda s: s["per_goal"]),
+    ("Cost per goal or assist", lambda s: compact(s["per_ga"]) if s["per_ga"] else "–", "low", lambda s: s["per_ga"]),
+    ("Idle pay (paid, not playing)", lambda s: compact(s["idle"]), None, None),
+    ("Average value score", lambda s: f"{s['value']:.0f}/100" if s["value"] is not None else "–", "high", lambda s: s["value"]),
+    ("Best value", lambda s: f"{short_link(s['best'])} ({s['best']['value']})" if s["best"] else "–", None, None),
+    ("Most overpaid", lambda s: f"{short_link(s['worst'])} ({s['worst']['value']})" if s["worst"] else "–", None, None),
+    ("Highest paid", lambda s: f"{short_link(s['top'])}, {compact(s['top']['weekly'])}/wk" if s["top"] else "–", None, None),
+]
+
+
+def render_divide(assets, data):
+    players, season = data["players"], data["season"]
+    avail = data["gameweek"] * 90
+    N = group([p for p in players if side(p["team"]) == "North"], avail)
+    S = group([p for p in players if side(p["team"]) == "South"], avail)
+    dear, cheap, dn, cn = (N, S, "North", "South") if (N["ppm"] or 0) > (S["ppm"] or 0) else (S, N, "South", "North")
+    pct = round((dear["ppm"] / cheap["ppm"] - 1) * 100) if dear["ppm"] and cheap["ppm"] else 0
+    better_value = "North" if (N["value"] or 0) > (S["value"] or 0) else "South"
+    answer = (f"The {dn}'s Premier League players cost <strong>{pct}% more per minute played</strong> than the {cn}'s: "
+              f"{money(dear['ppm'])} against {money(cheap['ppm'])}. On value for money, the <strong>{better_value}</strong> comes out on top. "
+              f"The line runs from the Severn to the Wash, so the Midlands count as the North.")
+    regions = ["North", "Midlands", "London", "South coast", "East Anglia"]
+    reg_rows = ""
+    for r in regions:
+        st = group([p for p in players if REGION.get(p["team"]) == r], avail)
+        clubs = ", ".join(CLUB_NAMES[t] for t in REGION if REGION[t] == r)
+        val_txt = f"{st['value']:.0f}" if st["value"] is not None else "–"
+        reg_rows += (f"<tr><td><strong>{r}</strong><small class='opt' style='color:var(--muted);display:block'>{e(clubs)}</small></td><td class='n opt'>{st['n']}</td>"
+                     f"<td class='n'>{compact(st['weekly'] / st['n']) if st['n'] else '–'}</td><td class='n ppm'>{money(st['ppm']) if st['ppm'] else '–'}</td>"
+                     f"<td class='n opt'>{compact(st['per_goal']) if st['per_goal'] else '–'}</td><td class='n'>{val_txt}</td></tr>")
+    region_html = ("<section><h2>" + ic("compass", "h-ic") + "Region by region</h2><div class='tscroll'><table class='wtable'><thead><tr><th>Region</th>"
+                   "<th class='n opt'>Players</th><th class='n'>Avg wage</th><th class='n'>£ per min</th><th class='n opt'>Per goal</th><th class='n'>Value</th></tr></thead><tbody>"
+                   + reg_rows + "</tbody></table></div></section>")
+    drows = [r for r in CMP if r[0] in ("Weekly wages", "Pay per minute played", "Cost per goal", "Average value score", "Best value", "Most overpaid")]
+    derby_html, derby_qas = "", []
+    for title, a, b in DERBIES:
+        A = group([p for p in players if p["team"] == a], avail)
+        B = group([p for p in players if p["team"] == b], avail)
+        verdict = "Not enough tracked players to call it."
+        if A["ppm"] and B["ppm"]:
+            hi, lo, hs, ls = (a, b, A, B) if A["ppm"] > B["ppm"] else (b, a, B, A)
+            verdict = f"{poss(CLUB_NAMES[hi])} players cost {round((hs['ppm'] / ls['ppm'] - 1) * 100)}% more per minute than {poss(CLUB_NAMES[lo])}."
+            derby_qas.append((f"Who pays more per minute in the {title}?", verdict))
+        derby_html += (f"<section><h3 class='fact' style='font-size:clamp(20px,3vw,26px)'>{ic('swords')}{e(title)}: {e(CLUB_NAMES[a])} v {e(CLUB_NAMES[b])}</h3>"
+                       f"<p class='lede'>{e(verdict)}</p>" + cmp_table([CLUB_NAMES[a], CLUB_NAMES[b]], [A, B], drows) + "</section>")
+    qas = [("Do northern or southern Premier League clubs pay more?",
+            f"Per minute actually played, the {dn} pays more: {money(dear['ppm'])} against {money(cheap['ppm'])} for the {cn}, {pct}% more."),
+           ("Which half of the country gets better value from its footballers?",
+            f"The {better_value}, with an average value score of {max(N['value'] or 0, S['value'] or 0):.0f} out of 100, which blends match rating with pay per minute.")] + derby_qas[:4]
+    crumbs = [("Home", "/"), ("North v South", "/north-south-divide/")]
+    body = (crumbs_html(crumbs)
+            + f'<header class="ph"><div class="meta"><span>Premier League</span><span>{e(season)}</span><span>After gameweek {data["gameweek"]}</span></div>'
+            + f"<h1>North v South</h1><p class='answer'>{answer}</p></header>"
+            + "<section><h2>" + ic("compass", "h-ic") + "The divide in numbers</h2>" + cmp_table(["The North", "The South"], [N, S], CMP) + "</section>"
+            + region_html + "<section><h2>" + ic("swords", "h-ic") + "Derby day</h2></section>" + derby_html + faq_html(qas)
+            + f'<a class="cta" href="/#divide">{ic("compass")}Filter by position in the app</a>')
+    title = f"North v South: which Premier League clubs pay more per minute? {season} | Pay Per Minute"
+    desc = (f"The football north–south divide in wages. The {dn}'s Premier League players cost {pct}% more per minute played in {season}. "
+            f"Plus Manchester, Merseyside, North London and Tyne–Wear derbies head to head.")
+    return page(assets, path="/north-south-divide/", title=title, description=desc, body=body, current="/north-south-divide/",
+                jsonld=[faq_ld(qas), crumbs_ld(crumbs)])
+
+
 # ---------- write everything ----------
 
 def write(path, text):
@@ -605,6 +728,8 @@ def render(data=None):
             shutil.rmtree(old, ignore_errors=True)
     if (OUT / "game" / "index.html").exists():
         urls.append("/game/")
+    write(OUT / "north-south-divide" / "index.html", render_divide(assets, data))
+    urls.append("/north-south-divide/")
     gws = data.get("gameweeks") or []
     if gws:
         write(OUT / "team-of-the-week" / "index.html", render_xi(assets, data, gws[-1], latest=True))
