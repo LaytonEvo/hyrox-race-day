@@ -19,6 +19,8 @@ How much every Premier League footballer is paid per minute they actually play.
 - Units: prices can be shown in meal deals, pints, sausage rolls, Freddos, match tickets, replica shirts, season tickets, UK average salaries or houses – edit `UNITS` in index.html
 - Actions are position-aware: goals/assists/xGI/tackles/recoveries/defensive actions are outfield-only; saves, penalty saves and goals conceded are keeper-only; clean sheets are GK+DEF; own goals apply to everyone
 - Every page has a position filter (All/GK/DEF/MID/FWD) that stays set across pages
+- Team of the week (4-3-3, per gameweek): match rating = gameweek BPS vs same-position players with 60+ minutes; Value XI = best value, Overpaid XI = worst, Paid to watch XI = best-paid tracked players with 0 minutes
+- Crawlable pages: site_pages.py renders /players/, /clubs/, /premier-league-wages/, /team-of-the-week/ (+ /gameweek-N/), sitemap.xml
 - Clubs are ranked only once at least 4 of their players have a wage in `wages.csv`.
 
 ## Ideas for next

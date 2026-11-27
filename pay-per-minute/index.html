@@ -18,6 +18,9 @@
   --accent-soft: #FBE7E5;
   --good: #1F7A4D;
   --good-soft: #E3F1E9;
+  --pitch-a: #2F8A57;
+  --pitch-b: #2A7F50;
+  --pitch-line: rgba(255, 255, 255, .5);
   --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
   --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -25,13 +28,13 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --paper: #0E1320; --sheet: #161D2E; --ink: #E7EBF3; --muted: #9AA4B9;
-    --line: #2A3349; --good-soft: #17302A; --accent: #FF5B4F; --accent-soft: #3A1E22; --good: #3FAE7A;
+    --line: #2A3349; --good-soft: #17302A; --pitch-a: #1F6B43; --pitch-b: #1C623D; --pitch-line: rgba(255, 255, 255, .38); --accent: #FF5B4F; --accent-soft: #3A1E22; --good: #3FAE7A;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --paper: #0E1320; --sheet: #161D2E; --ink: #E7EBF3; --muted: #9AA4B9;
-  --line: #2A3349; --good-soft: #17302A; --accent: #FF5B4F; --accent-soft: #3A1E22; --good: #3FAE7A;
+  --line: #2A3349; --good-soft: #17302A; --pitch-a: #1F6B43; --pitch-b: #1C623D; --pitch-line: rgba(255, 255, 255, .38); --accent: #FF5B4F; --accent-soft: #3A1E22; --good: #3FAE7A;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -200,6 +203,25 @@ header.hero { padding-top: 40px; display: grid; gap: 20px; }
 #team-list .row { grid-template-columns: 32px minmax(0, 1.6fr) repeat(5, minmax(0, 1fr)); }
 #team-list .dash { color: var(--muted); }
 
+/* Team of the week pitch */
+.pitch { position: relative; overflow: hidden; border-radius: 8px; padding: 22px 6px; display: grid; gap: 22px;
+  background: repeating-linear-gradient(180deg, var(--pitch-a) 0 10%, var(--pitch-b) 10% 20%); }
+.pitch::before { content: ""; position: absolute; inset: 8px; border: 2px solid var(--pitch-line); border-radius: 4px; pointer-events: none; }
+.pitch::after { content: ""; position: absolute; left: 50%; top: 50%; width: 110px; height: 110px; transform: translate(-50%, -50%);
+  border: 2px solid var(--pitch-line); border-radius: 50%; pointer-events: none; }
+.pitch .half { position: absolute; left: 8px; right: 8px; top: 50%; border-top: 2px solid var(--pitch-line); pointer-events: none; }
+.prow { position: relative; z-index: 1; display: flex; justify-content: space-evenly; gap: 2px; }
+.tok { display: grid; justify-items: center; gap: 4px; width: 24%; max-width: 120px; min-width: 0; text-align: center; color: #fff; text-decoration: none; }
+.tok .disc { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font: 600 11px/1 var(--mono); color: #fff;
+  border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0, 0, 0, .3); }
+.tok .tname { background: rgba(0, 0, 0, .62); color: #fff; font-size: 12px; font-weight: 600; padding: 2px 6px; border-radius: 3px;
+  max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tok .tstat { font: 600 11px/1.2 var(--mono); color: #fff; text-shadow: 0 1px 2px rgba(0, 0, 0, .7); font-variant-numeric: tabular-nums; }
+.tok:hover .tname, .tok:focus-visible .tname { text-decoration: underline; }
+.tok:focus-visible { outline: 2px solid #fff; outline-offset: 2px; border-radius: 4px; }
+#xi-list .row { grid-template-columns: 32px minmax(0, 1.6fr) repeat(4, minmax(0, 1fr)); }
+@media (max-width: 720px) { #xi-list .row { grid-template-columns: 30px minmax(0, 1fr) auto auto; gap: 4px 10px; } .tok .disc { width: 38px; height: 38px; } .tok .tname { font-size: 11px; } }
+
 footer { color: var(--muted); font-size: 13px; display: grid; gap: 8px; max-width: 70ch; }
 footer code { font-family: var(--mono); font-size: 12px; }
 
@@ -224,6 +246,7 @@ footer code { font-family: var(--mono); font-size: 12px; }
       <a href="#value"><svg class="ic" aria-hidden="true"><use href="#i-scale"/></svg>Best value</a>
       <a href="#actions"><svg class="ic" aria-hidden="true"><use href="#i-receipt"/></svg>Price per action</a>
       <a href="#clubs"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Clubs</a>
+      <a href="#xi"><svg class="ic" aria-hidden="true"><use href="#i-trophy"/></svg>Team of the week</a>
       <a href="#team"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Team breakdown</a>
       <a href="#bench"><svg class="ic" aria-hidden="true"><use href="#i-bench"/></svg>Paid to watch</a>
       <a href="/premier-league-wages/"><svg class="ic" aria-hidden="true"><use href="#i-note"/></svg>Wages table</a>
@@ -341,6 +364,22 @@ footer code { font-family: var(--mono); font-size: 12px; }
     </div>
     <div class="pos-slot"></div>
     <div class="ledger" id="clubs-list"></div>
+  </section>
+
+  <section class="section page-top" data-page="xi" aria-labelledby="xi-h" hidden>
+    <div class="section-head">
+      <h2 id="xi-h"><svg class="ic h-ic" aria-hidden="true"><use href="#i-trophy"/></svg>Team of the week</h2>
+      <div class="seg" role="group" aria-label="Which team">
+        <button type="button" data-xi="value" aria-pressed="true"><svg class="ic" aria-hidden="true"><use href="#i-tick"/></svg>Value XI</button>
+        <button type="button" data-xi="overpaid" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-cross"/></svg>Overpaid XI</button>
+        <button type="button" data-xi="bench" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-bench"/></svg>Paid to watch XI</button>
+      </div>
+    </div>
+    <p class="lede" id="xi-lede"></p>
+    <div class="toolbar"><label class="field"><span class="label">Gameweek</span><select id="xi-gw"></select></label></div>
+    <p class="fact" id="xi-fact"></p>
+    <div class="pitch" id="xi-pitch" role="img"></div>
+    <div class="ledger" id="xi-list"></div>
   </section>
 
   <section class="section page-top" data-page="team" aria-labelledby="team-h" hidden>
@@ -598,6 +637,41 @@ function renderActions() {
     : "";
 }
 
+let xiKind = "value", xiGw = null;
+const XI_LEDE = {
+  value: "The best value for money in a 4-3-3: the highest match ratings for the lowest pay per minute. Players need 60 minutes that gameweek.",
+  overpaid: "The worst value in a 4-3-3: low match ratings on big wages. Players need 60 minutes that gameweek.",
+  bench: "The best-paid tracked players who didn't play a league minute that gameweek, in a 4-3-3.",
+};
+function renderXI() {
+  const G = D.gameweeks || [];
+  if (!G.length) { $("xi-pitch").innerHTML = ""; $("xi-fact").textContent = "Gameweek teams will appear after the next data refresh."; return; }
+  const g = G.find(x => x.gw === xiGw) || G[G.length - 1]; xiGw = g.gw;
+  const byId = Object.fromEntries(P.map(p => [p.id, p]));
+  const team = g.teams[xiKind].map(id => ({ p: byId[id], s: g.stats[id] })).filter(x => x.p && x.s);
+  const statLine = ({ p, s }) => xiKind === "bench" ? `${compact(p.weekly)}/wk` : `${s.r.toFixed(1)} · ${money(p.weekly / s.m)}/min`;
+  const rows = ["FWD", "MID", "DEF", "GK"].map(pos => team.filter(x => x.p.pos === pos));
+  $("xi-pitch").innerHTML = '<span class="half" aria-hidden="true"></span>' + rows.map(r => `<div class="prow">${r.map(x => `
+    <a class="tok" href="${x.p.slug ? `/players/${x.p.slug}/` : "#players"}"><span class="disc" style="background:${CLUB_COLOURS[x.p.team] || "#555"}">${esc(x.p.team)}</span>
+      <span class="tname">${esc(x.p.name)}</span><span class="tstat">${esc(statLine(x))}</span></a>`).join("")}</div>`).join("");
+  $("xi-pitch").setAttribute("aria-label", `Gameweek ${g.gw} ${xiKind === "value" ? "Value" : xiKind === "overpaid" ? "Overpaid" : "Paid to watch"} XI`);
+  const wages = team.reduce((t, x) => t + x.p.weekly, 0);
+  const rated = team.filter(x => x.s.r != null), avg = rated.length ? rated.reduce((t, x) => t + x.s.r, 0) / rated.length : 0;
+  $("xi-lede").textContent = XI_LEDE[xiKind];
+  $("xi-fact").innerHTML = xiKind === "value" ? `Gameweek ${g.gw}'s Value XI cost <em>${compact(wages)}</em> in wages and averaged a ${avg.toFixed(1)} rating.`
+    : xiKind === "overpaid" ? `Gameweek ${g.gw}'s Overpaid XI took home <em>${compact(wages)}</em> and averaged a ${avg.toFixed(1)} rating.`
+    : `<em>${compact(wages)}</em> paid to 11 players who didn't kick a ball in gameweek ${g.gw}.`;
+  const head = `<div class="row head"><span></span><span class="who">Player</span><span class="cell opt">Weekly</span><span class="cell opt">Minutes</span><span class="cell">${xiKind === "bench" ? "Weekly" : "Rating"}</span><span class="cell">${xiKind === "bench" ? "Season" : "Value"}</span></div>`;
+  $("xi-list").innerHTML = head + team.map(x => `<div class="row">
+      <span class="rank">${x.p.pos}</span>
+      <span class="who">${chip(x.p.team)}<span style="min-width:0">${plink(x.p)}<small>${xiKind === "bench" ? (x.p.news ? esc(x.p.news) : "Didn't play") : x.p.pos === "GK" ? `${x.s.sv} saves${x.s.cs ? ", clean sheet" : ""}` : `${x.s.g} G, ${x.s.a} A`}</small></span></span>
+      <span class="cell opt">${compact(x.p.weekly)}</span>
+      <span class="cell opt">${x.s.m}</span>
+      <span class="cell">${xiKind === "bench" ? compact(x.p.weekly) : x.s.r.toFixed(1)}</span>
+      <span class="cell ppm">${xiKind === "bench" ? compact(x.p.earned) : x.s.v}</span>
+    </div>`).join("");
+}
+
 let teamPick = "";
 function renderTeam() {
   const club = teamPick, names = Object.fromEntries(D.clubs.map(c => [c.short, c.name]));
@@ -760,6 +834,14 @@ function bind() {
     renderActions();
   }));
   pick("data-act", v => act = v); pick("data-adir", v => adir = v);
+  const G = D.gameweeks || [];
+  $("xi-gw").innerHTML = [...G].reverse().map(g => `<option value="${g.gw}">Gameweek ${g.gw}</option>`).join("");
+  $("xi-gw").addEventListener("change", e => { xiGw = +e.target.value; renderXI(); });
+  document.querySelectorAll("[data-xi]").forEach(b => b.addEventListener("click", () => {
+    xiKind = b.dataset.xi;
+    document.querySelectorAll("[data-xi]").forEach(x => x.setAttribute("aria-pressed", x === b));
+    renderXI();
+  }));
   document.querySelectorAll(".pos-slot").forEach(slot => {
     slot.innerHTML = `<div class="seg" role="group" aria-label="Filter by position">${Object.entries(POS_NAMES).map(([v, l]) => `<button type="button" data-pos="${v}" aria-pressed="${v === posF}">${l}</button>`).join("")}</div>`;
   });
@@ -782,13 +864,13 @@ function bind() {
   $("team-pick").addEventListener("change", e => { teamPick = e.target.value; renderTeam(); });
 }
 
-const PAGES = ["home", "players", "value", "actions", "clubs", "team", "bench", "you"];
+const PAGES = ["home", "players", "value", "actions", "clubs", "xi", "team", "bench", "you"];
 function currentPage() { const h = location.hash.slice(1); return PAGES.includes(h) ? h : "home"; }
 function route(scroll = true) {
   const page = currentPage();
   document.querySelectorAll("[data-page]").forEach(el => { el.hidden = el.dataset.page !== page; });
   document.querySelectorAll(".navlinks a").forEach(a => { if (a.getAttribute("href") === "#" + page) { a.setAttribute("aria-current", "page"); a.scrollIntoView({ block: "nearest", inline: "nearest" }); } else a.removeAttribute("aria-current"); });
-  const titles = { home: "", players: "Players", value: "Best value", actions: "Price per action", clubs: "Clubs", team: "Team breakdown", bench: "Paid to watch", you: "You vs them" };
+  const titles = { home: "", players: "Players", value: "Best value", actions: "Price per action", clubs: "Clubs", xi: "Team of the week", team: "Team breakdown", bench: "Paid to watch", you: "You vs them" };
   document.title = titles[page] ? `${titles[page]} · Pay Per Minute` : "Pay Per Minute";
   if (page === "value" && V.length) renderChart();
   if (scroll) scrollTo(0, 0);
@@ -810,6 +892,7 @@ function renderHome() {
     ["value", "scale", "Best value", "Rating against cost per minute. Who's a bargain?", best && `Best value: ${best.name}, ${best.value}/100`],
     ["actions", "receipt", "Price per action", "Pay per goal, assist, tackle and more, in pounds or meal deals.", goal && `Dearest goals: ${goal.name}, ${compact(goal.earned / goal.goals)} each`],
     ["clubs", "shield", "Clubs", "Which club pays the most per minute of football.", club && `Top: ${names[club.t] || club.t}, ${money(club.e / club.m)} a minute`],
+    ["xi", "trophy", "Team of the week", "Value XI, Overpaid XI and Paid to watch XI for every gameweek.", (D.gameweeks || []).length ? `Gameweek ${D.gameweeks[D.gameweeks.length - 1].gw} teams are in` : ""],
     ["team", "users", "Team breakdown", "Pick a club: cost per goal, assist and minute.", "Every club, player by player"],
     ["bench", "bench", "Paid to watch", "The best-paid players who've barely played.", idle && `${idle.name}: ${compact(idle.earned)} for ${idle.minutes} minutes`],
     ["/premier-league-wages/", "note", "Wages table", "Every player's salary, ranked, with a page for each player and club.", top && `Top earner: ${top.display || top.name}, ${compact(top.weekly)} a week`],
@@ -820,7 +903,7 @@ function renderHome() {
 }
 
 fetch("data.json").then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(data => {
-  prepare(data); prepareValue(); renderStamp(); bind(); renderPlayers(); renderChart(); bindChart(); renderValueList(); renderActions(); renderTeam(); renderBench(); renderClubs(); renderVersus(); startTicker();
+  prepare(data); prepareValue(); renderStamp(); bind(); renderPlayers(); renderChart(); bindChart(); renderValueList(); renderActions(); renderTeam(); renderXI(); renderBench(); renderClubs(); renderVersus(); startTicker();
   showHeroFact(); $("hero-next").addEventListener("click", showHeroFact);
   renderHome(); route(false);
 }).catch(() => {

@@ -68,7 +68,7 @@ def compact(v):
     if v >= 1e6:
         return f"£{v / 1e6:.2f}m"
     if v >= 1e3:
-        return f"£{round(v / 1e3):,}k"
+        return f"£{int(v / 1e3 + 0.5):,}k"  # round half up, like the app
     return f"£{v:,.0f}"
 
 
@@ -187,7 +187,8 @@ PAGE_CSS = """
 
 NAV = [("/", "house", "Home"), ("/#players", "list", "Players"), ("/#value", "scale", "Best value"),
        ("/#actions", "receipt", "Price per action"), ("/#clubs", "shield", "Clubs"),
-       ("/premier-league-wages/", "note", "Wages table"), ("/#team", "users", "Team breakdown"),
+       ("/premier-league-wages/", "note", "Wages table"), ("/team-of-the-week/", "trophy", "Team of the week"),
+       ("/#team", "users", "Team breakdown"),
        ("/#bench", "bench", "Paid to watch"), ("/game/", "shuffle", "Higher or lower"), ("/#you", "user", "You vs them")]
 
 
@@ -483,6 +484,84 @@ def render_hub(assets, data, ranks):
                 jsonld=[faq_ld(qas), crumbs_ld(crumbs)])
 
 
+# ---------- team of the week ----------
+
+XI_KINDS = [
+    ("value", "tick", "Value XI", "The best value for money: the highest match ratings for the lowest pay per minute. Players need 60 minutes that gameweek."),
+    ("overpaid", "cross", "Overpaid XI", "The worst value: low match ratings on big wages. Players need 60 minutes that gameweek."),
+    ("bench", "bench", "Paid to watch XI", "The best-paid tracked players who didn't play a league minute that gameweek."),
+]
+
+
+def pitch_html(team, kind, label):
+    rows = []
+    for pos in ("FWD", "MID", "DEF", "GK"):
+        toks = []
+        for p, st in team:
+            if p["pos"] != pos:
+                continue
+            stat = f"{compact(p['weekly'])}/wk" if kind == "bench" else f"{st['r']:.1f} · {money(p['weekly'] / st['m'])}/min"
+            toks.append(f'<a class="tok" href="/players/{p["slug"]}/"><span class="disc" style="background:{CLUB_COLOURS.get(p["team"], "#555")}">{e(p["team"])}</span>'
+                        f'<span class="tname">{e(p["name"])}</span><span class="tstat">{e(stat)}</span></a>')
+        rows.append(f'<div class="prow">{"".join(toks)}</div>')
+    return f'<div class="pitch" role="img" aria-label="{e(label)}"><span class="half" aria-hidden="true"></span>{"".join(rows)}</div>'
+
+
+def xi_table(team, kind):
+    head = ("<tr><th>Pos</th><th>Player</th><th class='opt'>Club</th><th class='n opt'>Weekly</th>"
+            + ("<th class='n'>Paid this season</th>" if kind == "bench" else "<th class='n opt'>Mins</th><th class='n'>Rating</th><th class='n'>Value</th>") + "</tr>")
+    body = ""
+    for p, st in team:
+        body += (f"<tr><td>{p['pos']}</td><td><span class='who-cell'>{chip(p['team'])}{player_link(p)}</span></td>"
+                 f"<td class='opt'><a href='/clubs/{p['club_slug']}/'>{e(p['club'])}</a></td><td class='n opt'>{compact(p['weekly'])}</td>"
+                 + (f"<td class='n ppm'>{compact(p['earned'])}</td>" if kind == "bench"
+                    else f"<td class='n opt'>{st['m']}</td><td class='n'>{st['r']:.1f}</td><td class='n ppm'>{st['v']}</td>") + "</tr>")
+    return f"<div class='tscroll'><table class='wtable'><thead>{head}</thead><tbody>{body}</tbody></table></div>"
+
+
+def render_xi(assets, data, g, latest):
+    by_id = {p["id"]: p for p in data["players"]}
+    gw, season = g["gw"], data["season"]
+    sections, summary = [], {}
+    for kind, icon, label, blurb in XI_KINDS:
+        team = [(by_id[i], g["stats"][str(i)]) for i in g["teams"][kind] if i in by_id and str(i) in g["stats"]]
+        wages = sum(p["weekly"] for p, _ in team)
+        rated = [st["r"] for _, st in team if st.get("r") is not None]
+        summary[kind] = (team, wages, sum(rated) / len(rated) if rated else 0)
+        fact = (f"Cost <strong>{compact(wages)}</strong> in wages, average rating {summary[kind][2]:.1f}." if kind != "bench"
+                else f"<strong>{compact(wages)}</strong> paid to players who didn't kick a ball.")
+        sections.append(f'<section><h2>{ic(icon, "h-ic")}{e(label)}</h2><p class="lede">{e(blurb)} {fact}</p>'
+                        + pitch_html(team, kind, f"Gameweek {gw} {label}") + xi_table(team, kind) + "</section>")
+    best = max(summary["value"][0], key=lambda x: x[1]["v"], default=None)
+    worst = min(summary["overpaid"][0], key=lambda x: x[1]["v"], default=None)
+    answer = (f"Gameweek {gw}'s Value XI cost <strong>{compact(summary['value'][1])}</strong> in wages; the Overpaid XI took home "
+              f"<strong>{compact(summary['overpaid'][1])}</strong>."
+              + (f" Best value: {player_link(best[0])} ({best[1]['r']:.1f} rating on {compact(best[0]['weekly'])} a week)." if best else "")
+              + (f" Worst value: {player_link(worst[0])} ({worst[1]['r']:.1f} on {compact(worst[0]['weekly'])} a week)." if worst else ""))
+    path = "/team-of-the-week/" if latest else f"/team-of-the-week/gameweek-{gw}/"
+    others = sorted((x["gw"] for x in data["gameweeks"]), reverse=True)
+    gw_links = "".join(f'<a href="/team-of-the-week/gameweek-{n}/">{ic("calendar")}Gameweek {n}</a>' for n in others if n != gw or latest)
+    crumbs = [("Home", "/"), ("Team of the week", "/team-of-the-week/")] + ([] if latest else [(f"Gameweek {gw}", path)])
+    qas = [(f"Who made the Premier League Value XI in gameweek {gw}?",
+            ", ".join(e(p["display"]) for p, _ in summary["value"][0]) + "."),
+           (f"Who was the most overpaid Premier League player in gameweek {gw}?",
+            f"{e(worst[0]['display'])}, with a {worst[1]['r']:.1f} match rating on a reported {gbp(worst[0]['weekly'])} a week." if worst else "Not enough data yet."),
+           ("How is the team of the week picked?",
+            "Each player's match rating comes from FPL's Bonus Points System, compared with everyone in the same position that gameweek. "
+            "The value score blends that rating with how cheap each minute was. Players need 60 minutes to be picked on merit.")]
+    body = (crumbs_html(crumbs)
+            + f'<header class="ph"><div class="meta"><span>Premier League</span><span>{e(season)}</span><span>Gameweek {gw}</span></div>'
+            + f"<h1>Team of the week{'' if latest else f': gameweek {gw}'}</h1><p class='answer'>{answer}</p></header>"
+            + "".join(sections) + faq_html(qas)
+            + f'<section><h2>{ic("calendar", "h-ic")}Other gameweeks</h2><div class="chips">{gw_links}</div></section>'
+            + f'<a class="cta" href="/#xi">{ic("trophy")}Open the interactive team of the week</a>')
+    title = f"Premier League team of the week: gameweek {gw} Value XI and Overpaid XI | Pay Per Minute"
+    desc = (f"Premier League gameweek {gw} team of the week by value for money: the Value XI, the Overpaid XI and the best-paid players "
+            f"who didn't play. Value XI wage bill {compact(summary['value'][1])}.")
+    return page(assets, path=path, title=title, description=desc, body=body, current="/team-of-the-week/",
+                jsonld=[faq_ld(qas), crumbs_ld(crumbs)])
+
+
 # ---------- write everything ----------
 
 def write(path, text):
@@ -526,6 +605,13 @@ def render(data=None):
             shutil.rmtree(old, ignore_errors=True)
     if (OUT / "game" / "index.html").exists():
         urls.append("/game/")
+    gws = data.get("gameweeks") or []
+    if gws:
+        write(OUT / "team-of-the-week" / "index.html", render_xi(assets, data, gws[-1], latest=True))
+        urls.append("/team-of-the-week/")
+        for g in gws:
+            write(OUT / "team-of-the-week" / f"gameweek-{g['gw']}" / "index.html", render_xi(assets, data, g, latest=False))
+            urls.append(f"/team-of-the-week/gameweek-{g['gw']}/")
 
     today = data["built_at"][:10]
     write(OUT / "sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'

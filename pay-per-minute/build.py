@@ -8,6 +8,9 @@ import csv, re, json, sys, urllib.request, datetime, pathlib, statistics, unicod
 
 HERE = pathlib.Path(__file__).resolve().parent
 FPL_URL = "https://fantasy.premierleague.com/api/bootstrap-static/"
+LIVE_URL = "https://fantasy.premierleague.com/api/event/{}/live/"
+XI_MIN_MINUTES = 60  # a player needs this many minutes in a gameweek to be picked on merit
+FORMATION = [("GK", 1), ("DEF", 4), ("MID", 3), ("FWD", 3)]
 POSITIONS = {1: "GK", 2: "DEF", 3: "MID", 4: "FWD"}
 LEFT_LEAGUE = re.compile(r"\bhas joined\b", re.I)  # FPL news for permanent moves and loans out
 
@@ -51,6 +54,70 @@ def load_fpl(path=None):
     req = urllib.request.Request(FPL_URL, headers={"User-Agent": "pay-per-minute/1.0"})
     with urllib.request.urlopen(req, timeout=60) as r:
         return json.load(r)
+
+
+def load_live(gw):
+    req = urllib.request.Request(LIVE_URL.format(gw), headers={"User-Agent": "pay-per-minute/1.0"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return json.load(r)
+
+
+def percentile_fn(values):
+    vals = sorted(values)
+    def f(v):
+        if len(vals) < 2:
+            return 50
+        return (sum(x < v for x in vals) + (sum(x == v for x in vals) - 1) / 2) / (len(vals) - 1) * 100
+    return f
+
+
+def gameweek_teams(fpl, players, gws):
+    """Value XI, Overpaid XI and Paid-to-watch XI for each finished gameweek (4-3-3)."""
+    pos_of = {e["id"]: POSITIONS.get(e["element_type"]) for e in fpl["elements"]}
+    tracked = {p["id"]: p for p in players}
+    out = []
+    for gw in gws:
+        try:
+            live = load_live(gw)
+        except Exception as exc:  # one missing gameweek shouldn't stop the build
+            print(f"GW{gw} live stats unavailable: {exc}")
+            continue
+        stats = {x["id"]: x["stats"] for x in live["elements"]}
+        scale = {}
+        for pos in POSITIONS.values():
+            vals = [s["bps"] for pid, s in stats.items() if pos_of.get(pid) == pos and s["minutes"] >= XI_MIN_MINUTES]
+            if len(vals) >= 5:
+                scale[pos] = (statistics.mean(vals), statistics.pstdev(vals) or 1)
+        rows = {}
+        for pid, p in tracked.items():
+            s = stats.get(pid, {})
+            m = s.get("minutes", 0)
+            r = None
+            if m >= XI_MIN_MINUTES and p["pos"] in scale:
+                mean, sd = scale[p["pos"]]
+                r = round(min(10.0, max(4.0, 6.5 + 0.9 * (s["bps"] - mean) / sd)), 1)
+            rows[pid] = {"id": pid, "m": m, "g": s.get("goals_scored", 0), "a": s.get("assists", 0),
+                         "sv": s.get("saves", 0), "cs": s.get("clean_sheets", 0), "gc": s.get("goals_conceded", 0),
+                         "og": s.get("own_goals", 0), "r": r}
+        elig = [row for row in rows.values() if row["r"] is not None]
+        r_pct = percentile_fn([row["r"] for row in elig])
+        c_pct = percentile_fn([tracked[row["id"]]["weekly"] / row["m"] for row in elig])
+        for row in elig:
+            row["v"] = round((r_pct(row["r"]) + 100 - c_pct(tracked[row["id"]]["weekly"] / row["m"])) / 2)
+
+        def team(cands, key):
+            picked = []
+            for pos, n in FORMATION:
+                picked += [row["id"] for row in sorted((c for c in cands if tracked[c["id"]]["pos"] == pos), key=key)[:n]]
+            return picked
+        teams = {
+            "value": team(elig, lambda row: (-row["v"], -row["r"])),
+            "overpaid": team(elig, lambda row: (row["v"], -tracked[row["id"]]["weekly"])),
+            "bench": team([row for row in rows.values() if row["m"] == 0], lambda row: -tracked[row["id"]]["weekly"]),
+        }
+        used = {pid for ids in teams.values() for pid in ids}
+        out.append({"gw": gw, "teams": teams, "stats": {str(pid): rows[pid] for pid in used}})
+    return out
 
 
 def main(argv=None, render=False):
@@ -126,7 +193,10 @@ def main(argv=None, render=False):
             "squad_minutes": sum(e["minutes"] for e in squad),
         })
 
+    gameweeks = gameweek_teams(fpl, players, [ev["id"] for ev in finished])
+
     out = {
+        "gameweeks": gameweeks,
         "season": season,
         "season_start": season_start,
         "gameweek": finished[-1]["id"] if finished else 0,
