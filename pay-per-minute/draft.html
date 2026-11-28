@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wage-cap draft · Pay Per Minute</title>
+<meta name="description" content="Build a Premier League XI under a weekly wage cap. Pick real players at their reported wages, then see how close you get to the best possible team.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Same tokens and type as the main Pay Per Minute page. */
+:root {
+  --paper: #F4F6F9;
+  --sheet: #FFFFFF;
+  --ink: #14213D;
+  --muted: #5A647A;
+  --line: #D8DDE6;
+  --accent: #D62F28;
+  --accent-soft: #FBE7E5;
+  --good: #1F7A4D;
+  --good-soft: #E3F1E9;
+  --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0E1320; --sheet: #161D2E; --ink: #E7EBF3; --muted: #9AA4B9;
+    --line: #2A3349; --good-soft: #17302A; --accent: #FF5B4F; --accent-soft: #3A1E22; --good: #3FAE7A;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0E1320; --sheet: #161D2E; --ink: #E7EBF3; --muted: #9AA4B9;
+  --line: #2A3349; --good-soft: #17302A; --accent: #FF5B4F; --accent-soft: #3A1E22; --good: #3FAE7A;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+.ic { width: 1.15em; height: 1.15em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.2em; flex: none; }
+html, body { margin: 0; }
+body {
+  background: var(--paper); color: var(--ink); font: 15px/1.5 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 max(32px, env(safe-area-inset-bottom, 0px));
+}
+.wrap { max-width: 1040px; margin: 0 auto; display: grid; gap: 24px; }
+h1, h2 { font-family: var(--display); font-weight: 900; text-transform: uppercase; letter-spacing: .01em; line-height: .95; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+.label { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 600; }
+.lede { color: var(--muted); max-width: 62ch; }
+button { font: inherit; }
+button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Top navigation (as on the main page) */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--ink); }
+.topnav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ink); color: var(--paper);
+  margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))) calc(-1 * max(16px, env(safe-area-inset-right, 0px)));
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.topnav-in { max-width: 1040px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 4px 18px; min-height: 52px; }
+.brand { font: 900 20px/1 var(--display); text-transform: uppercase; color: var(--paper); text-decoration: none; letter-spacing: .02em; white-space: nowrap; }
+.brand span { color: var(--accent); }
+.navback { display: inline-flex; align-items: center; gap: 6px; color: var(--paper); opacity: .72; text-decoration: none; font-size: 14px; font-weight: 500; padding: 6px 10px; border-radius: 4px; white-space: nowrap; }
+.navback:hover { opacity: 1; }
+
+/* Heading + scoreboard */
+header.hero { padding-top: 28px; display: grid; gap: 12px; }
+.hero h1 { font-size: clamp(44px, 9vw, 96px); }
+.hero h1 span { color: var(--accent); }
+.bar-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 12px 20px; border-top: 2px solid var(--ink); padding-top: 14px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: var(--sheet); }
+.seg button { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; border: 0; background: none; color: var(--muted); padding: 8px 12px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.seg button:focus-visible { outline-offset: -3px; }
+.mode { display: grid; gap: 4px; }
+.scores { display: flex; gap: 10px; }
+.tally { background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; padding: 6px 14px; display: grid; min-width: 84px; }
+.tally b { font: 600 24px/1.2 var(--mono); font-variant-numeric: tabular-nums; }
+.tally.pop b { animation: pop .35s ease-out; }
+@keyframes pop { 40% { transform: scale(1.25); color: var(--good); } }
+
+/* The two cards */
+.arena { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: stretch; gap: 16px; }
+.card {
+  background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; padding: 18px 20px 20px;
+  display: grid; gap: 14px; align-content: start; min-width: 0; position: relative; overflow: hidden;
+  border-top: 6px solid var(--club, var(--line));
+}
+.card.right.right-ok { border-color: var(--good); border-top-color: var(--club, var(--good)); box-shadow: 0 0 0 1px var(--good); }
+.card.right.right-bad { border-color: var(--accent); border-top-color: var(--club, var(--accent)); box-shadow: 0 0 0 1px var(--accent); }
+.card.enter { animation: enter .35s ease-out; }
+@keyframes enter { from { opacity: 0; transform: translateY(10px); } }
+.who { display: flex; gap: 10px; align-items: center; min-width: 0; }
+.chip { flex: none; width: 34px; height: 22px; border-radius: 3px; font: 600 10px/22px var(--mono); text-align: center; color: #fff; letter-spacing: .03em; }
+.who small { color: var(--muted); font-size: 13px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pname { font: 900 clamp(34px, 5vw, 52px)/.95 var(--display); text-transform: uppercase; margin: 0; overflow-wrap: anywhere; }
+.full { color: var(--muted); font-size: 13px; margin-top: 4px; }
+.stats { display: flex; flex-wrap: wrap; gap: 4px 14px; color: var(--muted); font-size: 13px; }
+.stats b { color: var(--ink); font-family: var(--mono); font-weight: 600; font-variant-numeric: tabular-nums; }
+.val { border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 2px; }
+.big { font: 600 clamp(32px, 5.4vw, 48px)/1.1 var(--mono); font-variant-numeric: tabular-nums; color: var(--accent); }
+.big.hidden-val { color: var(--muted); letter-spacing: .1em; }
+.val small { color: var(--muted); font-size: 13px; }
+.verdict { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 14px; min-height: 1.5em; }
+.verdict.ok { color: var(--good); } .verdict.bad { color: var(--accent); }
+.choices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.choice {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
+  font: 900 24px/1 var(--display); text-transform: uppercase; letter-spacing: .04em;
+  border: 2px solid var(--ink); border-radius: 6px; padding: 14px 10px; min-height: 56px;
+  background: var(--ink); color: var(--paper); transition: transform .1s, background-color .15s, color .15s;
+}
+.choice.lower { background: var(--sheet); color: var(--ink); }
+.choice:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); color: #fff; }
+.choice:active:not(:disabled) { transform: translateY(1px); }
+.choice:disabled { opacity: .45; cursor: default; }
+.choice .ic { width: 1em; height: 1em; stroke-width: 2.4; }
+.prompt { font-size: 14px; color: var(--muted); }
+.prompt b { color: var(--ink); }
+.vs { align-self: center; width: 52px; height: 52px; border-radius: 50%; background: var(--ink); color: var(--paper); display: grid; place-items: center; font: 900 20px/1 var(--display); text-transform: uppercase; }
+
+/* Game over */
+.over { background: var(--sheet); border: 1px solid var(--line); border-left: 6px solid var(--accent); border-radius: 6px; padding: 20px; display: grid; gap: 14px; }
+.over h2 { font-size: clamp(32px, 5vw, 48px); }
+.over h2:focus { outline: none; }
+.over h2:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.over .final { font: 600 18px/1.4 var(--body); }
+.over .final b { font-family: var(--mono); color: var(--accent); }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); padding: 11px 16px; border-radius: 4px; cursor: pointer; }
+.btn.ghost { background: var(--sheet); color: var(--ink); border-color: var(--line); }
+.btn.ghost:hover { border-color: var(--ink); }
+.copybox { width: 100%; font: 13px/1.4 var(--mono); color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 4px; padding: 8px 10px; resize: none; }
+.copybox:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.status { color: var(--muted); font-size: 13px; min-height: 1.4em; }
+.error { color: var(--accent); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; max-width: 70ch; padding-top: 8px; }
+footer a { color: inherit; }
+
+@media (max-width: 720px) {
+  .wrap { gap: 14px; }
+  header.hero { padding-top: 16px; gap: 8px; }
+  .hero h1 { font-size: 44px; }
+  .lede { font-size: 14px; line-height: 1.4; }
+  .bar-top { padding-top: 10px; flex-wrap: nowrap; align-items: center; gap: 8px; }
+  .mode .label { display: none; }
+  .seg button { font-size: 12px; padding: 7px 8px; gap: 4px; }
+  .scores { gap: 6px; }
+  .tally { min-width: 0; padding: 2px 10px; }
+  .tally .label { font-size: 10px; }
+  .tally b { font-size: 18px; }
+  .arena { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .vs { justify-self: center; margin: -13px 0; position: relative; z-index: 1; width: 40px; height: 40px; font-size: 16px; border: 3px solid var(--paper); }
+  .card { padding: 12px 14px 14px; gap: 8px; border-top-width: 5px; }
+  .pname { font-size: 32px; }
+  .full { display: none; }
+  .val { padding-top: 8px; }
+  .big { font-size: 28px; }
+  .choice { min-height: 50px; padding: 10px; font-size: 22px; }
+  .prompt { font-size: 13px; line-height: 1.4; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* What costs more? */
+.arena2 { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 16px; align-items: stretch; }
+.pick { all: unset; box-sizing: border-box; cursor: pointer; background: var(--sheet); border: 1px solid var(--line); border-radius: 8px;
+  padding: 18px 20px; display: grid; gap: 10px; align-content: start; min-width: 0; position: relative; border-top: 6px solid var(--tint, var(--ink));
+  transition: transform .12s, border-color .15s, box-shadow .15s; }
+.pick:hover:not([aria-disabled="true"]) { transform: translateY(-2px); border-color: var(--ink); box-shadow: 0 4px 14px rgba(0,0,0,.08); }
+.pick:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.pick[aria-disabled="true"] { cursor: default; }
+.pick .kind { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 600; }
+.pick .badge { width: 54px; height: 54px; border-radius: 12px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); }
+.pick.real .badge { background: var(--good-soft); color: var(--good); }
+.pick .badge .ic { width: 30px; height: 30px; stroke-width: 1.8; vertical-align: 0; }
+.pick h2 { font-size: clamp(28px, 4.4vw, 44px); overflow-wrap: anywhere; }
+.pick .sub { color: var(--muted); font-size: 14px; }
+.pick .price { font: 600 clamp(26px, 4.6vw, 40px)/1.1 var(--mono); font-variant-numeric: tabular-nums; color: var(--muted); letter-spacing: .02em; }
+.pick .price.shown { color: var(--ink); letter-spacing: 0; }
+.pick.won { border-color: var(--good); box-shadow: 0 0 0 2px var(--good); }
+.pick.lost { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+.pick .tag { position: absolute; top: 12px; right: 12px; display: inline-flex; align-items: center; gap: 4px; font-weight: 600; font-size: 13px;
+  padding: 4px 8px; border-radius: 999px; }
+.pick .tag.more { background: var(--ink); color: var(--paper); }
+.result { font: 600 16px/1.4 var(--body); min-height: 1.4em; display: flex; align-items: center; gap: 8px; }
+.result.ok { color: var(--good); } .result.bad { color: var(--accent); }
+.result .ic { width: 1.2em; height: 1.2em; }
+.ask { font: 900 clamp(24px, 3.6vw, 34px)/1 var(--display); text-transform: uppercase; text-align: center; }
+.nextbtn { justify-self: center; }
+@media (max-width: 720px) {
+  .arena2 { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .pick { padding: 12px 14px; gap: 6px; grid-template-columns: auto minmax(0, 1fr); align-items: center; column-gap: 12px; }
+  .pick .badge { width: 44px; height: 44px; grid-row: span 2; }
+  .pick .badge .ic { width: 24px; height: 24px; }
+  .pick h2 { font-size: 26px; }
+  .pick .kind, .pick .sub, .pick .price { grid-column: 1 / -1; }
+  .pick .price { font-size: 26px; }
+  .ask { font-size: 22px; }
+}
+
+:root { --pitch-a: #2F8A57; --pitch-b: #2A7F50; --pitch-line: rgba(255,255,255,.5); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --pitch-a: #1F6B43; --pitch-b: #1C623D; --pitch-line: rgba(255,255,255,.38); } }
+:root[data-theme="dark"] { --pitch-a: #1F6B43; --pitch-b: #1C623D; --pitch-line: rgba(255,255,255,.38); }
+.setup { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: end; }
+.setup .field { display: grid; gap: 4px; }
+.setup select { font: inherit; color: var(--ink); background: var(--sheet); border: 1px solid var(--line); border-radius: 4px; padding: 8px 10px; }
+.budget { display: grid; gap: 6px; background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; }
+.budget .row1 { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items: baseline; }
+.budget b { font: 600 22px/1.1 var(--mono); font-variant-numeric: tabular-nums; }
+.budget .bar { height: 10px; border-radius: 5px; background: var(--line); overflow: hidden; }
+.budget .bar i { display: block; height: 100%; background: var(--good); transition: width .2s; }
+.budget .bar i.warn { background: #D9A400; } .budget .bar i.full { background: var(--accent); }
+.pitch { position: relative; overflow: hidden; border-radius: 8px; padding: 22px 6px; display: grid; gap: 18px;
+  background: repeating-linear-gradient(180deg, var(--pitch-a) 0 10%, var(--pitch-b) 10% 20%); }
+.pitch::before { content: ""; position: absolute; inset: 8px; border: 2px solid var(--pitch-line); border-radius: 4px; pointer-events: none; }
+.pitch::after { content: ""; position: absolute; left: 50%; top: 50%; width: 110px; height: 110px; transform: translate(-50%, -50%); border: 2px solid var(--pitch-line); border-radius: 50%; pointer-events: none; }
+.prow { position: relative; z-index: 1; display: flex; justify-content: space-evenly; gap: 2px; }
+.slot { all: unset; box-sizing: border-box; cursor: pointer; display: grid; justify-items: center; gap: 4px; width: 20%; max-width: 120px; min-width: 0; text-align: center; color: #fff; }
+.slot .disc { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font: 600 11px/1 var(--mono); color: #fff; border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.3); }
+.slot.empty .disc { background: rgba(255,255,255,.16); border-style: dashed; font-size: 22px; }
+.slot .tname { background: rgba(0,0,0,.62); color: #fff; font-size: 12px; font-weight: 600; padding: 2px 6px; border-radius: 3px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.slot .tstat { font: 600 11px/1.2 var(--mono); color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.7); }
+.slot.active .disc { box-shadow: 0 0 0 4px #FFD54A; }
+.slot:focus-visible { outline: 2px solid #fff; outline-offset: 2px; border-radius: 4px; }
+.picker { background: var(--sheet); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; display: grid; }
+.picker header { padding: 12px 14px; display: grid; gap: 10px; border-bottom: 1px solid var(--line); }
+.picker header .top { display: flex; justify-content: space-between; gap: 10px; align-items: center; flex-wrap: wrap; }
+.picker h2 { font-size: 26px; }
+.picker .ctrls { display: flex; gap: 8px; flex-wrap: wrap; }
+.picker input[type=search], .picker select { font: inherit; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 4px; padding: 8px 10px; min-width: 0; flex: 1 1 140px; }
+.plist { max-height: 420px; overflow-y: auto; }
+.prow2 { display: grid; grid-template-columns: minmax(0, 1fr) auto auto auto; gap: 4px 12px; align-items: center; padding: 10px 14px; border-top: 1px solid var(--line); }
+.prow2:first-child { border-top: 0; }
+.prow2 .nm { display: flex; gap: 8px; align-items: center; min-width: 0; }
+.prow2 .nm strong { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.prow2 .nm small { color: var(--muted); display: block; font-size: 12px; }
+.prow2 .n { font: 14px var(--mono); font-variant-numeric: tabular-nums; text-align: right; }
+.prow2 .rt { color: var(--good); font-weight: 600; }
+.addbtn { font: 600 13px var(--body); border: 1px solid var(--ink); background: var(--ink); color: var(--paper); border-radius: 4px; padding: 7px 10px; cursor: pointer; white-space: nowrap; }
+.addbtn:disabled { background: var(--sheet); color: var(--muted); border-color: var(--line); cursor: default; }
+.addbtn.rm { background: var(--sheet); color: var(--accent); border-color: var(--accent); }
+.scorecard { display: grid; gap: 12px; background: var(--sheet); border: 1px solid var(--line); border-left: 6px solid var(--good); border-radius: 6px; padding: 16px 18px; }
+.scorecard h2 { font-size: clamp(28px, 4vw, 40px); }
+.sgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+.sgrid div { background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: 10px; display: grid; gap: 2px; }
+.sgrid b { font: 600 22px/1.1 var(--mono); font-variant-numeric: tabular-nums; }
+.sgrid small { color: var(--muted); font-size: 12px; }
+.best-list { color: var(--muted); font-size: 14px; }
+.notice { background: var(--good-soft); border-radius: 6px; padding: 10px 14px; font-size: 14px; }
+@media (max-width: 720px) {
+  .slot .disc { width: 40px; height: 40px; } .slot .tname { font-size: 11px; } .slot { width: 22%; }
+  .prow2 { grid-template-columns: minmax(0, 1fr) auto auto; padding: 9px 12px; } .prow2 .opt { display: none; }
+  .plist { max-height: 360px; }
+  .picker .ctrls input[type=search] { flex-basis: 100%; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-house" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9v12h14V9"/><path d="M10 21v-6h4v6"/></symbol><symbol id="i-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 8.2l3.6 2.6-1.4 4.2H9.8l-1.4-4.2z"/><path d="M12 8.2V2.5M15.6 10.8l5.4-1.7M14.2 15l3.3 4.6M9.8 15l-3.3 4.6M8.4 10.8 3 9.1"/></symbol><symbol id="i-pass" viewBox="0 0 24 24"><path d="M3 19c3.5-7 9-11.5 17-13"/><path d="M14.5 3.5 20 6l-2.5 5.4"/><circle cx="4.5" cy="19" r="1.5"/></symbol><symbol id="i-glove" viewBox="0 0 24 24"><path d="M7 12V5.5a1.5 1.5 0 0 1 3 0V10M10 9.5V4a1.5 1.5 0 0 1 3 0v5.5M13 9.5V5a1.5 1.5 0 0 1 3 0v5.5M16 10.5V8a1.5 1.5 0 0 1 3 0v6.5a6.5 6.5 0 0 1-6.5 6.5h-.8a6.5 6.5 0 0 1-5.3-2.8l-2.8-4a1.6 1.6 0 0 1 2.6-1.9L7 14"/></symbol><symbol id="i-sheet" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 12.5l2 2 4-4.5"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol><symbol id="i-whistle" viewBox="0 0 24 24"><path d="M3 10.5h9.5l2-3.5h6.5v4.5a7 7 0 1 1-14 0"/><circle cx="12.5" cy="14.5" r="2"/><path d="M3 10.5V8"/></symbol><symbol id="i-boot" viewBox="0 0 24 24"><path d="M5 4h5l1 6c3.5 0 9 1.5 9 5.5V17H5z"/><path d="M5 17h15M8 20v-3M12 20v-3M16 20v-3"/></symbol><symbol id="i-oops" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></symbol><symbol id="i-car" viewBox="0 0 24 24"><path d="M5 16V11l2-5h10l2 5v5"/><path d="M3 16h18v3H3z"/><circle cx="7.5" cy="19" r="1.5"/><circle cx="16.5" cy="19" r="1.5"/><path d="M5 11h14"/></symbol><symbol id="i-watch" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/><path d="M12 9v3l2 1.5"/><path d="M9 6.5 9.5 2h5l.5 4.5M9 17.5l.5 4.5h5l.5-4.5"/></symbol><symbol id="i-grad" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c2 2 10 2 12 0v-5M22 9v6"/></symbol><symbol id="i-phone" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></symbol><symbol id="i-plane" viewBox="0 0 24 24"><path d="M2 13.5 22 6l-3 13-6-4-3 4v-5.5z"/><path d="M10 13.5 22 6"/></symbol><symbol id="i-ring" viewBox="0 0 24 24"><circle cx="12" cy="15" r="6"/><path d="M9 3h6l2 3-5 3-5-3z"/></symbol><symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4z"/><path d="M15 7v2M15 11v2M15 15v2"/></symbol><symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></symbol><symbol id="i-pint" viewBox="0 0 24 24"><path d="M6 3h12l-1.6 18H7.6z"/><path d="M6.5 8.5h11"/></symbol><symbol id="i-sandwich" viewBox="0 0 24 24"><path d="M3 17.5 12 5l9 12.5z"/><path d="M5.4 14.2h13.2"/></symbol><symbol id="i-game" viewBox="0 0 24 24"><path d="M6 8h12a4 4 0 0 1 4 4v1a4 4 0 0 1-7 2.6L14 14h-4l-1 1.6A4 4 0 0 1 2 13v-1a4 4 0 0 1 4-4z"/><path d="M7 11v3M5.5 12.5h3M16 12h.01M18 13.5h.01"/></symbol><symbol id="i-tent" viewBox="0 0 24 24"><path d="M3 20 12 4l9 16z"/><path d="M12 4v16M9 20l3-5 3 5"/></symbol><symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8.5 3 3 6l2 4.2 2-1V21h10V9.2l2 1L21 6l-5.5-3c0 1.7-1.6 3-3.5 3S8.5 4.7 8.5 3z"/></symbol><symbol id="i-tick" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16.5 9.5"/></symbol><symbol id="i-cross" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15.4 6.4L3 16"/><path d="M3 21v-5h5"/><path d="M3 12a9 9 0 0 1 15.4-6.4L21 8"/><path d="M21 3v5h-5"/></symbol><symbol id="i-receipt" viewBox="0 0 24 24"><path d="M5 3h14v18l-2.5-1.8L14 21l-2-1.8L10 21l-2.5-1.8L5 21z"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol><symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol><symbol id="i-trophy" viewBox="0 0 24 24"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 21h8M9 18h6"/></symbol><symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol><symbol id="i-wand" viewBox="0 0 24 24"><path d="M4 20 15 9M14 4v3M19 9h3M17.5 5.5l2-2M12.5 6.5 14 8M17 11l1.5 1.5"/></symbol></svg>
+<nav class="topnav" aria-label="Site">
+  <div class="topnav-in">
+    <a class="brand" href="/">Pay per <span>minute</span></a>
+    <a class="navback" href="/guess-the-wage/">More games →</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="label" id="season-label">Premier League · mini game</p>
+    <h1>Wage-cap <span>draft</span></h1>
+    <p class="lede">Build an XI from real Premier League players at their reported weekly wages without going over the cap. Your team is scored on this season's match ratings, against the best XI money could buy under the same cap.</p>
+  </header>
+
+  <p class="status" id="loading">Loading players…</p>
+  <p class="notice" id="shared" hidden></p>
+
+  <section id="builder" aria-label="Your team" hidden style="display:grid;gap:14px">
+    <div class="setup">
+      <label class="field"><span class="label">Wage cap (per week)</span>
+        <select id="cap"><option value="500000">£500k – hard</option><option value="1000000" selected>£1m – classic</option><option value="2000000">£2m – easy</option></select></label>
+      <label class="field"><span class="label">Formation</span>
+        <select id="formation"><option>4-3-3</option><option>4-4-2</option><option>3-5-2</option><option>3-4-3</option><option>5-3-2</option></select></label>
+      <button class="btn ghost" type="button" id="clear"><svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg>Start again</button>
+    </div>
+    <div class="budget" aria-live="polite"><div class="row1"><span><span class="label">Spent</span> <b id="spent">£0</b></span><span><span class="label">Left</span> <b id="left">£1,000,000</b></span><span class="label" id="filled">0 of 11 picked</span></div><div class="bar"><i id="bar" style="width:0"></i></div></div>
+    <div class="pitch" id="pitch" aria-label="Your formation. Choose a position to pick a player."></div>
+    <section class="picker" id="picker" aria-labelledby="picker-h">
+      <header>
+        <div class="top"><h2 id="picker-h">Pick a position</h2><span class="label" id="picker-sub"></span></div>
+        <div class="ctrls">
+          <input type="search" id="q" placeholder="Search name or club" autocomplete="off" aria-label="Search players">
+          <select id="sort" aria-label="Sort players"><option value="value">Best value</option><option value="rating">Highest rated</option><option value="cheap">Cheapest</option><option value="dear">Most expensive</option></select>
+        </div>
+      </header>
+      <div class="plist" id="plist"><p class="prompt" style="padding:14px">Tap a position on the pitch to see the players you can pick.</p></div>
+    </section>
+    <section class="scorecard" id="score" aria-labelledby="score-h" hidden>
+      <h2 id="score-h" tabindex="-1">Your XI</h2>
+      <p class="final" id="verdict"></p>
+      <div class="sgrid" id="sgrid"></div>
+      <p class="best-list" id="bestlist"></p>
+      <div class="actions">
+        <button class="btn" type="button" id="share"><svg class="ic" aria-hidden="true"><use href="#i-link"/></svg>Copy link to my XI</button>
+        <button class="btn ghost" type="button" id="showbest"><svg class="ic" aria-hidden="true"><use href="#i-wand"/></svg>Show the best XI</button>
+      </div>
+      <textarea class="copybox" id="copybox" rows="3" readonly aria-label="Your team, ready to copy" hidden></textarea>
+      <p class="status" id="copy-status" role="status"></p>
+    </section>
+  </section>
+
+  <footer>
+    <p><strong>How it's scored.</strong> Each player's rating is their season match rating (FPL bonus points per 90 minutes, compared with others in the same position, on a 4–10 scale). Only players with 270+ league minutes can be picked. Team rating is the average of your eleven. The best XI is worked out exactly for your cap and formation.</p>
+    <p>Wages are reported estimates; clubs don't publish salaries. <a href="/">See every player</a> · <a href="/guess-the-wage/">Guess the wage</a> · <a href="/daily/">Daily challenge</a></p>
+  </footer>
+</main>
+
+<script>
+const CLUB_COLOURS = { ARS:"#DB0007", AVL:"#670E36", BOU:"#B50E12", BRE:"#C8102E", BHA:"#0057B8", CHE:"#034694", COV:"#3BA6E1", CRY:"#1B458F",
+  EVE:"#003399", FUL:"#1A1A1A", HUL:"#E67E00", IPS:"#0044A9", LEE:"#1D428A", LIV:"#C8102E", MCI:"#5B9FD6", MUN:"#DA291C", NEW:"#241F20",
+  NFO:"#DD0000", TOT:"#132257", SUN:"#EB172B" };
+const FORMS = { "4-3-3": [1, 4, 3, 3], "4-4-2": [1, 4, 4, 2], "3-5-2": [1, 3, 5, 2], "3-4-3": [1, 3, 4, 3], "5-3-2": [1, 5, 3, 2] };
+const POSS = ["GK", "DEF", "MID", "FWD"], POSN = { GK: "Goalkeeper", DEF: "Defender", MID: "Midfielder", FWD: "Forward" };
+const fmt0 = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP", maximumFractionDigits: 0 });
+const k = v => v >= 1e6 ? "£" + (+(v / 1e6).toFixed(2)) + "m" : "£" + Math.round(v / 1000) + "k";
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+const $ = id => document.getElementById(id);
+const ic = n => `<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+const store = { get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} } };
+
+let ALL = [], byId = {}, cap = 1000000, form = "4-3-3", team = [], active = null, bestCache = {};
+
+const slots = () => POSS.flatMap((pos, i) => Array.from({ length: FORMS[form][i] }, (_, j) => ({ pos, key: `${pos}${j}` })));
+const spent = () => team.reduce((t, s) => t + (s && byId[s] ? byId[s].weekly : 0), 0);
+const picked = () => team.filter(Boolean).map(id => byId[id]);
+
+function save() { store.set("ppm-draft", { cap, form, team }); }
+
+function resetTeam(keep) { const n = slots().length; team = keep ? slots().map((s, i) => keep[i] && byId[keep[i]] && byId[keep[i]].pos === s.pos ? keep[i] : null) : Array(n).fill(null); }
+
+function renderPitch() {
+  const S = slots();
+  const rows = ["FWD", "MID", "DEF", "GK"].map(pos => S.map((s, i) => ({ s, i })).filter(x => x.s.pos === pos));
+  $("pitch").innerHTML = rows.map(r => `<div class="prow">${r.map(({ s, i }) => {
+    const p = byId[team[i]];
+    return p ? `<button class="slot${active === i ? " active" : ""}" type="button" data-slot="${i}" aria-label="${esc(p.nm)}, ${POSN[s.pos]}, ${k(p.weekly)} a week. Change">
+        <span class="disc" style="background:${CLUB_COLOURS[p.team] || "#555"}">${esc(p.team)}</span><span class="tname">${esc(p.name)}</span><span class="tstat">${p.rating.toFixed(1)} · ${k(p.weekly)}</span></button>`
+      : `<button class="slot empty${active === i ? " active" : ""}" type="button" data-slot="${i}" aria-label="Pick a ${POSN[s.pos].toLowerCase()}"><span class="disc">+</span><span class="tname">${s.pos}</span></button>`;
+  }).join("")}</div>`).join("");
+  const sp = spent(), left = cap - sp, pct = Math.min(100, sp / cap * 100);
+  $("spent").textContent = fmt0.format(sp); $("left").textContent = fmt0.format(left);
+  $("bar").style.width = pct + "%"; $("bar").className = pct > 97 ? "full" : pct > 85 ? "warn" : "";
+  $("filled").textContent = `${team.filter(Boolean).length} of ${S.length} picked`;
+}
+
+function renderPicker() {
+  if (active == null) return;
+  const s = slots()[active], current = byId[team[active]], room = cap - spent() + (current ? current.weekly : 0);
+  const q = $("q").value.trim().toLowerCase(), sort = $("sort").value, taken = new Set(team.filter(Boolean));
+  $("picker-h").textContent = `Pick a ${POSN[s.pos].toLowerCase()}`;
+  $("picker-sub").textContent = `${fmt0.format(room)} to spend on this spot`;
+  let list = ALL.filter(p => p.pos === s.pos && (!q || p.nm.toLowerCase().includes(q) || p.club.toLowerCase().includes(q) || p.team.toLowerCase() === q));
+  const f = { value: (a, b) => b.value - a.value, rating: (a, b) => b.rating - a.rating, cheap: (a, b) => a.weekly - b.weekly, dear: (a, b) => b.weekly - a.weekly }[sort];
+  list.sort(f);
+  const rows = [];
+  if (current) rows.push(`<div class="prow2"><div class="nm"><span class="chip" style="background:${CLUB_COLOURS[current.team]}">${current.team}</span><span style="min-width:0"><strong>${esc(current.nm)}</strong><small>In your team</small></span></div><span class="n rt">${current.rating.toFixed(1)}</span><span class="n opt">${k(current.weekly)}</span><button class="addbtn rm" type="button" data-remove="1">Remove</button></div>`);
+  rows.push(...list.map(p => {
+    const mine = taken.has(p.id), afford = p.weekly <= room;
+    return `<div class="prow2"><div class="nm"><span class="chip" style="background:${CLUB_COLOURS[p.team] || "#555"}">${p.team}</span><span style="min-width:0"><strong>${esc(p.nm)}</strong><small>${esc(p.club)} · ${p.minutes} mins · value ${p.value}</small></span></div>
+      <span class="n rt" title="Season rating">${p.rating.toFixed(1)}</span><span class="n opt">${k(p.weekly)}/wk</span>
+      <button class="addbtn" type="button" data-add="${p.id}" ${mine || !afford ? "disabled" : ""}>${mine ? "Picked" : afford ? `Add ${k(p.weekly)}` : "Over cap"}</button></div>`;
+  }));
+  $("plist").innerHTML = rows.join("") || `<p class="prompt" style="padding:14px">No players match that search.</p>`;
+}
+
+function bestXI() {
+  const key = `${cap}|${form}`; if (bestCache[key]) return bestCache[key];
+  const U = 1000, W = Math.floor(cap / U), NEG = -1e9;
+  // For each position: best rating sum for exactly n players within w thousand pounds, with the picks.
+  const perPos = POSS.map((pos, pi) => {
+    const need = FORMS[form][pi], cands = ALL.filter(p => p.pos === pos);
+    let dp = Array.from({ length: need + 1 }, (_, c) => new Float64Array(W + 1).fill(c ? NEG : 0));
+    let pick = Array.from({ length: need + 1 }, () => Array(W + 1).fill(null));
+    for (const p of cands) {
+      const cw = Math.ceil(p.weekly / U);
+      for (let c = need; c >= 1; c--) for (let w = W; w >= cw; w--) {
+        const v = dp[c - 1][w - cw] + p.rating;
+        if (v > dp[c][w]) { dp[c][w] = v; pick[c][w] = [p.id, pick[c - 1][w - cw]]; }
+      }
+    }
+    return { best: dp[need], pick: pick[need] };
+  });
+  // Combine positions by spending w on GK, then DEF, then MID, rest on FWD.
+  let acc = new Float64Array(W + 1).fill(0), how = Array(W + 1).fill(null).map(() => []);
+  for (const { best, pick } of perPos) {
+    const nacc = new Float64Array(W + 1).fill(NEG), nhow = Array(W + 1).fill(null);
+    for (let a = 0; a <= W; a++) { if (acc[a] <= NEG / 2) continue; for (let b = 0; a + b <= W; b++) { if (best[b] <= NEG / 2) continue; const v = acc[a] + best[b]; if (v > nacc[a + b]) { nacc[a + b] = v; nhow[a + b] = [...how[a], pick[b]]; } } }
+    acc = nacc; how = nhow;
+  }
+  let bw = 0; for (let w = 0; w <= W; w++) if (acc[w] > acc[bw]) bw = w;
+  const flat = l => { const out = []; while (l) { out.push(l[0]); l = l[1]; } return out; };
+  const ids = (how[bw] || []).flatMap(flat);
+  const res = { ids, rating: acc[bw] / 11, wages: ids.reduce((t, id) => t + byId[id].weekly, 0) };
+  bestCache[key] = res; return res;
+}
+
+function renderScore() {
+  const P = picked(), full = P.length === slots().length;
+  $("score").hidden = !full;
+  if (!full) return;
+  const avg = P.reduce((t, p) => t + p.rating, 0) / P.length, best = bestXI(), pct = Math.round(avg / best.rating * 100);
+  const verdict = pct >= 99 ? "Perfect. You found the best XI money can buy." : pct >= 95 ? "Elite recruitment. Sporting director material." : pct >= 90 ? "Very tidy business." : pct >= 85 ? "Decent, but there are bargains you missed." : "The board would like a word about value for money.";
+  $("verdict").textContent = verdict;
+  $("sgrid").innerHTML = [["Team rating", avg.toFixed(2)], ["Best possible", best.rating.toFixed(2)], ["Score", pct + "%"], ["Wage bill", k(spent()) + "/wk"]]
+    .map(([l, v]) => `<div><b>${v}</b><small>${l}</small></div>`).join("");
+  $("bestlist").textContent = "";
+}
+
+function link() {
+  const order = slots().map((_, i) => team[i]);
+  return `${location.origin}/draft/?xi=${cap / 1000}.${form.replace(/-/g, "")}.${order.join("-")}`;
+}
+
+function idlePicker() {
+  const done = team.every(Boolean);
+  $("picker-h").textContent = done ? "Team complete" : "Pick a position"; $("picker-sub").textContent = "";
+  $("plist").innerHTML = `<p class="prompt" style="padding:14px">${done ? "Tap any player on the pitch to swap them out." : "Tap an empty spot on the pitch to see the players you can pick."}</p>`;
+}
+
+function bind() {
+  $("pitch").addEventListener("click", e => { const b = e.target.closest("[data-slot]"); if (!b) return; active = +b.dataset.slot; renderPitch(); renderPicker(); $("picker").scrollIntoView({ behavior: "smooth", block: "nearest" }); $("q").focus({ preventScroll: true }); });
+  $("plist").addEventListener("click", e => {
+    const add = e.target.closest("[data-add]"), rm = e.target.closest("[data-remove]");
+    if (add && !add.disabled) { team[active] = +add.dataset.add; const next = team.findIndex(x => !x); active = next >= 0 ? next : null; }
+    else if (rm) team[active] = null; else return;
+    $("q").value = ""; save(); renderPitch(); renderScore();
+    if (active != null) renderPicker(); else { idlePicker(); if (team.every(Boolean)) { $("score-h").focus({ preventScroll: true }); $("score").scrollIntoView({ behavior: "smooth", block: "nearest" }); } }
+  });
+  $("q").addEventListener("input", renderPicker); $("sort").addEventListener("change", renderPicker);
+  $("cap").addEventListener("change", e => { cap = +e.target.value; while (spent() > cap) { const last = team.map((x, i) => x ? i : -1).filter(i => i >= 0).sort((a, b) => byId[team[b]].weekly - byId[team[a]].weekly)[0]; team[last] = null; } save(); renderPitch(); if (active != null) renderPicker(); else idlePicker(); renderScore(); });
+  $("formation").addEventListener("change", e => { const old = slots().map((s, i) => ({ pos: s.pos, id: team[i] })); form = e.target.value; const fresh = slots();
+    team = fresh.map(() => null); for (const o of old) if (o.id) { const i = fresh.findIndex((s, j) => s.pos === o.pos && !team[j]); if (i >= 0) team[i] = o.id; }
+    active = null; save(); renderPitch(); renderScore(); idlePicker(); });
+  $("clear").addEventListener("click", () => { resetTeam(); active = 0; save(); renderPitch(); renderPicker(); renderScore(); });
+  $("showbest").addEventListener("click", () => { const b = bestXI(); $("bestlist").textContent = `Best ${k(cap)} ${form}: ${b.ids.map(id => byId[id].name).join(", ")} (${k(b.wages)}/wk, rating ${b.rating.toFixed(2)}).`; });
+  $("share").addEventListener("click", () => {
+    const P = picked(), avg = P.reduce((t, p) => t + p.rating, 0) / P.length, pct = Math.round(avg / bestXI().rating * 100);
+    const text = `My ${k(cap)} wage-cap XI (${form}) rated ${avg.toFixed(2)}, ${pct}% of the best possible:\n${P.map(p => p.name).join(", ")}\n${link()}`;
+    const fallback = () => { const box = $("copybox"); box.value = text; box.hidden = false; box.focus(); box.select(); $("copy-status").textContent = "Copy the selected text with Ctrl+C, Cmd+C or a long press."; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => { $("copy-status").textContent = "Copied your team and link."; }, fallback); else fallback();
+  });
+}
+
+fetch("/data.json").then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(data => {
+  const names = Object.fromEntries((data.clubs || []).map(c => [c.short, c.name]));
+  const days = Math.max(0, (new Date(data.built_at) - new Date(data.season_start)) / 864e5);
+  ALL = data.players.filter(p => p.rating != null && p.minutes >= (data.rating_min_minutes || 270)).map(p => ({ ...p, nm: p.display || p.name, club: names[p.team] || p.team, ppm: p.weekly / 7 * days / p.minutes }));
+  // value: rating rank blended with cheapness rank, as on the main site
+  const rk = (arr, key, desc) => { const s = [...arr].sort((a, b) => desc ? b[key] - a[key] : a[key] - b[key]); return new Map(s.map((p, i) => [p.id, 100 - i / (s.length - 1) * 100])); };
+  const rr = rk(ALL, "rating", true), cr = rk(ALL, "ppm", false);
+  ALL.forEach(p => { p.value = Math.round((rr.get(p.id) + cr.get(p.id)) / 2); byId[p.id] = p; });
+  if (data.season) $("season-label").textContent = `Premier League ${data.season} · mini game`;
+  const params = new URLSearchParams(location.search), xi = params.get("xi");
+  let loaded = false;
+  if (xi) {
+    const [c, f, ids] = xi.split(".");
+    const fm = Object.keys(FORMS).find(x => x.replace(/-/g, "") === f);
+    if (fm && [500, 1000, 2000].includes(+c)) { cap = +c * 1000; form = fm; resetTeam((ids || "").split("-").map(Number)); loaded = true;
+      $("shared").hidden = false; $("shared").textContent = "You're looking at someone's shared team. Change any player to make it your own, or press Start again."; }
+  }
+  if (!loaded) { const s = store.get("ppm-draft"); if (s && FORMS[s.form]) { cap = s.cap; form = s.form; resetTeam(s.team); } else resetTeam(); }
+  $("cap").value = String(cap); $("formation").value = form;
+  $("loading").hidden = true; $("builder").hidden = false;
+  bind(); renderPitch(); renderScore(); idlePicker();
+}).catch(err => { $("loading").className = "status error"; $("loading").textContent = "Couldn't load the players. Refresh to try again."; console.warn(err); });
+</script>
+</body>
+</html>
